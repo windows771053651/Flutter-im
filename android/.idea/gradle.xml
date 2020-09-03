@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$USER_HOME$/Documents/flutter/.pub-cache/hosted/pub.flutter-io.cn/easy_contact_picker-0.0.2/android" />
+            <option value="$USER_HOME$/Documents/flutter/.pub-cache/hosted/pub.flutter-io.cn/fluttertoast-2.2.11/android" />
+            <option value="$USER_HOME$/Documents/flutter/.pub-cache/hosted/pub.flutter-io.cn/permission_handler-3.3.0/android" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+        <option name="testRunner" value="PLATFORM" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
