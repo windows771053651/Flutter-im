@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/sub_view/chat_item.dart';
+import 'package:flutter_im/chat/sub_view/chat_page_bottom_widget.dart';
 import 'package:flutter_im/common/app_bar.dart';
+import 'package:flutter_im/utils/im_tools.dart';
 
 import 'bean/chat_message_bean.dart';
 
@@ -20,6 +22,20 @@ class ChatPage extends StatefulWidget {
 }
 
 class ChatState extends State<ChatPage> {
+
+  ScrollController _controller;
+
+
+  @override
+  void initState() {
+    _controller = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget._isFirst) {
@@ -32,35 +48,32 @@ class ChatState extends State<ChatPage> {
       }
     }
 
+    controllerListViewScrollToBottom(_controller);
     return Scaffold(
       appBar: getAppBar(
           context,
           leftTitle: widget._name,
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: ListView.builder(
-                itemCount: widget._chatMessage.length,
-                itemBuilder: (context, index) {
-                  return ChatItemWidget(
-                    index: index,
-                    controller: (index) {
-                      return widget._chatMessage[index];
-                    },
-                    chatMessageBean: widget._chatMessage[index],
-                  );
-                },
-              ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: ListView.builder(
+              controller: _controller,
+              itemCount: widget._chatMessage.length,
+              itemBuilder: (context, index) {
+                return ChatItemWidget(
+                  index: index,
+                  controller: (index) {
+                    return widget._chatMessage[index];
+                  },
+                  chatMessageBean: widget._chatMessage[index],
+                  lastItemDividerHeight: (widget._chatMessage.length == index + 1) ? 12 : 0,
+                );
+              },
             ),
-            Container(
-              child: TextField(
-
-              ),
-            ),
-          ],
-        ),
+          ),
+          ChatBottomWidget(),
+        ],
       ),
     );
   }

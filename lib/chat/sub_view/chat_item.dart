@@ -14,21 +14,25 @@ class ChatItemWidget extends StatelessWidget {
 
   int index;
 
+  double lastItemDividerHeight;
+
   ChatItemWidget({
     Key key,
     @required this.chatMessageBean,
     @required this.controller,
     @required this.index,
+    this.lastItemDividerHeight = 0,
   }): super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    bool isShowTimeHeader = _isShowTimeHeader();
     return Container(
-      padding: EdgeInsets.only(left: 12, top: 12, right: 12),
+      padding: EdgeInsets.only(left: 12, top: 12, right: 12, bottom: lastItemDividerHeight),
       child: Column(
         children: <Widget>[
           Visibility(
-            visible: _isShowTimeHeader(),
+            visible: isShowTimeHeader,
             child: Text(
               chatMessageBean.time,
               style: TextStyle(
@@ -38,7 +42,7 @@ class ChatItemWidget extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 12,),
+            margin: EdgeInsets.only(top: isShowTimeHeader ? 12 : 0,),
             child: _getItemWidget(),
           ),
         ],
@@ -59,11 +63,14 @@ class ChatItemWidget extends StatelessWidget {
   }
 
   Widget _getItemWidget() {
+    Widget itemView;
     if (chatMessageBean.chatMessageType == ChatMessageType.TEXT) {
-      return ChatTextItem(chatMessageBean: chatMessageBean);
+      itemView = ChatTextItem(chatMessageBean: chatMessageBean);
     } else if (chatMessageBean.chatMessageType == ChatMessageType.PICTURE) {
-      return ChatPictureItem(chatMessageBean: chatMessageBean);
+      itemView = ChatPictureItem(chatMessageBean: chatMessageBean);
     }
+
+    return itemView;
   }
 }
 

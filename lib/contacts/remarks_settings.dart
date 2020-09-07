@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/touch_callback.dart';
-import 'package:flutter_im/utils/im_tools.dart';
+import 'package:flutter_im/utils/show_toast.dart';
 
 class RemarksSettings extends StatefulWidget {
   @override

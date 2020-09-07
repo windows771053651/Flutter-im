@@ -37,7 +37,7 @@ List<SystemMessageSubscribeAuthorBean> getHeaderDataResources() {
       "刀锋2020",
     ),
     SystemMessageSubscribeAuthorBean(
-      "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599042734246&di=e21a334671455dc9f75304fa8113484f&imgtype=0&src=http%3A%2F%2Fwww.shoujiping.net%2Fuploads%2Fallimg%2F20200427%2F1587917129258_0.jpg",
+      "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2163627608,1968770030&fm=26&gp=0.jpg",
       "股票",
     ),
     SystemMessageSubscribeAuthorBean(

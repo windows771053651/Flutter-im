@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 /// 获取焦点
 FocusNode requestFocusNode(BuildContext context) {
@@ -23,16 +24,6 @@ Offset getWidgetLocalToGlobal(BuildContext context) {
   return box.localToGlobal(Offset.zero);
 }
 
-void showToast(String title, {Toast toastLength}) {
-  Fluttertoast.showToast(
-    msg: title,
-    backgroundColor: Colors.transparent,
-    textColor: Colors.black54,
-    fontSize: 14,
-    toastLength: toastLength,
-  );
-}
-
 /// 加载圆角头像
 Widget getClipRRectImage({String assetPath, String networkUrl, double width = 56, double height = 56, double radius = 4}) {
   assert(assetPath != null || networkUrl != null);
@@ -45,6 +36,12 @@ Widget getClipRRectImage({String assetPath, String networkUrl, double width = 56
 }
 
 /// 字符串是否相等
-bool compareString(String str1, String str2){
+bool compareString(String str1, String str2) {
   return Comparable.compare(str1, str2) == 0;
+}
+
+void controllerListViewScrollToBottom(ScrollController controller) {
+  Timer(Duration(milliseconds: 1000), () {
+    controller.jumpTo(controller.position.maxScrollExtent);
+  });
 }

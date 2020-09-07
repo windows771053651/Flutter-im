@@ -5,7 +5,7 @@ import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/contacts/bean/contact_bean.dart';
 import 'package:flutter_im/contacts/sub_view/phone_contact_item.dart';
 import 'package:flutter_im/router/page_id.dart';
-import 'package:flutter_im/utils/im_tools.dart';
+import 'package:flutter_im/utils/show_toast.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class PhoneContactsPage extends StatefulWidget {
@@ -39,11 +39,11 @@ class PhoneContactsState extends State<PhoneContactsPage> {
 
   void _getContactData() async {
     List<Contact> list = await _contactPicker.selectContacts();
-    if (_list == null || _list.length == 0) {
+    if (list == null || list.length == 0) {
       showToast("未读取到联系人列表");
     } else {
       setState(() {
-        _list = list;
+        _list.addAll(list);
       });
     }
   }

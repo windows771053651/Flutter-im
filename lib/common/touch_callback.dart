@@ -27,6 +27,10 @@ class TouchCallBack extends StatefulWidget {
 
   final double bottomRightRadius;
 
+  final EdgeInsetsGeometry padding;
+
+  final EdgeInsetsGeometry margin;
+
   TouchCallBack({
     Key key,
     @required this.child,
@@ -39,6 +43,8 @@ class TouchCallBack extends StatefulWidget {
     this.topRightRadius = 0,
     this.bottomLeftRadius = 0,
     this.bottomRightRadius = 0,
+    this.padding = const EdgeInsets.all(0),
+    this.margin = const EdgeInsets.all(0),
   }): super(key: key);
 
   @override
@@ -59,6 +65,8 @@ class TouchState extends State<TouchCallBack> {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       child: Container(
+        padding: widget.padding,
+        margin: widget.margin,
         child: widget.child,
         decoration: BoxDecoration(
           borderRadius: _getBorderRadius(),

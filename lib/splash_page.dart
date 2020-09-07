@@ -22,7 +22,7 @@ class LoadingState extends State<SplashPage> {
       child: Stack(
         children: <Widget>[
           Image.asset(
-            "images/loading.jpg",
+            "images/splash_icon.jpg",
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
