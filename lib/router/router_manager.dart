@@ -10,9 +10,9 @@ import 'package:flutter_im/contacts/user_info_page.dart';
 import 'package:flutter_im/personal/social_updates.dart';
 import 'package:flutter_im/contacts/stranger_validation_page.dart';
 import 'package:flutter_im/router/page_id.dart';
-import '../image_display_page.dart';
-import '../search_page.dart';
-import '../webview_loading_page.dart';
+import '../personal/image_display_page.dart';
+import '../personal/search_page.dart';
+import '../personal/webview_loading_page.dart';
 
 class RouterManager {
   static Map<String, WidgetBuilder> _routers = {

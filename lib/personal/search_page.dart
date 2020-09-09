@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/touch_callback.dart';
-import 'package:flutter_im/utils/im_tools.dart';
 
 class SearchPage extends StatelessWidget {
 
@@ -68,7 +67,6 @@ class SearchPage extends StatelessWidget {
                     children: <Widget>[
                       Expanded(
                         child: TextField(
-                          focusNode: requestFocusNode(context),
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 16,

@@ -33,34 +33,7 @@ class AppState extends State<App> {
   /// 当前选中页面对应的索引
   int _currentIndex = TAB_MESSAGE;
 
-  /// 消息页面
-  MessagePage messagePage = null;
-
-  /// 联系人页面
-  ContactsPage contacts = null;
-
-  /// 我的页面
-  PersonalPage personal = null;
-
-  Widget currentPage() {
-    switch(_currentIndex) {
-      case TAB_MESSAGE:
-        if (messagePage == null) {
-          messagePage = MessagePage();
-        }
-        return messagePage;
-      case TAB_CONTACTS:
-        if (contacts == null) {
-          contacts = ContactsPage();
-        }
-        return contacts;
-      case TAB_PERSONAL:
-        if (personal == null) {
-          personal = PersonalPage();
-        }
-        return personal;
-    }
-  }
+  final bodyList = [MessagePage(), ContactsPage(), PersonalPage()];
 
   PopupMenuItem _popupMenuItem(String title, int value, {String imagePath, IconData icon}) {
     return PopupMenuItem(
@@ -142,7 +115,10 @@ class AppState extends State<App> {
           _getBottomNavigationBarItem(TAB_PERSONAL, "images/profile_normal.png", "images/profile_pressed.png"),
         ],
       ),
-      body: currentPage(),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: bodyList,
+      ),
     );
   }
 

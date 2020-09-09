@@ -3,13 +3,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/// 获取焦点
-FocusNode requestFocusNode(BuildContext context) {
-  FocusNode focusNode = FocusNode();
-  FocusScope.of(context).requestFocus(focusNode);
-  return focusNode;
-}
-
 /// 获取Widget相对父Widget的位置关系
 Rect getWidgetPosition(BuildContext context) {
   final RenderBox box = context.findRenderObject() as RenderBox;

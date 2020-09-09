@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 enum ChatMessageType {
   TEXT,           /// 文本类型
   VOICE,          /// 语音
@@ -42,6 +44,35 @@ class ChatMessageBean {
     this.inOutType,
     this.chatMessage,
   });
+
+  static ChatMessageBean build({
+    @required String name,
+    @required ChatMessageType chatMessageType,
+    @required String avatarUrl,
+    @required InOutType inOutType,
+    String chatMessage,
+    String picturePath,
+  }) {
+    assert(chatMessageType != null, "请指定消息类型");
+    assert(chatMessageType != ChatMessageType.TEXT || (chatMessageType == ChatMessageType.TEXT && chatMessage != null && chatMessage.isNotEmpty), "请指定发送文本内容");
+    assert(chatMessageType != ChatMessageType.PICTURE || (chatMessageType == ChatMessageType.PICTURE && picturePath != null && picturePath.isNotEmpty), "发送图片地址信息错误");
+
+    return ChatMessageBean(
+      name: name,
+      chatMessageType: chatMessageType,
+      avatarUrl: avatarUrl,
+      time: "15:01",
+      inOutType: inOutType,
+      chatMessage: chatMessage,
+      picturePath: picturePath,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'ChatMessageBean{chatMessageType: $chatMessageType, name: $name, time: $time, inOutType: $inOutType, chatMessage: $chatMessage}';
+  }
+
 }
 
 List<ChatMessageBean> getDefaultChatMessage(String name, String avatar) {

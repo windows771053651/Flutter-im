@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'common/webview.dart';
+import '../common/webview.dart';
 
 class WebViewLoadingPage extends StatelessWidget {
   @override
