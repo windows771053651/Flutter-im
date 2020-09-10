@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/chat_message_bean.dart';
@@ -7,9 +5,10 @@ import 'package:flutter_im/chat_biz/message_manager.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 
 import 'chat_page_bottom_tools_box/chat_page_bottom_tool_box.dart';
-import 'chat_page_bottom_tools_box/first_page.dart';
-import 'chat_page_bottom_tools_box/second_page.dart';
+import 'chat_page_bottom_tools_box/tools_box_first_page.dart';
+import 'chat_page_bottom_tools_box/tools_box_second_page.dart';
 
+/// 聊天页面底部组件
 class ChatBottomWidget extends StatefulWidget {
 
   MessageManager _messageManager;
@@ -118,8 +117,8 @@ class ChatBottomState extends State<ChatBottomWidget> {
           visible: _toolsBoxVisible,
           child: ChatPageBottomToolBox(
             pageList: [
-              FirstPage(),
-              SecondPage(),
+              ToolBoxFirstPage(),
+              ToolsBoxSecondPage(),
             ],
           ),
         ),

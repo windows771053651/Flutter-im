@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/tools_box_item_bean.dart';
 import 'package:flutter_im/chat/sub_view/chat_page_bottom_tools_box/tools_box_item_factory.dart';
 
-class FirstPage extends StatelessWidget {
+class ToolBoxFirstPage extends StatelessWidget {
 
   ToolsBoxItemFactoryImpl toolsBoxItemFactoryImpl;
 
-  FirstPage() {
+  ToolBoxFirstPage() {
     toolsBoxItemFactoryImpl = ToolsBoxItemFactory();
   }
 

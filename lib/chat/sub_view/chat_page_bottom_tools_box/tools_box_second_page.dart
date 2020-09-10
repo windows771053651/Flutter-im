@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/tools_box_item_bean.dart';
 import 'package:flutter_im/chat/sub_view/chat_page_bottom_tools_box/tools_box_item_factory.dart';
 
-class SecondPage extends StatelessWidget {
+class ToolsBoxSecondPage extends StatelessWidget {
 
   ToolsBoxItemFactoryImpl toolsBoxItemFactoryImpl;
 
-  SecondPage() {
+  ToolsBoxSecondPage() {
     toolsBoxItemFactoryImpl = ToolsBoxItemFactory();
   }
 
