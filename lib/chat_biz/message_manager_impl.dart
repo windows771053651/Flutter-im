@@ -23,6 +23,7 @@ class MessageControllerImpl extends MessageManager<ChatMessageBean> {
     return _instance;
   }
 
+  @override
   void sendMessage(ChatMessageBean message) {
     assert(message != null, "消息对象message为null");
     print(message.toString());
@@ -32,10 +33,12 @@ class MessageControllerImpl extends MessageManager<ChatMessageBean> {
     }
   }
 
+  @override
   void dispatchMessage(ChatMessageBean message) {
     assert(message != null, "消息对象message为null");
   }
 
+  @override
   void registerUpdateUIListener(IUpdateUIListener listener) {
     assert(listener != null, "注册的UI更新监听器为null");
     this._listener = listener;

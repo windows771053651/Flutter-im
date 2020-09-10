@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/chat_message_bean.dart';
 import 'package:flutter_im/utils/im_tools.dart';
-
-import 'chat_item/chat_picture_item.dart';
-import 'chat_item/chat_text_item.dart';
+import 'package:flutter_im/chat/sub_view/chat_item_type_view/chat_picture_item.dart';
+import 'package:flutter_im/chat/sub_view/chat_item_type_view/chat_text_item.dart';
 
 class ChatItemWidget extends StatelessWidget {
 

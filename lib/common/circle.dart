@@ -10,27 +10,35 @@ class Circle extends StatelessWidget {
   Circle({
     Key key,
     @required this.radius,
-    color = Colors.red,
+    this.color = Colors.red,
   }): super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: CirclePainter(radius),
+      painter: _CirclePainter(radius: radius, colo: color),
     );
   }
 }
 
-class CirclePainter extends CustomPainter {
+class _CirclePainter extends CustomPainter {
 
   double radius;
 
-  CirclePainter(this.radius);
+  static Color color;
 
-  Paint _paint = Paint()
-    ..color = Colors.red
-    ..isAntiAlias = true
-    ..style = PaintingStyle.fill;
+  Paint _paint;
+
+  _CirclePainter({
+    this.radius,
+    Color colo,
+  }) {
+    color = colo;
+    _paint = Paint()
+      ..color = color
+      ..isAntiAlias = true
+      ..style = PaintingStyle.fill;
+  }
 
   @override
   void paint(Canvas canvas, Size size) {
