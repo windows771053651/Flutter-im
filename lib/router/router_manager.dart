@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_im/app.dart';
+import 'package:flutter_im/chat/chat_background_settings_page.dart';
 import 'package:flutter_im/chat/chat_page.dart';
+import 'package:flutter_im/chat/chat_settings_page.dart';
 import 'package:flutter_im/chat/system_message_page.dart';
 import 'package:flutter_im/contacts/friend_permission_settings.dart';
 import 'package:flutter_im/contacts/new_friends_page.dart';
@@ -25,6 +27,8 @@ class RouterManager {
     /// 聊天模块
     PageId.GROUP_CHAT_CHAT_PAGE: (context) => ChatPage(),
     PageId.GROUP_CHAT_SYSTEM_MESSAGE_PAGE: (context) => SystemMessagePage(),
+    PageId.GROUP_CHAT_CHAT_SETTINGS_PAGE: (context) => ChatSettingsPage(),
+    PageId.GROUP_CHAT_CHAT_BACKGROUND_SETTINGS_PAGE: (context) => ChatBackgroundSettings(),
 
     /// 联系人模块
     PageId.GROUP_CONTACTS_NEW_FRIENDS: (context) => NewFriendsPage(),

@@ -32,10 +32,3 @@ Widget getClipRRectImage({String assetPath, String networkUrl, double width = 56
 bool compareString(String str1, String str2) {
   return Comparable.compare(str1, str2) == 0;
 }
-
-/// 延迟一秒使listview滚动到底部
-void controllerListViewScrollToBottom(ScrollController controller) {
-  Timer(Duration(milliseconds: 1000), () {
-    controller.jumpTo(controller.position.maxScrollExtent);
-  });
-}

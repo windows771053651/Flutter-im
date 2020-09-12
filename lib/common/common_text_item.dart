@@ -4,35 +4,37 @@ import 'package:flutter_im/common/touch_callback.dart';
 
 class CommonTextItemView extends StatelessWidget {
 
-  String leftIconAssetPath;
+  final String leftIconAssetPath;
 
-  IconData leftIcon;
+  final IconData leftIcon;
 
-  bool leftIconVisible;
+  final bool leftIconVisible;
 
-  Color leftIconColor;
+  final Color leftIconColor;
 
-  String leftTitle;
+  final String leftTitle;
 
-  double leftTitleWidth;
+  final double leftTitleWidth;
 
-  String centerText;
+  final String centerText;
 
-  Color centerTextColor;
+  final Color centerTextColor;
 
-  VoidCallback callback;
+  final VoidCallback callback;
 
-  double titleFontSize;
+  final double titleFontSize;
 
-  double iconSize;
+  final double iconSize;
 
-  bool arrowRightIconVisible;
+  final bool arrowRightIconVisible;
 
-  String arrowRightIconAssetPath;
+  final String arrowRightIconAssetPath;
 
-  double arrowRightIconSize;
+  final double arrowRightIconSize;
 
-  bool havePressEffect;
+  final bool havePressEffect;
+
+  final EdgeInsetsGeometry margin;
 
   CommonTextItemView({
     Key key,
@@ -51,12 +53,14 @@ class CommonTextItemView extends StatelessWidget {
     this.arrowRightIconAssetPath = "images/icon_arrow_right.png",
     this.arrowRightIconSize = 16,
     this.havePressEffect = true,
+    this.margin = const EdgeInsets.all(0),
   }): super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TouchCallBack(
         callBack: callback,
+        margin: margin,
         child: Container(
           height: 50,
           padding: EdgeInsets.only(left: 12, right: 12, top: 8, bottom: 8),

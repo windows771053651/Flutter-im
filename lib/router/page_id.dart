@@ -17,7 +17,12 @@ class PageId{
   /// ------------------------------聊天模块start---------------------------
   /// 聊天页面
   static const String GROUP_CHAT_CHAT_PAGE = GROUP_CHAT + "/chat_page";
+  /// 系统消息页面
   static const String GROUP_CHAT_SYSTEM_MESSAGE_PAGE = GROUP_CHAT + "/system_message_page";
+  /// 聊天设置页面
+  static const String GROUP_CHAT_CHAT_SETTINGS_PAGE = GROUP_CHAT + "/chat_settings_page";
+  /// 聊天背景设置页面
+  static const String GROUP_CHAT_CHAT_BACKGROUND_SETTINGS_PAGE = GROUP_CHAT + "/chat_background_settings_page";
   /// ------------------------------聊天模块end---------------------------
 
 
@@ -50,6 +55,7 @@ class PageId{
   static const String GROUP_MAIN_SEARCH = GROUP_APP + "/search";
   /// 展示图片页面
   static const String GROUP_MAIN_IMAGE_DISPLAY = GROUP_APP + "/image_display";
+  /// web页面
   static const String GROUP_MAIN_WEBVIEW_LOADING_PAGE = GROUP_APP + "/webview_loading_page";
   /// ------------------------------"主模块end---------------------------
 }

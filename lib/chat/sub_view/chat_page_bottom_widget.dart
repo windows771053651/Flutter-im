@@ -11,10 +11,13 @@ import 'chat_page_bottom_tools_box/tools_box_second_page.dart';
 /// 聊天页面底部组件
 class ChatBottomWidget extends StatefulWidget {
 
-  MessageManager _messageManager;
+  final MessageManager _messageManager;
+
+  final ListViewScrollToBottom _scrollToBottom;
 
   ChatBottomWidget(
-    this._messageManager,
+      this._messageManager,
+      this._scrollToBottom,
   ) : assert(_messageManager != null, "必须指定消息发送器");
 
   @override
@@ -88,6 +91,12 @@ class ChatBottomState extends State<ChatBottomWidget> {
                   setState(() {
                     _recordVoiceBtnVisible = !_recordVoiceBtnVisible;
                     _toolsBoxVisible = false;
+                    if (!_recordVoiceBtnVisible) {
+                      /// 下一帧绘制完成时弹起软键盘
+                      WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+                        FocusScope.of(context).requestFocus(_focusNode);
+                      });
+                    }
                   });
                 },
               ),
@@ -106,7 +115,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
                 assetPath: "images/chat_emoji_icon.png",
                 left: 6,
                 callback: () {
-
+                  FocusScope.of(context).requestFocus(FocusNode());
                 },
               ),
               _getRightSendAddWidget(),
@@ -162,9 +171,15 @@ class ChatBottomState extends State<ChatBottomWidget> {
           child: _getBottomIcon(
             assetPath: "images/chat_add_icon.png",
             callback: () {
-              _focusNode.unfocus();
+              FocusScope.of(context).requestFocus(FocusNode());
               setState(() {
                 _toolsBoxVisible = true;
+                /// 下一帧绘制完成时通知listView滚动到底部
+                WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+                  if (widget._scrollToBottom != null) {
+                    widget._scrollToBottom();
+                  }
+                });
               });
             },
           ),
@@ -220,3 +235,5 @@ class ChatBottomState extends State<ChatBottomWidget> {
     );
   }
 }
+
+typedef ListViewScrollToBottom = Function();
