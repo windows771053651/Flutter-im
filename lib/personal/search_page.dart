@@ -1,8 +1,20 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_im/common/search_app_bar.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
+  @override
+  State createState() => _State();
+}
+
+class _State extends State<SearchPage> {
+
+  String _searchContent = "";
+
+  FocusNode _focusNode;
 
   _getTabText(String text) {
     return TouchCallBack(
@@ -28,71 +40,66 @@ class SearchPage extends StatelessWidget {
       ),
       callBack: () {
         // 点击事件
+        setState(() {
+          _searchContent = text;
+        });
       },
     );
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-        child: Column(
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                TouchCallBack(
-                  normalColor: Colors.transparent,
-                  child: Container(
-                    height: 45,
-                    margin: const EdgeInsets.only(left: 12, right: 10),
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: Colors.black,
-                    ),
-                  ),
-                  callBack: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 50, right: 10),
-                  height: 45,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(width: 1, color: Colors.green),
-                    ),
-                  ),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: TextField(
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                          ),
-                          onChanged: (value) {
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+  }
 
-                          },
-                          decoration: InputDecoration(
-                            hintText: "请输入搜索内容",
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        child: Icon(
-                          Icons.mic,
-                          color: Color(0xffaaaaaa),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+  @override
+  void dispose() {
+    super.dispose();
+    _focusNode.dispose();
+    FocusScope.of(context).requestFocus(FocusNode());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Timer(Duration(milliseconds: 500), () {
+      FocusScope.of(context).requestFocus(_focusNode);
+    });
+    return Scaffold(
+      appBar: SearchAppBarWidget(
+          focusNode: _focusNode,
+          leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+          ),
+        controller: TextEditingController.fromValue(
+          TextEditingValue(
+            // 输入的文本
+            text: _searchContent,
+            // 保持光标在最后
+            selection: TextSelection.fromPosition(
+              TextPosition(
+                affinity: TextAffinity.downstream,
+                offset: _searchContent.length,
+              ),
             ),
+          ),
+        ),
+        onChanged: (value) {
+          _searchContent = value;
+        },
+      ),
+      body: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: 20),
+              margin: EdgeInsets.only(left: 32, top: 20),
               child: Text(
                 "常用搜索",
                 style: TextStyle(
@@ -117,9 +124,9 @@ class SearchPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  _getTabText("Flutter"),
-                  _getTabText("Dart"),
-                  _getTabText("C++"),
+                  _getTabText("古力娜扎"),
+                  _getTabText("男生"),
+                  _getTabText("女生"),
                 ],
               ),
             ),

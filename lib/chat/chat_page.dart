@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/sub_view/chat_item.dart';
 import 'package:flutter_im/chat/sub_view/chat_page_bottom_widget.dart';
 import 'package:flutter_im/common/app_bar.dart';
+import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
 import 'bean/chat_message_bean.dart';
@@ -62,8 +63,19 @@ class ChatState extends State<ChatPage> {
     controllerListViewScrollToBottom(_controller);
     return Scaffold(
       appBar: getAppBar(
-          context,
-          leftTitle: _name,
+        context,
+        leftTitle: _name,
+        actions: [
+          TouchCallBack(
+            normalColor: Colors.transparent,
+            pressedColor: Colors.green[700],
+            padding: EdgeInsets.only(left: 12, right: 12),
+            child: Icon(Icons.menu),
+            callBack: () {
+
+            },
+          ),
+        ],
       ),
       body: Column(
         children: <Widget>[
