@@ -62,7 +62,7 @@ class _State extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    Timer(Duration(milliseconds: 500), () {
+    Timer(Duration(milliseconds: 200), () {
       FocusScope.of(context).requestFocus(_focusNode);
     });
     return Scaffold(

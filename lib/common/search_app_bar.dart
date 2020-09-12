@@ -42,7 +42,7 @@ class SearchAppBarWidget extends StatelessWidget implements PreferredSizeWidget 
           new Offstage(
             offstage: false,
             child: Container(
-              padding: EdgeInsets.only(left: 64.0, top: MediaQuery.of(context).padding.top + 4, right: 8),
+              padding: EdgeInsets.only(left: 64.0, top: MediaQuery.of(context).padding.top + 6, right: 8),
               child: new TextField(
                 focusNode: focusNode,
                 keyboardType: TextInputType.text,
