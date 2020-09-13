@@ -1,4 +1,5 @@
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -10,10 +11,12 @@ import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/router/page_id.dart';
 
 import 'bean/chat_message_bean.dart';
-import '../chat_biz/message_manager.dart';
 import '../chat_biz/message_manager_impl.dart';
 
 class ChatPage extends StatefulWidget {
+
+  static bool isFirstInit = true;
+
   @override
   State createState() => ChatState();
 }
@@ -60,7 +63,16 @@ class ChatState extends State<ChatPage> {
         }, _name, _avatarUrl);
       }
     }
-    _scrollToBottom();
+
+    if (ChatPage.isFirstInit) {
+      ChatPage.isFirstInit = false;
+      Timer(Duration(milliseconds: 1000), () {
+        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+      });
+    } else {
+      _scrollToBottom();
+    }
+
     return Scaffold(
       appBar: getAppBar(
         context,
@@ -114,9 +126,6 @@ class ChatState extends State<ChatPage> {
                     },
                   ),
                 ),
-                onTabListener: () {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                },
               ),
             ),
             ChatBottomWidget(() {

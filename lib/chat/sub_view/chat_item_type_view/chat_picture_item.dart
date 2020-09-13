@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/chat_message_bean.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/contacts/bean/contact_bean.dart';
+import 'package:flutter_im/personal/image_display_page.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 import 'package:lpinyin/lpinyin.dart';
@@ -63,7 +64,7 @@ class ChatPictureItem extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(4)),
           ),
-          child: _getPictureWidget(),
+          child: _getPictureOutWidget(context),
         ),
       ],
     );
@@ -79,7 +80,7 @@ class ChatPictureItem extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(4)),
           ),
-          child: _getPictureWidget(),
+          child: _getPictureOutWidget(context),
         ),
         TouchCallBack(
           normalColor: Colors.transparent,
@@ -102,7 +103,7 @@ class ChatPictureItem extends StatelessWidget {
     );
   }
 
-  Widget _getPictureWidget() {
+  Widget _getPictureOutWidget(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(
         minWidth: 50,
@@ -110,16 +111,27 @@ class ChatPictureItem extends StatelessWidget {
         maxWidth: 150,
         maxHeight: 150,
       ),
-      child: (chatMessageBean.picturePath != null && chatMessageBean.picturePath.length > 0)
-          ? Image.network(chatMessageBean.picturePath, fit: BoxFit.cover,)
-          : Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: FileImage(File(chatMessageBean.nativePicturePath),),
-                  fit: BoxFit.cover,
+      child: TouchCallBack(
+        pressedColor: Colors.transparent,
+        normalColor: Colors.transparent,
+        child: _getPictureWidget(),
+        callBack: () {
+          Navigator.of(context).pushNamed(
+              PageId.GROUP_MAIN_IMAGE_DISPLAY,
+              arguments: isStringNotEmpty(chatMessageBean.picturePath) ? chatMessageBean.picturePath : (chatMessageBean.nativePicturePath + ImageDisplayPage.nativePictureFlag));
+        },
+      ),
+    );
+  }
+  Widget _getPictureWidget() {
+    return isStringNotEmpty(chatMessageBean.picturePath)
+            ? Image.network(chatMessageBean.picturePath, )
+            : Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: FileImage(File(chatMessageBean.nativePicturePath),),
+                  ),
                 ),
-              ),
-            ),
     );
   }
 }

@@ -168,12 +168,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
               FocusScope.of(context).requestFocus(FocusNode());
               setState(() {
                 _toolsBoxVisible = true;
-                /// 下一帧绘制完成时通知listView滚动到底部
-                WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-                  if (widget._scrollToBottom != null) {
-                    widget._scrollToBottom();
-                  }
-                });
+                widget._scrollToBottom();
               });
             },
           ),
@@ -209,8 +204,11 @@ class ChatBottomState extends State<ChatBottomWidget> {
     );
   }
 
-  Widget _getBottomIcon(
-      {String assetPath, VoidCallback callback, double left = 0}) {
+  Widget _getBottomIcon({
+    String assetPath,
+    VoidCallback callback,
+    double left = 0,
+  }) {
     return TouchCallBack(
       normalColor: Colors.transparent,
       pressedColor: Colors.transparent,
