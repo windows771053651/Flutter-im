@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_im/utils/im_tools.dart';
 
 enum ChatMessageType {
   TEXT,           /// 文本类型
@@ -15,23 +16,25 @@ enum InOutType {
 }
 
 class ChatMessageBean {
-  ChatMessageType chatMessageType;
+  final ChatMessageType chatMessageType;
 
-  String avatarUrl;
+  final String avatarUrl;
 
-  String name;
+  final String name;
 
-  String time;
+  final String time;
 
-  String picturePath;
+  final String picturePath;
 
-  String voiceUrl;
+  final String voiceUrl;
 
-  String location;
+  final String location;
 
-  InOutType inOutType;
+  final InOutType inOutType;
 
-  String chatMessage;
+  final String chatMessage;
+
+  final String nativePicturePath;
 
   ChatMessageBean({
     this.chatMessageType,
@@ -43,6 +46,7 @@ class ChatMessageBean {
     this.location,
     this.inOutType,
     this.chatMessage,
+    this.nativePicturePath,
   });
 
   static ChatMessageBean build({
@@ -52,10 +56,12 @@ class ChatMessageBean {
     @required InOutType inOutType,
     String chatMessage,
     String picturePath,
+    String nativePicturePath,
   }) {
     assert(chatMessageType != null, "请指定消息类型");
-    assert(chatMessageType != ChatMessageType.TEXT || (chatMessageType == ChatMessageType.TEXT && chatMessage != null && chatMessage.isNotEmpty), "请指定发送文本内容");
-    assert(chatMessageType != ChatMessageType.PICTURE || (chatMessageType == ChatMessageType.PICTURE && picturePath != null && picturePath.isNotEmpty), "发送图片地址信息错误");
+    assert(chatMessageType != ChatMessageType.TEXT || (chatMessageType == ChatMessageType.TEXT && isStringNotEmpty(chatMessage)), "请指定发送文本内容");
+    assert(chatMessageType != ChatMessageType.PICTURE
+            || (chatMessageType == ChatMessageType.PICTURE && (isStringNotEmpty(picturePath) || isStringNotEmpty(nativePicturePath))), "发送图片地址信息错误");
 
     return ChatMessageBean(
       name: name,
@@ -65,6 +71,7 @@ class ChatMessageBean {
       inOutType: inOutType,
       chatMessage: chatMessage,
       picturePath: picturePath,
+      nativePicturePath: nativePicturePath,
     );
   }
 

@@ -30,20 +30,11 @@ class ChatState extends State<ChatPage> {
 
   List<ChatMessageBean> _chatMessage;
 
-  MessageManager _messageManager;
-
   File backgroundImageFile = File("");
 
   @override
   void initState() {
     _scrollController = ScrollController();
-    _messageManager = MessageControllerImpl.instance;
-    _messageManager.registerUpdateUIListener((message) {
-      print("更新消息：" + message.toString());
-      setState(() {
-        _chatMessage.add(message);
-      });
-    });
   }
 
   @override
@@ -61,6 +52,12 @@ class ChatState extends State<ChatPage> {
         _name = arguments[0];
         _avatarUrl = arguments[1];
         _chatMessage = getDefaultChatMessage(_name, _avatarUrl);
+        MessageControllerImpl.instance.registerUpdateUIListener((message) {
+          print("更新消息：" + message.toString());
+          setState(() {
+            _chatMessage.add(message);
+          });
+        }, _name, _avatarUrl);
       }
     }
     _scrollToBottom();
@@ -101,26 +98,28 @@ class ChatState extends State<ChatPage> {
               child: TouchCallBack(
                 pressedColor: Colors.transparent,
                 normalColor: Colors.transparent,
-                child: ListView.builder(
-                  controller: _scrollController,
-                  itemCount: _chatMessage.length,
-                  itemBuilder: (context, index) {
-                    return ChatItemWidget(
-                      index: index,
-                      controller: (index) {
-                        return _chatMessage[index];
-                      },
-                      chatMessageBean: _chatMessage[index],
-                      lastItemDividerHeight: (_chatMessage.length == index + 1) ? 12 : 0,
-                    );
-                  },
+                child: CupertinoScrollbar(
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    itemCount: _chatMessage.length,
+                    itemBuilder: (context, index) {
+                      return ChatItemWidget(
+                        index: index,
+                        controller: (index) {
+                          return _chatMessage[index];
+                        },
+                        chatMessageBean: _chatMessage[index],
+                        lastItemDividerHeight: (_chatMessage.length == index + 1) ? 12 : 0,
+                      );
+                    },
+                  ),
                 ),
                 onTabListener: () {
                   FocusScope.of(context).requestFocus(FocusNode());
                 },
               ),
             ),
-            ChatBottomWidget(_messageManager, () {
+            ChatBottomWidget(() {
               _scrollToBottom();
             }),
           ],

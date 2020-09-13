@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/chat_message_bean.dart';
-import 'package:flutter_im/chat_biz/message_manager.dart';
+import 'package:flutter_im/chat_biz/message_manager_impl.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 
 import 'chat_page_bottom_tools_box/chat_page_bottom_tool_box.dart';
@@ -10,15 +10,9 @@ import 'chat_page_bottom_tools_box/tools_box_second_page.dart';
 
 /// 聊天页面底部组件
 class ChatBottomWidget extends StatefulWidget {
-
-  final MessageManager _messageManager;
-
   final ListViewScrollToBottom _scrollToBottom;
 
-  ChatBottomWidget(
-      this._messageManager,
-      this._scrollToBottom,
-  ) : assert(_messageManager != null, "必须指定消息发送器");
+  ChatBottomWidget(this._scrollToBottom);
 
   @override
   State createState() => ChatBottomState();
@@ -200,11 +194,10 @@ class ChatBottomState extends State<ChatBottomWidget> {
               ),
             ),
             callBack: () {
-              widget._messageManager.sendMessage(ChatMessageBean.build(
+              MessageControllerImpl.instance.sendMessage(ChatMessageBean.build(
                 name: "一休",
                 chatMessageType: ChatMessageType.TEXT,
-                avatarUrl:
-                    "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599128582535&di=9807439e68f649516e0c981f0f6ae910&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20120627%2FImg346630529.jpg",
+                avatarUrl: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599128582535&di=9807439e68f649516e0c981f0f6ae910&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20120627%2FImg346630529.jpg",
                 inOutType: InOutType.OUT,
                 chatMessage: _textEditingController.text,
               ));

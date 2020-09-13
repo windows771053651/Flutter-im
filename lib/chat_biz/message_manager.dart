@@ -35,5 +35,5 @@ abstract class MessageManager<T extends ChatMessageBean> {
   /// 4：向上分发消息到UI层，完成UI绘制
   void dispatchMessage(T message);
 
-  void registerUpdateUIListener(IUpdateUIListener listener);
+  void registerUpdateUIListener(IUpdateUIListener listener, String name, String avatarUrl);
 }

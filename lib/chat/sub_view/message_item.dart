@@ -35,7 +35,7 @@ class MessageItem extends StatelessWidget {
               child: Stack(
                 alignment: Alignment.topRight,
                 children: <Widget>[
-                  _getAvatar(messageData.messageType),
+                  getClipRRectImage(networkUrl: messageData.avatar, width: 40, height: 40),
                   Visibility(
                     visible: !messageData.read,
                     child: Circle(radius: 4),
@@ -144,20 +144,6 @@ class MessageItem extends StatelessWidget {
         child: Text(text),
       ),
     );
-  }
-
-  Widget _getAvatar(MessageType messageType) {
-    if (messageType == null) {
-      return getClipRRectImage(assetPath: "images/avatar_kobe_icon.jpg", width: 40, height: 40);
-    }
-    if (messageType == MessageType.SYSTEM) {
-      return getClipRRectImage(assetPath: "images/avatar_lufei_icon.jpg", width: 40, height: 40);
-    } else if (messageType == MessageType.CHAT) {
-      return getClipRRectImage(assetPath: "images/avatar_kobe_icon.jpg", width: 40, height: 40);
-    } else if (messageType == MessageType.GROUP) {
-      return getClipRRectImage(assetPath: "images/avatar_qiaoba_icon.jpg", width: 40, height: 40);
-    }
-    return getClipRRectImage(assetPath: "images/avatar_kobe_icon.jpg", width: 40, height: 40);
   }
 }
 

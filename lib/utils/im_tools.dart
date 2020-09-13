@@ -32,3 +32,13 @@ Widget getClipRRectImage({String assetPath, String networkUrl, double width = 56
 bool compareString(String str1, String str2) {
   return Comparable.compare(str1, str2) == 0;
 }
+
+/// 字符串是否为空
+bool isStringEmpty(String str) {
+  return str == null || str.length == 0;
+}
+
+/// 字符串是否非空
+bool isStringNotEmpty(String str) {
+  return !isStringEmpty(str);
+}

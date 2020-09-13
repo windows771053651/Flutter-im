@@ -39,16 +39,16 @@ class ChatBackgroundSettings extends StatelessWidget {
   /*拍照*/
   _takePhoto(BuildContext context) async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
-    ImagePicker.retrieveLostData();
-    Navigator.of(context).pop(image);
-    print("ChatBackgroundSettings _takePhoto() image:$image");
+    if (image != null && image.existsSync()) {
+      Navigator.of(context).pop(image);
+    }
   }
 
   /*相册*/
   _openGallery(BuildContext context) async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    Navigator.of(context).pop(image);
-    print("ChatBackgroundSettings _openGallery() image:$image");
+    if (image != null && image.existsSync()) {
+      Navigator.of(context).pop(image);
+    }
   }
-
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/chat_message_bean.dart';
@@ -61,15 +63,7 @@ class ChatPictureItem extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(4)),
           ),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-                minWidth: 50,
-                minHeight: 50,
-                maxWidth: 150,
-                maxHeight: 150
-            ),
-            child: Image.network(chatMessageBean.picturePath),
-          ),
+          child: _getPictureWidget(),
         ),
       ],
     );
@@ -85,15 +79,7 @@ class ChatPictureItem extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(4)),
           ),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-                minWidth: 50,
-                minHeight: 50,
-                maxWidth: 150,
-                maxHeight: 150
-            ),
-            child: Image.network(chatMessageBean.picturePath),
-          ),
+          child: _getPictureWidget(),
         ),
         TouchCallBack(
           normalColor: Colors.transparent,
@@ -113,6 +99,27 @@ class ChatPictureItem extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _getPictureWidget() {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: 50,
+        minHeight: 50,
+        maxWidth: 150,
+        maxHeight: 150,
+      ),
+      child: (chatMessageBean.picturePath != null && chatMessageBean.picturePath.length > 0)
+          ? Image.network(chatMessageBean.picturePath, fit: BoxFit.cover,)
+          : Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: FileImage(File(chatMessageBean.nativePicturePath),),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
     );
   }
 }
