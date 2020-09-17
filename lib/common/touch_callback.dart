@@ -31,14 +31,11 @@ class TouchCallBack extends StatefulWidget {
 
   final EdgeInsetsGeometry margin;
 
-  final OnTabListener onTabListener;
-
   TouchCallBack({
     Key key,
     @required this.child,
     this.callBack,
     this.longPressCallBack,
-    this.onTabListener,
     this.pressedColor = const Color(0xffd8d8d8),
     this.normalColor = Colors.white,
     this.radius = 0,
@@ -87,13 +84,11 @@ class TouchState extends State<TouchCallBack> {
         setState(() {
           stateColor = widget.normalColor;
         });
-        widget.onTabListener();
       },
       onTapCancel: () {
         setState(() {
           stateColor = widget.normalColor;
         });
-        widget.onTabListener();
       },
       onPanDown: (d) {
         setState(() {
@@ -109,13 +104,11 @@ class TouchState extends State<TouchCallBack> {
         setState(() {
           stateColor = widget.normalColor;
         });
-        widget.onTabListener();
       },
       onPanCancel: () {
         setState(() {
           stateColor = widget.normalColor;
         });
-        widget.onTabListener();
       },
     );
   }

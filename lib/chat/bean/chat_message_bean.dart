@@ -57,6 +57,9 @@ class ChatMessageBean {
     String chatMessage,
     String picturePath,
     String nativePicturePath,
+    String time = "15:01",
+    String voiceUrl,
+    String location,
   }) {
     assert(chatMessageType != null, "请指定消息类型");
     assert(chatMessageType != ChatMessageType.TEXT || (chatMessageType == ChatMessageType.TEXT && isStringNotEmpty(chatMessage)), "请指定发送文本内容");
@@ -67,11 +70,13 @@ class ChatMessageBean {
       name: name,
       chatMessageType: chatMessageType,
       avatarUrl: avatarUrl,
-      time: "15:01",
+      time: time,
       inOutType: inOutType,
       chatMessage: chatMessage,
       picturePath: picturePath,
       nativePicturePath: nativePicturePath,
+      voiceUrl: voiceUrl,
+      location: location,
     );
   }
 
@@ -79,7 +84,36 @@ class ChatMessageBean {
   String toString() {
     return 'ChatMessageBean{chatMessageType: $chatMessageType, name: $name, time: $time, inOutType: $inOutType, chatMessage: $chatMessage}';
   }
+}
 
+ChatMessageType getChatMessageTypeByIndex(int index) {
+  switch(index) {
+    case 0:
+      return ChatMessageType.TEXT;
+    case 1:
+      return ChatMessageType.VOICE;
+    case 2:
+      return ChatMessageType.PICTURE;
+    case 3:
+      return ChatMessageType.LOCATION;
+    case 4:
+      return ChatMessageType.RED_ENVELOPES;
+    case 5:
+      return ChatMessageType.CARD;
+    default:
+      return ChatMessageType.TEXT;
+  }
+}
+
+InOutType getInOutTypeByIndex(int index) {
+  switch(index) {
+    case 0:
+      return InOutType.IN;
+    case 1:
+      return InOutType.OUT;
+    default:
+      return InOutType.IN;
+  }
 }
 
 List<ChatMessageBean> getDefaultChatMessage(String name, String avatar) {

@@ -36,4 +36,6 @@ abstract class MessageManager<T extends ChatMessageBean> {
   void dispatchMessage(T message);
 
   void registerUpdateUIListener(IUpdateUIListener listener, String name, String avatarUrl);
+
+  void unRegisterUpdateUIListener();
 }

@@ -9,7 +9,6 @@ import 'package:flutter_im/chat/sub_view/chat_page_bottom_widget.dart';
 import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/router/page_id.dart';
-
 import 'bean/chat_message_bean.dart';
 import '../chat_biz/message_manager_impl.dart';
 
@@ -21,7 +20,7 @@ class ChatPage extends StatefulWidget {
   State createState() => ChatState();
 }
 
-class ChatState extends State<ChatPage> {
+class ChatState extends State<ChatPage> with WidgetsBindingObserver {
 
   ScrollController _scrollController;
 
@@ -31,19 +30,37 @@ class ChatState extends State<ChatPage> {
 
   String _avatarUrl;
 
-  List<ChatMessageBean> _chatMessage;
+  List<ChatMessageBean> _chatMessage = List();
 
   File backgroundImageFile = File("");
 
   @override
   void initState() {
     _scrollController = ScrollController();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        if (MediaQuery.of(context).viewInsets.bottom == 0) {
+          // 关闭键盘
+        } else {
+          // 显示键盘
+          _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+        }
+      });
+    });
   }
 
   @override
   void dispose() {
-    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     _scrollController.dispose();
+    MessageControllerImpl.instance.unRegisterUpdateUIListener();
+    super.dispose();
   }
 
   @override
@@ -54,23 +71,21 @@ class ChatState extends State<ChatPage> {
       if (arguments != null && arguments.length == 2) {
         _name = arguments[0];
         _avatarUrl = arguments[1];
-        _chatMessage = getDefaultChatMessage(_name, _avatarUrl);
-        MessageControllerImpl.instance.registerUpdateUIListener((message) {
-          print("更新消息：" + message.toString());
-          setState(() {
-            _chatMessage.add(message);
-          });
+        MessageControllerImpl.instance.registerUpdateUIListener((List<ChatMessageBean> messages) {
+          if (messages != null && messages.length > 0) {
+            setState(() {
+              _chatMessage.addAll(messages);
+              _scrollToBottom();
+            });
+          }
         }, _name, _avatarUrl);
       }
     }
-
     if (ChatPage.isFirstInit) {
       ChatPage.isFirstInit = false;
       Timer(Duration(milliseconds: 1000), () {
         _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
       });
-    } else {
-      _scrollToBottom();
     }
 
     return Scaffold(
@@ -107,10 +122,9 @@ class ChatState extends State<ChatPage> {
         child: Column(
           children: <Widget>[
             Expanded(
-              child: TouchCallBack(
-                pressedColor: Colors.transparent,
-                normalColor: Colors.transparent,
-                child: CupertinoScrollbar(
+              child: CupertinoScrollbar(
+                child: ScrollConfiguration(
+                  behavior: CusBehavior(),
                   child: ListView.builder(
                     controller: _scrollController,
                     itemCount: _chatMessage.length,
@@ -142,5 +156,13 @@ class ChatState extends State<ChatPage> {
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
     });
+  }
+}
+
+class CusBehavior extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) {
+    if (Platform.isAndroid || Platform.isFuchsia) return child;
+    return super.buildViewportChrome(context, child, axisDirection);
   }
 }
