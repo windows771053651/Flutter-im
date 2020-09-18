@@ -75,7 +75,7 @@ class SystemMessageItem extends StatelessWidget {
                   bottomLeftRadius: 8,
                   bottomRightRadius: 8,
                   callBack: () {
-
+                    Navigator.of(context).pushNamed(PageId.GROUP_MAIN_WEBVIEW_LOADING_PAGE, arguments: [_systemMessageBean.name, _systemMessageBean.detailsUrl]);
                   },
                   child: Container(
                     margin: EdgeInsets.only(left: 12, top: 12, right: 12),

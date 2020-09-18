@@ -109,18 +109,14 @@ class MessageItem extends StatelessWidget {
           ],
         ),
         callBack: () {
-          // 跳转聊天页面
+          if (onContextMenuSelected != null && !messageData.read) {
+            onContextMenuSelected(messageData, ContextMenuEnum.READ_STATE);
+          }
           if (messageData.messageType == MessageType.SYSTEM) {
             Navigator.of(context).pushNamed(PageId.GROUP_CHAT_SYSTEM_MESSAGE_PAGE);
           } else if (messageData.messageType == MessageType.CHAT) {
-            if (onContextMenuSelected != null && !messageData.read) {
-              onContextMenuSelected(messageData, ContextMenuEnum.READ_STATE);
-            }
             Navigator.of(context).pushNamed(PageId.GROUP_CHAT_CHAT_PAGE, arguments: [messageData.title, messageData.avatar]);
           } else if (messageData.messageType == MessageType.GROUP) {
-            if (onContextMenuSelected != null && !messageData.read) {
-              onContextMenuSelected(messageData, ContextMenuEnum.READ_STATE);
-            }
             Navigator.of(context).pushNamed(PageId.GROUP_CHAT_CHAT_PAGE, arguments: [messageData.title, messageData.avatar]);
           }
         },
