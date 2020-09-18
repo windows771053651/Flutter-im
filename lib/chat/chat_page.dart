@@ -14,9 +14,6 @@ import '../chat_biz/message_manager_impl.dart';
 import 'chat_settings_page.dart';
 
 class ChatPage extends StatefulWidget {
-
-  static bool isFirstInit = true;
-
   @override
   State createState() => ChatState();
 }
@@ -50,7 +47,7 @@ class ChatState extends State<ChatPage> with WidgetsBindingObserver {
           // 关闭键盘
         } else {
           // 显示键盘
-          _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+          _scrollToBottom();
         }
       });
     });
@@ -72,23 +69,20 @@ class ChatState extends State<ChatPage> with WidgetsBindingObserver {
       if (arguments != null && arguments.length == 2) {
         _name = arguments[0];
         _avatarUrl = arguments[1];
-        MessageControllerImpl.instance.registerUpdateUIListener((List<ChatMessageBean> messages) {
-          if (messages != null && messages.length > 0) {
+        MessageControllerImpl.instance.registerUpdateUIListener((List<ChatMessageBean> initMessages, ChatMessageBean receivedMessage) {
+          if (initMessages != null && initMessages.length > 0) {
             setState(() {
-              _chatMessage.addAll(messages);
-              _scrollToBottom();
+              _chatMessage.addAll(initMessages);
             });
+          } else if (receivedMessage != null) {
+            setState(() {
+              _chatMessage.add(receivedMessage);
+            });
+            _scrollToBottom();
           }
         }, _name, _avatarUrl);
       }
     }
-    if (ChatPage.isFirstInit) {
-      ChatPage.isFirstInit = false;
-      Timer(Duration(milliseconds: 1000), () {
-        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-      });
-    }
-
     return Scaffold(
       appBar: getAppBar(
         context,
@@ -141,16 +135,17 @@ class ChatState extends State<ChatPage> with WidgetsBindingObserver {
                 child: ScrollConfiguration(
                   behavior: CusBehavior(),
                   child: ListView.builder(
+                    reverse: true,
                     controller: _scrollController,
                     itemCount: _chatMessage.length,
                     itemBuilder: (context, index) {
                       return ChatItemWidget(
-                        index: index,
+                        index: _chatMessage.length - index - 1,
                         controller: (index) {
                           return _chatMessage[index];
                         },
-                        chatMessageBean: _chatMessage[index],
-                        lastItemDividerHeight: (_chatMessage.length == index + 1) ? 12 : 0,
+                        chatMessageBean: _chatMessage[_chatMessage.length - index - 1],
+                        lastItemDividerHeight: (index == 0) ? 12 : 0,
                       );
                     },
                   ),
@@ -166,11 +161,20 @@ class ChatState extends State<ChatPage> with WidgetsBindingObserver {
     );
   }
 
-  _scrollToBottom() {
-    /// 下一帧绘制完成时弹起软键盘
-    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+  Future<Null> _onRefresh() async {
+    await Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+      });
     });
+  }
+
+  /// 滚动到底部，0,0就是底部（因为是反向的）
+  _scrollToBottom() {
+    _scrollController.animateTo(
+      0.0,
+      curve: Curves.easeOut,
+      duration: const Duration(milliseconds: 100),
+    );
   }
 }
 

@@ -58,9 +58,7 @@ class MessageControllerImpl extends MessageManager<ChatMessageBean> {
     });
     /// 通知UI更新消息
     if (_listener != null) {
-      List<ChatMessageBean> messages = List();
-      messages.add(message);
-      _listener(messages);
+      _listener(null, message);
     } else {
       print("已注销UI更新监听器");
     }
@@ -79,37 +77,35 @@ class MessageControllerImpl extends MessageManager<ChatMessageBean> {
     this._avatarUrl = avatarUrl;
 
     /// 注册UI消息变更监听器时，将本地存储的信息更新到UI显示
-    List<ChatMessageBean> defaultMessages = getDefaultChatMessage(_name, _avatarUrl);
     /// 从数据库读取数据
     Future<List<Map<String, dynamic>>> nativeMessagesFuture = _imDatabaseProvider.query();
     nativeMessagesFuture.then((onValue) {
       if (onValue != null && onValue.length > 0) {
         List<ChatMessageBean> nativeMessages = List();
         onValue.forEach((Map<String, dynamic> bean) {
-          String avatarUrlIn = bean[DBConstant.messageTableColumnName2];
-          String nameIn = bean[DBConstant.messageTableColumnName3];
-          InOutType inOutType = getInOutTypeByIndex(bean[DBConstant.messageTableColumnName8]);
+          String avatarUrlIn = bean[DBConstant.columnNameAvatarUrl];
+          String nameIn = bean[DBConstant.columnNameName];
+          InOutType inOutType = getInOutTypeByIndex(bean[DBConstant.columnNameInOutType]);
           if (inOutType == InOutType.IN) {
             avatarUrlIn = this._avatarUrl;
             nameIn = this._name;
           }
           ChatMessageBean chatMessageBean = ChatMessageBean.build(
-            chatMessageType: getChatMessageTypeByIndex(bean[DBConstant.messageTableColumnName1]),
+            chatMessageType: getChatMessageTypeByIndex(bean[DBConstant.columnNameMessageType]),
             avatarUrl: avatarUrlIn,
             name: nameIn,
-            time: bean[DBConstant.messageTableColumnName4],
-            picturePath: bean[DBConstant.messageTableColumnName5],
-            voiceUrl: bean[DBConstant.messageTableColumnName6],
-            location: bean[DBConstant.messageTableColumnName7],
+            time: bean[DBConstant.columnNameTime],
+            picturePath: bean[DBConstant.columnNamePictureUrl],
+            voiceUrl: bean[DBConstant.columnNameVoiceUrl],
+            location: bean[DBConstant.columnNameLocation],
             inOutType: inOutType,
-            chatMessage: bean[DBConstant.messageTableColumnName9],
-            nativePicturePath: bean[DBConstant.messageTableColumnName10],
+            chatMessage: bean[DBConstant.columnNameMessageContent],
+            nativePicturePath: bean[DBConstant.columnNameNativePictureUri],
           );
           nativeMessages.add(chatMessageBean);
         });
-        defaultMessages.addAll(nativeMessages);
+        _listener(nativeMessages, null);
       }
-      _listener(defaultMessages);
     });
   }
 
@@ -120,25 +116,9 @@ class MessageControllerImpl extends MessageManager<ChatMessageBean> {
 
   /// 自动回复一条本地消息
   _autoSendNativeMessage() {
-    ChatMessageBean chatMessageBean = ChatMessageBean.build(
-      name: _name,
-      chatMessageType: ChatMessageType.TEXT,
-      avatarUrl:_avatarUrl,
-      inOutType: InOutType.IN,
-      chatMessage: _getChatMessageText(),
-    );
-    dispatchMessage(chatMessageBean);
+    List<ChatMessageBean> defaultInChatMessage = getDefaultChatMessage(this._name, this._avatarUrl);
+    int index = Random().nextInt(defaultInChatMessage.length);
+    dispatchMessage(defaultInChatMessage[index]);
   }
 
-  _getChatMessageText() {
-    List<String> paths = [
-      "炒股必亏",
-      "必亏啊",
-      "必亏啊，兄弟",
-      "记住我的话",
-    ];
-
-    int index = Random().nextInt(paths.length);
-    return paths[index];
-  }
 }

@@ -16,16 +16,16 @@ class ImDatabaseProvider extends DatabaseProvider<ChatMessageBean> {
   Future<int> insert(ChatMessageBean bean) async {
     Database db = await database;
     Map<String, dynamic> params = {
-      DBConstant.messageTableColumnName1: bean.chatMessageType.index,
-      DBConstant.messageTableColumnName2: bean.avatarUrl,
-      DBConstant.messageTableColumnName3: bean.name,
-      DBConstant.messageTableColumnName4: bean.time,
-      DBConstant.messageTableColumnName5: bean.picturePath,
-      DBConstant.messageTableColumnName6: bean.voiceUrl,
-      DBConstant.messageTableColumnName7: bean.location,
-      DBConstant.messageTableColumnName8: bean.inOutType.index,
-      DBConstant.messageTableColumnName9: bean.chatMessage,
-      DBConstant.messageTableColumnName10: bean.nativePicturePath,
+      DBConstant.columnNameMessageType: bean.chatMessageType.index,
+      DBConstant.columnNameAvatarUrl: bean.avatarUrl,
+      DBConstant.columnNameName: bean.name,
+      DBConstant.columnNameTime: bean.time,
+      DBConstant.columnNamePictureUrl: bean.picturePath,
+      DBConstant.columnNameVoiceUrl: bean.voiceUrl,
+      DBConstant.columnNameLocation: bean.location,
+      DBConstant.columnNameInOutType: bean.inOutType.index,
+      DBConstant.columnNameMessageContent: bean.chatMessage,
+      DBConstant.columnNameNativePictureUri: bean.nativePicturePath,
     };
     return db.insert(DBConstant.messageTable, params);
   }

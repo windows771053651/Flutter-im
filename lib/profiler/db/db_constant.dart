@@ -7,32 +7,32 @@ class DBConstant {
 
   /// 聊天消息表
   static final String messageTable = "Message";
-  static final String messageTableColumnName1 = "chatMessageType";
-  static final String messageTableColumnName2 = "avatarUrl";
-  static final String messageTableColumnName3 = "name";
-  static final String messageTableColumnName4 = "time";
-  static final String messageTableColumnName5 = "picturePath";
-  static final String messageTableColumnName6 = "voiceUrl";
-  static final String messageTableColumnName7 = "location";
-  static final String messageTableColumnName8 = "inOutType";
-  static final String messageTableColumnName9 = "chatMessage";
-  static final String messageTableColumnName10 = "nativePicturePath";
+  static final String columnNameMessageType = "chatMessageType";
+  static final String columnNameAvatarUrl = "avatarUrl";
+  static final String columnNameName = "name";
+  static final String columnNameTime = "time";
+  static final String columnNamePictureUrl = "pictureUrl";
+  static final String columnNameVoiceUrl = "voiceUrl";
+  static final String columnNameLocation = "location";
+  static final String columnNameInOutType = "inOutType";
+  static final String columnNameMessageContent = "messageContent";
+  static final String columnNameNativePictureUri = "nativePictureUri";
 
   /// 创建聊天消息表
   static final String sqlCreateTableMessage =
                           """ 
                             CREATE TABLE IF NOT EXISTS $messageTable(
                               id INTEGER PRIMARY KEY AUTOINCREMENT,
-                              $messageTableColumnName1 INTEGER,
-                              $messageTableColumnName2 TEXT,
-                              $messageTableColumnName3 TEXT,
-                              $messageTableColumnName4 TEXT,
-                              $messageTableColumnName5 TEXT,
-                              $messageTableColumnName6 TEXT,
-                              $messageTableColumnName7 TEXT,
-                              $messageTableColumnName8 INTEGER,
-                              $messageTableColumnName9 TEXT,
-                              $messageTableColumnName10 TEXT
+                              $columnNameMessageType INTEGER,
+                              $columnNameAvatarUrl TEXT,
+                              $columnNameName TEXT,
+                              $columnNameTime TEXT,
+                              $columnNamePictureUrl TEXT,
+                              $columnNameVoiceUrl TEXT,
+                              $columnNameLocation TEXT,
+                              $columnNameInOutType INTEGER,
+                              $columnNameMessageContent TEXT,
+                              $columnNameNativePictureUri TEXT
                             );
                           """;
 }
