@@ -8,9 +8,9 @@ class SplashPage extends StatefulWidget {
 }
 
 class LoadingState extends State<SplashPage> {
-
   @override
   void initState() {
+    super.initState();
     Future.delayed(Duration(seconds: 3), () {
       Navigator.of(context).pushReplacementNamed(PageId.GROUP_MAIN);
     });

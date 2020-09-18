@@ -20,6 +20,7 @@ class SettingsState extends State<RemarksSettings> {
   @override
   void dispose() {
     _textEditingController.dispose();
+    super.dispose();
   }
 
   @override

@@ -34,6 +34,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
 
   @override
   void initState() {
+    super.initState();
     _focusNode = FocusNode();
     _focusNode.addListener(() {
       if (!_toolsBoxVisible || _focusNode.hasFocus) {

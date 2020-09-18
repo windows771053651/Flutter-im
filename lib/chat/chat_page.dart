@@ -13,6 +13,7 @@ import 'bean/chat_message_bean.dart';
 import '../chat_biz/message_manager_impl.dart';
 import 'chat_settings_page.dart';
 
+/// listview倒置，因此读取数据是也是倒序。由于读取数据时是倒序的，所以消息数据的存储，分发，接收流程依然按照顺序方式处理
 class ChatPage extends StatefulWidget {
   @override
   State createState() => ChatState();
@@ -34,6 +35,7 @@ class ChatState extends State<ChatPage> with WidgetsBindingObserver {
 
   @override
   void initState() {
+    super.initState();
     _scrollController = ScrollController();
     WidgetsBinding.instance.addObserver(this);
   }
