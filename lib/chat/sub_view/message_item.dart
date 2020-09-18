@@ -13,7 +13,11 @@ class MessageItem extends StatelessWidget {
 
   OnContextMenuSelector onContextMenuSelected;
 
-  MessageItem(this.messageData, {this.onContextMenuSelected});
+  double contextMenuHeight;
+
+  MessageItem(this.messageData, {this.onContextMenuSelected}) {
+    contextMenuHeight = kMinInteractiveDimension * 3 + 20;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,17 +113,22 @@ class MessageItem extends StatelessWidget {
           if (messageData.messageType == MessageType.SYSTEM) {
             Navigator.of(context).pushNamed(PageId.GROUP_CHAT_SYSTEM_MESSAGE_PAGE);
           } else if (messageData.messageType == MessageType.CHAT) {
+            if (onContextMenuSelected != null && !messageData.read) {
+              onContextMenuSelected(messageData, ContextMenuEnum.READ_STATE);
+            }
             Navigator.of(context).pushNamed(PageId.GROUP_CHAT_CHAT_PAGE, arguments: [messageData.title, messageData.avatar]);
           } else if (messageData.messageType == MessageType.GROUP) {
+            if (onContextMenuSelected != null && !messageData.read) {
+              onContextMenuSelected(messageData, ContextMenuEnum.READ_STATE);
+            }
             Navigator.of(context).pushNamed(PageId.GROUP_CHAT_CHAT_PAGE, arguments: [messageData.title, messageData.avatar]);
           }
         },
         longPressCallBack: () {
-          Rect rect = getWidgetPosition(context);
           showMenu(
             context: context,
             color: Colors.white,
-            position: RelativeRect.fromLTRB(rect.width / 2, rect.bottom - 12, rect.width / 2, 0),
+            position: _getContextMenuRelativeRect(context),
             items: <PopupMenuEntry>[
               _getPopupMenuItem(context, messageData.read ? "标为未读" : "标为已读", ContextMenuEnum.READ_STATE),
               _getPopupMenuItem(context, "聊天置顶", ContextMenuEnum.MESSAGE_TOPPING),
@@ -129,6 +138,17 @@ class MessageItem extends StatelessWidget {
         },
       ),
     );
+  }
+
+  RelativeRect _getContextMenuRelativeRect(BuildContext context) {
+    Rect rect = getWidgetPosition(context);
+    double screenHeight = MediaQuery.of(context).size.height;
+    if (screenHeight - rect.top - rect.height < contextMenuHeight) {
+      /// view下边沿到屏幕底部的距离不足以显示menu时，将menu显示在view的上边
+      return RelativeRect.fromLTRB(rect.width / 2, rect.top - contextMenuHeight + 12, rect.width / 2, 0);
+    } else {
+      return RelativeRect.fromLTRB(rect.width / 2, rect.bottom - 12, rect.width / 2, 0);
+    }
   }
 
   Widget _getPopupMenuItem(BuildContext context, String text, ContextMenuEnum type) {

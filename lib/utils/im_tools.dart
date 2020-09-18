@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/// 获取Widget相对父Widget的位置关系
+/// 获取Widget的范围属性，均为相对屏幕起始零点坐标计算所得
 Rect getWidgetPosition(BuildContext context) {
-  final RenderBox box = context.findRenderObject() as RenderBox;
+  final RenderBox box = context.findRenderObject();
   final Offset topLeft = box.size.topLeft(box.localToGlobal(Offset.zero));
   final Offset bottomRight = box.size.bottomRight(box.localToGlobal(Offset.zero));
   return Rect.fromLTRB(topLeft.dx, topLeft.dy, bottomRight.dx, bottomRight.dy);

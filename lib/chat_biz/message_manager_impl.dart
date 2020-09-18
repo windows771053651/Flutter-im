@@ -81,15 +81,22 @@ class MessageControllerImpl extends MessageManager<ChatMessageBean> {
       if (onValue != null && onValue.length > 0) {
         List<ChatMessageBean> nativeMessages = List();
         onValue.forEach((Map<String, dynamic> bean) {
+          String avatarUrlIn = bean[DBConstant.messageTableColumnName2];
+          String nameIn = bean[DBConstant.messageTableColumnName3];
+          InOutType inOutType = getInOutTypeByIndex(bean[DBConstant.messageTableColumnName8]);
+          if (inOutType == InOutType.IN) {
+            avatarUrlIn = this._avatarUrl;
+            nameIn = this._name;
+          }
           ChatMessageBean chatMessageBean = ChatMessageBean.build(
             chatMessageType: getChatMessageTypeByIndex(bean[DBConstant.messageTableColumnName1]),
-            avatarUrl: this._avatarUrl,
-            name: this._name,
+            avatarUrl: avatarUrlIn,
+            name: nameIn,
             time: bean[DBConstant.messageTableColumnName4],
             picturePath: bean[DBConstant.messageTableColumnName5],
             voiceUrl: bean[DBConstant.messageTableColumnName6],
             location: bean[DBConstant.messageTableColumnName7],
-            inOutType: getInOutTypeByIndex(bean[DBConstant.messageTableColumnName8]),
+            inOutType: inOutType,
             chatMessage: bean[DBConstant.messageTableColumnName9],
             nativePicturePath: bean[DBConstant.messageTableColumnName10],
           );
