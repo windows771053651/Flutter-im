@@ -6,6 +6,7 @@ getAppBar(BuildContext context, {
   bool leftIconVisible = true,
   VoidCallback leftCallback,
   List<Widget> actions,
+  PreferredSizeWidget bottom,
 }) {
   return AppBar(
     key: key,
@@ -27,6 +28,7 @@ getAppBar(BuildContext context, {
       ),
     ),
     actions: actions,
+    bottom: bottom,
   );
 }
 
