@@ -11,6 +11,7 @@ import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'bean/chat_message_bean.dart';
 import '../chat_biz/message_manager_impl.dart';
+import 'chat_settings_page.dart';
 
 class ChatPage extends StatefulWidget {
 
@@ -99,13 +100,27 @@ class ChatState extends State<ChatPage> with WidgetsBindingObserver {
             padding: EdgeInsets.only(left: 12, right: 12),
             child: Image.asset("images/menu_ellipsie_icon.png", width: 32,),
             callBack: () {
-              Future future = Navigator.of(context).pushNamed(PageId.GROUP_CHAT_CHAT_SETTINGS_PAGE);
+              Future future = Navigator.of(context).pushNamed(PageId.GROUP_CHAT_CHAT_SETTINGS_PAGE, arguments: _name);
               future.then((onValue) {
                 if (onValue != null) {
-                  print("ChatPage image:$onValue");
-                  setState(() {
-                    backgroundImageFile = onValue;
-                  });
+                  List params = onValue;
+                  if (params.length == 2) {
+                    OperationType operationType = params[0];
+                    if (operationType == OperationType.SETTINGS_BACKGROUND) {
+                      setState(() {
+                        /// 设置聊天背景
+                        backgroundImageFile = onValue[1];
+                      });
+                    } else if (operationType == OperationType.DELETE_CHAT_MESSAGE) {
+                      int count = onValue[1];
+                      if (count > 0) {
+                        setState(() {
+                          /// 清空聊天消息
+                          _chatMessage.clear();
+                        });
+                      }
+                    }
+                  }
                 }
               });
             },

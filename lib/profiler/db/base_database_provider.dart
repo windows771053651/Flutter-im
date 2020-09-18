@@ -27,7 +27,7 @@ abstract class DatabaseProvider<T> {
 
   Future<int> insert(T bean);
 
-  Future<int> delete(T bean);
+  Future<int> delete(String userId);
 
   Future<int> update(T bean);
 

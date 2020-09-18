@@ -67,6 +67,11 @@ class MessageControllerImpl extends MessageManager<ChatMessageBean> {
   }
 
   @override
+  Future<int> clearAllNativeMessage(String userId) {
+    return _imDatabaseProvider.delete(userId);
+  }
+
+  @override
   void registerUpdateUIListener(IUpdateUIListener listener, String name, String avatarUrl) {
     assert(listener != null, "注册的UI更新监听器为null");
     this._listener = listener;

@@ -36,10 +36,12 @@ class ChatMessageBean {
 
   final String nativePicturePath;
 
+  String userId;
+
   ChatMessageBean({
     this.chatMessageType,
     this.avatarUrl,
-    this.name,
+    @required this.name,
     this.time,
     this.picturePath,
     this.voiceUrl,
@@ -47,7 +49,10 @@ class ChatMessageBean {
     this.inOutType,
     this.chatMessage,
     this.nativePicturePath,
-  });
+  }) {
+    assert(isStringNotEmpty(this.name), "聊天消息用户名不能为空");
+    this.userId = "${this.name.hashCode}";
+  }
 
   static ChatMessageBean build({
     @required String name,

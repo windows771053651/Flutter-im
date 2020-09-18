@@ -31,8 +31,9 @@ class ImDatabaseProvider extends DatabaseProvider<ChatMessageBean> {
   }
 
   @override
-  Future<int> delete(ChatMessageBean bean) {
-
+  Future<int> delete(String userId) async {
+    Database db = await database;
+    return db.delete(DBConstant.messageTable);
   }
 
   @override
