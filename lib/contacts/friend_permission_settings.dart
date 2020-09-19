@@ -12,10 +12,10 @@ class FriendPermissionSettings extends StatefulWidget {
   bool switchOn2 = false;
 
   @override
-  State createState() => FriendPermissionSettingsState();
+  State createState() => _FriendPermissionSettingsState();
 }
 
-class FriendPermissionSettingsState extends State<FriendPermissionSettings> {
+class _FriendPermissionSettingsState extends State<FriendPermissionSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -15,10 +15,10 @@ class NewFriendsPage extends StatefulWidget {
   bool _temporaryMessageVisible = true;
 
   @override
-  State createState() => NewFriendsState();
+  State createState() => _NewFriendsState();
 }
 
-class NewFriendsState extends State<NewFriendsPage> {
+class _NewFriendsState extends State<NewFriendsPage> {
 
   String _name = "古力娜扎";
 

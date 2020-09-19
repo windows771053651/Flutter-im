@@ -3,6 +3,7 @@ import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class WebView extends StatefulWidget {
+
   final url;
 
   final title;
@@ -18,11 +19,11 @@ class WebView extends StatefulWidget {
 }
 
 class _WebViewState extends State<WebView> {
-  FlutterWebviewPlugin flutterWebviewPlugin = FlutterWebviewPlugin();
+  FlutterWebviewPlugin flutterWebViewPlugin = FlutterWebviewPlugin();
 
   void initState() {
     super.initState();
-    flutterWebviewPlugin.onStateChanged.listen((WebViewStateChanged state) {
+    flutterWebViewPlugin.onStateChanged.listen((WebViewStateChanged state) {
       switch (state.type) {
         case WebViewState.shouldStart:
         //准备加载
@@ -55,7 +56,7 @@ class _WebViewState extends State<WebView> {
 
   @override
   void dispose() {
-    flutterWebviewPlugin.dispose();
+    flutterWebViewPlugin.dispose();
     super.dispose();
   }
 }

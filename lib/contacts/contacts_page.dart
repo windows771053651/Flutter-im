@@ -7,13 +7,13 @@ import 'package:flutter_im/router/page_id.dart';
 
 class ContactsPage extends StatelessWidget {
 
-  List<ContactVO> dataResource = getContactData();
+  final List<ContactVO> _dataResource = getContactData();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        itemCount: dataResource.length,
+        itemCount: _dataResource.length,
         itemBuilder: (context, index) {
           return Column(
             children: <Widget>[
@@ -21,11 +21,11 @@ class ContactsPage extends StatelessWidget {
               ContactItem(
                 index: index,
                 controller: (index) {
-                  return dataResource[index];
+                  return _dataResource[index];
                 },
-                contactVO: dataResource[index],
+                contactVO: _dataResource[index],
                 callback: () {
-                  Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_USER_INFO, arguments: dataResource[index]);
+                  Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_USER_INFO, arguments: _dataResource[index]);
                 },
               ),
             ],

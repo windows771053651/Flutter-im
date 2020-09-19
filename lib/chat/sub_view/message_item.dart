@@ -9,15 +9,14 @@ import 'package:flutter_im/utils/im_tools.dart';
 
 class MessageItem extends StatelessWidget {
   
-  MessageData messageData;
+  final MessageData messageData;
 
-  OnContextMenuSelector onContextMenuSelected;
+  final OnContextMenuSelector onContextMenuSelected;
 
-  double contextMenuHeight;
+  /// kMinInteractiveDimension为系统PopupMenuItem的高度；showMenu()中垂直方向内边距为_kMenuVerticalPadding，其值为8
+  final double contextMenuHeight = kMinInteractiveDimension * 3 + 2 * 8;
 
-  MessageItem(this.messageData, {this.onContextMenuSelected}) {
-    contextMenuHeight = kMinInteractiveDimension * 3 + 20;
-  }
+  MessageItem(this.messageData, {this.onContextMenuSelected});
 
   @override
   Widget build(BuildContext context) {

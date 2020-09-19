@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class Circle extends StatelessWidget {
 
-  double radius;
+  final double radius;
 
-  Color color;
+  final Color color;
 
   Circle({
     Key key,

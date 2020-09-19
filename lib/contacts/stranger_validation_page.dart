@@ -10,26 +10,25 @@ import 'package:flutter_im/utils/im_tools.dart';
 import 'bean/constant_enum.dart';
 
 class StrangerValidationPage extends StatefulWidget {
-
   @override
-  State createState() => StrangerValidationState();
+  State createState() => _StrangerValidationState();
 }
 
-class StrangerValidationState extends State<StrangerValidationPage> {
+class _StrangerValidationState extends State<StrangerValidationPage> {
 
   StrangerVerificationStatus _verificationStatus;
 
   String _name;
 
-  bool isFirst = true;
+  bool _isFirst = true;
 
-  String avatarUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1598891453746&di=e54fdb6d8cefa644ea1263e540ebb180&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn16%2F720%2Fw1920h1200%2F20181117%2Fe377-hnyuqhh4897269.jpg";
+  String _avatarUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1598891453746&di=e54fdb6d8cefa644ea1263e540ebb180&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn16%2F720%2Fw1920h1200%2F20181117%2Fe377-hnyuqhh4897269.jpg";
 
   @override
   Widget build(BuildContext context) {
     List arguments = ModalRoute.of(context).settings.arguments;
-    if (isFirst && arguments.length >= 2) {
-      isFirst = false;
+    if (_isFirst && arguments.length >= 2) {
+      _isFirst = false;
       _verificationStatus = arguments[0];
       _name = arguments[1];
     }
@@ -52,10 +51,10 @@ class StrangerValidationState extends State<StrangerValidationPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     TouchCallBack(
-                      child: getClipRRectImage(networkUrl: avatarUrl,),
+                      child: getClipRRectImage(networkUrl: _avatarUrl,),
                       pressedColor: Colors.transparent,
                       callBack: () {
-                        Navigator.of(context).pushNamed(PageId.GROUP_MAIN_IMAGE_DISPLAY, arguments: avatarUrl);
+                        Navigator.of(context).pushNamed(PageId.GROUP_MAIN_IMAGE_DISPLAY, arguments: _avatarUrl);
                       },
                     ),
                     Container(

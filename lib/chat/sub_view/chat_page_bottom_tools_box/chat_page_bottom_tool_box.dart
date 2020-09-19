@@ -5,7 +5,7 @@ import 'package:flutter_im/common/indicator.dart';
 /// 相册、拍摄、语音等工具箱面板组件
 class ChatPageBottomToolBox extends StatefulWidget {
 
-  List<Widget> pageList;
+  final List<Widget> pageList;
 
   ChatPageBottomToolBox({
     @required this.pageList,
@@ -19,17 +19,17 @@ class _State extends State<ChatPageBottomToolBox> {
 
   int _currentIndex = 0;
 
-  PageController controller;
+  PageController _controller;
 
   @override
   void initState() {
     super.initState();
-    controller = PageController();
+    _controller = PageController();
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -51,7 +51,7 @@ class _State extends State<ChatPageBottomToolBox> {
                 });
               },
               children: widget.pageList,
-              controller: controller,
+              controller: _controller,
             ),
           ),
           Indicator(

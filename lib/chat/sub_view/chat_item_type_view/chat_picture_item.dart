@@ -12,7 +12,7 @@ import 'package:lpinyin/lpinyin.dart';
 
 class ChatPictureItem extends StatelessWidget {
 
-  ChatMessageBean chatMessageBean;
+  final ChatMessageBean chatMessageBean;
 
   ChatPictureItem({
     Key key,

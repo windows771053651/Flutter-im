@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 class Indicator extends StatefulWidget {
 
-  int index;
+  final int index;
 
-  int count;
+  final int count;
 
-  double radius;
+  final double radius;
 
   Indicator({
     @required this.count,

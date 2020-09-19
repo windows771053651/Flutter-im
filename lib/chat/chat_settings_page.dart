@@ -11,7 +11,7 @@ class ChatSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    String chatUserName = ModalRoute.of(context).settings.arguments;
+    String _chatUserName = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       appBar: getAppBar(
@@ -39,7 +39,7 @@ class ChatSettingsPage extends StatelessWidget {
             leftTitleWidth: 200,
             margin: EdgeInsets.only(top: 12),
             callback: () {
-              showDeleteNativeChatMessageDialog(context, chatUserName);
+              showDeleteNativeChatMessageDialog(context, _chatUserName);
             },
           ),
         ],

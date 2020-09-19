@@ -8,32 +8,32 @@ import 'package:image_picker/image_picker.dart';
 
 class ToolBoxFirstPage extends StatelessWidget {
 
-  ToolsBoxItemFactoryImpl toolsBoxItemFactoryImpl;
+  ToolsBoxItemFactoryImpl _toolsBoxItemFactoryImpl;
 
   ToolBoxFirstPage() {
-    toolsBoxItemFactoryImpl = ToolsBoxItemFactory();
+    _toolsBoxItemFactoryImpl = ToolsBoxItemFactory();
   }
 
   @override
   Widget build(BuildContext context) {
 
-    double cellSize = MediaQuery.of(context).size.width / 7.6;
+    double _cellSize = MediaQuery.of(context).size.width / 7.6;
 
     return Column(
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.photo, "相册", cellSize, () {
+            _toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.photo, "相册", _cellSize, () {
               _openGallery(context);
             })),
-            toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.photo_camera, "拍摄", cellSize, () {
+            _toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.photo_camera, "拍摄", _cellSize, () {
               _takePhoto(context);
             })),
-            toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.video_call, "视频通话", cellSize, () {
+            _toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.video_call, "视频通话", _cellSize, () {
 
             })),
-            toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.photo, "位置", cellSize, () {
+            _toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.photo, "位置", _cellSize, () {
 
             })),
           ],
@@ -44,16 +44,16 @@ class ToolBoxFirstPage extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.attach_money, "红包", cellSize, () {
+            _toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.attach_money, "红包", _cellSize, () {
 
             })),
-            toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.transform, "转账", cellSize, () {
+            _toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.transform, "转账", _cellSize, () {
 
             })),
-            toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.settings_voice, "语音输入", cellSize, () {
+            _toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.settings_voice, "语音输入", _cellSize, () {
 
             })),
-            toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.collections, "我的收藏", cellSize, () {
+            _toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.collections, "我的收藏", _cellSize, () {
 
             })),
           ],

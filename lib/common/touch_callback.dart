@@ -48,15 +48,16 @@ class TouchCallBack extends StatefulWidget {
   }): super(key: key);
 
   @override
-  State createState() => TouchState();
+  State createState() => _TouchState();
 }
 
-class TouchState extends State<TouchCallBack> {
+class _TouchState extends State<TouchCallBack> {
 
   Color stateColor;
 
   @override
   void initState() {
+    super.initState();
     stateColor = widget.normalColor;
   }
 

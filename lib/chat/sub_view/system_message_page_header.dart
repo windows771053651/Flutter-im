@@ -5,7 +5,7 @@ import 'package:flutter_im/utils/im_tools.dart';
 
 class SystemMessageHeader extends StatelessWidget {
 
-  List<SystemMessageSubscribeAuthorBean> dataResources = getHeaderDataResources();
+  final List<SystemMessageSubscribeAuthorBean> _dataResources = getHeaderDataResources();
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +26,13 @@ class SystemMessageHeader extends StatelessWidget {
           margin: EdgeInsets.only(top: 4, bottom: 4),
           height: 80,
           child: ListView.builder(
-            itemCount: dataResources.length,
+            itemCount: _dataResources.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              SystemMessageSubscribeAuthorBean bean = dataResources[index];
+              SystemMessageSubscribeAuthorBean bean = _dataResources[index];
               if (index == 0) {
                 return _getSubscribeTab(bean.iconUrl, bean.name, marginLeft: 16);
-              } else if (index == dataResources.length - 1) {
+              } else if (index == _dataResources.length - 1) {
                 return _getSubscribeTab(bean.iconUrl, bean.name, marginLeft: 24, marginRight: 16);
               } else {
                 return _getSubscribeTab(bean.iconUrl, bean.name, marginLeft: 24);

@@ -2,17 +2,17 @@ import 'package:flutter/cupertino.dart';
 
 class HorizontalLine extends StatelessWidget {
 
-  Color color;
+  final Color color;
 
-  double marginLeft;
+  final double marginLeft;
 
-  double marginTop;
+  final double marginTop;
 
-  double marginRight;
+  final double marginRight;
 
-  double marginBottom;
+  final double marginBottom;
 
-  double height;
+  final double height;
 
   HorizontalLine({
     Key key,

@@ -26,6 +26,7 @@ dependencies:
   flutter_webview_plugin: ^0.3.0
   image_picker: ^0.6.0+9
   sqflite: ^1.1.7+3
+  pull_to_refresh: ^1.5.0
 
 #  flutter_webview_plugin: "^0.3.0+2"
   date_format: "^1.0.4"

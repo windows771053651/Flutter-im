@@ -9,21 +9,21 @@ import 'package:flutter_im/utils/im_tools.dart';
 import 'bean/contact_bean.dart';
 
 class UserInfoPage extends StatefulWidget {
-
-  ContactVO _contactVO;
-
-  bool isFirst = true;
-
   @override
   State createState() => UserInfoState();
 }
 
 class UserInfoState extends State<UserInfoPage> {
+
+  bool _isFirst = true;
+
+  ContactVO _contactVO;
+
   @override
   Widget build(BuildContext context) {
-    if (widget.isFirst) {
-      widget.isFirst = false;
-      widget._contactVO = ModalRoute.of(context).settings.arguments;
+    if (_isFirst) {
+      _isFirst = false;
+      _contactVO = ModalRoute.of(context).settings.arguments;
     }
 
     return Scaffold(
@@ -36,10 +36,10 @@ class UserInfoState extends State<UserInfoPage> {
             child: Row(
               children: <Widget>[
                 TouchCallBack(
-                  child: getClipRRectImage(networkUrl: widget._contactVO.avatarUrl),
+                  child: getClipRRectImage(networkUrl: _contactVO.avatarUrl),
                   pressedColor: Colors.transparent,
                   callBack: () {
-                    Navigator.of(context).pushNamed(PageId.GROUP_MAIN_IMAGE_DISPLAY, arguments: widget._contactVO.avatarUrl);
+                    Navigator.of(context).pushNamed(PageId.GROUP_MAIN_IMAGE_DISPLAY, arguments: _contactVO.avatarUrl);
                   },
                 ),
                 Container(
@@ -49,7 +49,7 @@ class UserInfoState extends State<UserInfoPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        widget._contactVO.name,
+                        _contactVO.name,
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.black,
@@ -60,7 +60,7 @@ class UserInfoState extends State<UserInfoPage> {
                         height: 2,
                       ),
                       Text(
-                        "账号：${widget._contactVO.serialNum}",
+                        "账号：${_contactVO.serialNum}",
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey,
@@ -79,11 +79,11 @@ class UserInfoState extends State<UserInfoPage> {
             leftTitle: "设置备注和标签",
             leftTitleWidth: 200,
             callback: () {
-              Future future = Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_REMARKS_SETTINGS, arguments: widget._contactVO.name);
+              Future future = Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_REMARKS_SETTINGS, arguments: _contactVO.name);
               future.then((value) {
                 if (value != null) {
                   setState(() {
-                    widget._contactVO.name = value;
+                    _contactVO.name = value;
                   });
                 }
               });
@@ -158,7 +158,7 @@ class UserInfoState extends State<UserInfoPage> {
               ),
             ),
             callBack: () {
-              Navigator.of(context).pushNamed(PageId.GROUP_CHAT_CHAT_PAGE, arguments: [widget._contactVO.name, widget._contactVO.avatarUrl]);
+              Navigator.of(context).pushNamed(PageId.GROUP_CHAT_CHAT_PAGE, arguments: [_contactVO.name, _contactVO.avatarUrl]);
             },
           ),
           Container(

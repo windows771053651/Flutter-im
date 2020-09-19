@@ -14,19 +14,19 @@ class ToolsBoxSecondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double cellSize = MediaQuery.of(context).size.width / 7.6;
+    double _cellSize = MediaQuery.of(context).size.width / 7.6;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.person, "名片", cellSize, () {
+        toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.person, "名片", _cellSize, () {
 
         })),
-        toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.attach_file, "文件", cellSize, () {
+        toolsBoxItemFactoryImpl.product(ToolsBoxItemBean(Icons.attach_file, "文件", _cellSize, () {
 
         })),
-        Container(width: cellSize, height: cellSize,),
-        Container(width: cellSize, height: cellSize,),
+        Container(width: _cellSize, height: _cellSize,),
+        Container(width: _cellSize, height: _cellSize,),
       ],
     );
   }

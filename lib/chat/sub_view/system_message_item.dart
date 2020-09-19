@@ -7,13 +7,11 @@ import 'package:flutter_im/utils/im_tools.dart';
 
 class SystemMessageItem extends StatelessWidget {
 
-  SystemMessageBean _systemMessageBean;
+  final SystemMessageBean systemMessageBean;
 
   SystemMessageItem({
-    SystemMessageBean data,
-  }) {
-    this._systemMessageBean = data;
-  }
+    this.systemMessageBean,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +21,7 @@ class SystemMessageItem extends StatelessWidget {
           pressedColor: Colors.transparent,
           normalColor: Colors.transparent,
           callBack: () {
-            Navigator.of(context).pushNamed(PageId.GROUP_MAIN_WEBVIEW_LOADING_PAGE, arguments: [_systemMessageBean.name, _systemMessageBean.detailsUrl]);
+            Navigator.of(context).pushNamed(PageId.GROUP_MAIN_WEBVIEW_LOADING_PAGE, arguments: [systemMessageBean.name, systemMessageBean.detailsUrl]);
           },
           child: Container(
             padding: EdgeInsets.only(top: 8,),
@@ -38,13 +36,13 @@ class SystemMessageItem extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       margin: EdgeInsets.only(left: 12),
-                      child: getClipRRectImage(networkUrl: _systemMessageBean.authorAvatarUrl, width: 24, height: 24, radius: 24 / 2),
+                      child: getClipRRectImage(networkUrl: systemMessageBean.authorAvatarUrl, width: 24, height: 24, radius: 24 / 2),
                     ),
                     Expanded(
                       child: Container(
                         margin: EdgeInsets.only(left: 8),
                         child: Text(
-                          _systemMessageBean.name,
+                          systemMessageBean.name,
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.blue[700],
@@ -55,7 +53,7 @@ class SystemMessageItem extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(right: 12),
                       child: Text(
-                        _systemMessageBean.time,
+                        systemMessageBean.time,
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey,
@@ -69,13 +67,13 @@ class SystemMessageItem extends StatelessWidget {
                 ),
                 AspectRatio(
                   aspectRatio: 2.0,
-                  child: Image.network(_systemMessageBean.displayPictureUrl, fit: BoxFit.cover,),
+                  child: Image.network(systemMessageBean.displayPictureUrl, fit: BoxFit.cover,),
                 ),
                 TouchCallBack(
                   bottomLeftRadius: 8,
                   bottomRightRadius: 8,
                   callBack: () {
-                    Navigator.of(context).pushNamed(PageId.GROUP_MAIN_WEBVIEW_LOADING_PAGE, arguments: [_systemMessageBean.name, _systemMessageBean.detailsUrl]);
+                    Navigator.of(context).pushNamed(PageId.GROUP_MAIN_WEBVIEW_LOADING_PAGE, arguments: [systemMessageBean.name, systemMessageBean.detailsUrl]);
                   },
                   child: Container(
                     margin: EdgeInsets.only(left: 12, top: 12, right: 12),
@@ -89,15 +87,15 @@ class SystemMessageItem extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                _systemMessageBean.title,
+                                systemMessageBean.title,
                                 style: TextStyle(
                                   fontSize: 14,
                                 ),
                               ),
                               Visibility(
-                                visible: _systemMessageBean.subTitle.length != 0,
+                                visible: systemMessageBean.subTitle.length != 0,
                                 child: Text(
-                                  _systemMessageBean.subTitle,
+                                  systemMessageBean.subTitle,
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.grey,
@@ -108,8 +106,8 @@ class SystemMessageItem extends StatelessWidget {
                           ),
                         ),
                         Visibility(
-                          visible: _systemMessageBean.subIconUrl.length != 0,
-                          child: Image.network(_systemMessageBean.subIconUrl, width: 52, height: 52, fit: BoxFit.cover,),
+                          visible: systemMessageBean.subIconUrl.length != 0,
+                          child: Image.network(systemMessageBean.subIconUrl, width: 52, height: 52, fit: BoxFit.cover,),
                         ),
                       ],
                     ),

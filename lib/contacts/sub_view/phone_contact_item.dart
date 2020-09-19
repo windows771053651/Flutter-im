@@ -5,14 +5,15 @@ import 'package:flutter_im/common/touch_callback.dart';
 
 class PhoneContactItem extends StatelessWidget {
 
-  Contact _contact;
+  final Contact contact;
 
-  VoidCallback _callback;
+  final VoidCallback callback;
 
-  PhoneContactItem({Key key, @required Contact contact, VoidCallback callback}): super(key: key) {
-    this._contact = contact;
-    this._callback = callback;
-  }
+  PhoneContactItem({
+    Key key,
+    @required this.contact,
+    this.callback,
+  }): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class PhoneContactItem extends StatelessWidget {
         minHeight: 60,
       ),
       child: TouchCallBack(
-        callBack: _callback,
+        callBack: callback,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -44,7 +45,7 @@ class PhoneContactItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      _contact.fullName,
+                      contact.fullName,
                       style: TextStyle(
                         fontSize: 14,
                         color: Color(0xff353535),

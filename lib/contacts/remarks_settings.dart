@@ -6,16 +6,16 @@ import 'package:flutter_im/utils/show_toast.dart';
 
 class RemarksSettings extends StatefulWidget {
   @override
-  State createState() => SettingsState();
+  State createState() => _SettingsState();
 }
 
-class SettingsState extends State<RemarksSettings> {
+class _SettingsState extends State<RemarksSettings> {
 
   TextEditingController _textEditingController;
 
   bool _isEmpty = true;
 
-  bool isFirst = true;
+  bool _isFirst = true;
 
   @override
   void dispose() {
@@ -26,8 +26,8 @@ class SettingsState extends State<RemarksSettings> {
   @override
   Widget build(BuildContext context) {
     String _name = ModalRoute.of(context).settings.arguments;
-    if (isFirst) {
-      isFirst = false;
+    if (_isFirst) {
+      _isFirst = false;
       _textEditingController = TextEditingController.fromValue(TextEditingValue(
         text: _name,
       ));

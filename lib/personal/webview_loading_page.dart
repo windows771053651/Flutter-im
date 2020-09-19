@@ -10,15 +10,15 @@ class WebViewLoadingPage extends StatefulWidget {
 
 class _State extends State<WebViewLoadingPage> {
 
-  String url;
+  String _url;
 
-  String title;
+  String _title;
 
   FlutterWebviewPlugin _webViewPlugin;
 
-  double lineProgress = 0.0;
+  double _lineProgress = 0.0;
 
-  bool isFirst = true;
+  bool _isFirst = true;
 
   @override
   void initState() {
@@ -27,7 +27,7 @@ class _State extends State<WebViewLoadingPage> {
     _webViewPlugin.onProgressChanged.listen((progress) {
       print(progress);
       setState(() {
-        lineProgress = progress;
+        _lineProgress = progress;
       });
     });
   }
@@ -40,23 +40,23 @@ class _State extends State<WebViewLoadingPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (isFirst) {
-      isFirst = false;
+    if (_isFirst) {
+      _isFirst = false;
       List<String> arguments = ModalRoute.of(context).settings.arguments;
       assert(arguments != null && arguments.length == 2, "web页面参数错误");
-      title = arguments[0];
-      url = arguments[1];
+      _title = arguments[0];
+      _url = arguments[1];
     }
     return WebviewScaffold(
       appBar: getAppBar(
         context,
         bottom: PreferredSize(
-          child: _progressBar(lineProgress, context),
+          child: _progressBar(_lineProgress, context),
           preferredSize: Size.fromHeight(3),
         ),
-        leftTitle: title,
+        leftTitle: _title,
       ),
-      url: url,
+      url: _url,
       mediaPlaybackRequiresUserGesture: false,
       withZoom: false,
       withLocalStorage: true,

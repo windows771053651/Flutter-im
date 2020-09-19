@@ -6,21 +6,22 @@ import 'package:flutter_im/utils/im_tools.dart';
 import '../bean/contact_bean.dart';
 
 class ContactItem extends StatelessWidget {
-  ContactVO contactVO;
 
-  String titleName;
+  final ContactVO contactVO;
 
-  String imageName;
+  final String titleName;
 
-  double size;
+  final String imageName;
 
-  int index;
+  final double size;
 
-  VoidCallback callback;
+  final int index;
 
-  ContactController controller;
+  final VoidCallback callback;
 
-  bool headerSutTitleVisible;
+  final ContactController controller;
+
+  final bool headerSutTitleVisible;
 
   ContactItem({
     this.index,

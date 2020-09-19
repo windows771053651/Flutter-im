@@ -9,7 +9,7 @@ import 'package:lpinyin/lpinyin.dart';
 
 class ChatTextItem extends StatelessWidget {
 
-  ChatMessageBean chatMessageBean;
+  final ChatMessageBean chatMessageBean;
 
   ChatTextItem({
     Key key,

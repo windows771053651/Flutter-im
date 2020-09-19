@@ -10,10 +10,10 @@ import 'package:permission_handler/permission_handler.dart';
 
 class PhoneContactsPage extends StatefulWidget {
   @override
-  State createState() => PhoneContactsState();
+  State createState() => _PhoneContactsState();
 }
 
-class PhoneContactsState extends State<PhoneContactsPage> {
+class _PhoneContactsState extends State<PhoneContactsPage> {
 
   final EasyContactPicker _contactPicker = new EasyContactPicker();
 

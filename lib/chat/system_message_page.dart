@@ -7,7 +7,7 @@ import 'package:flutter_im/common/app_bar.dart';
 
 class SystemMessagePage extends StatelessWidget {
 
-  List<SystemMessageBean> dataResource = getSystemMessageData();
+  final List<SystemMessageBean> dataResource = getSystemMessageData();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class SystemMessagePage extends StatelessWidget {
             if (index == 0) {
               return SystemMessageHeader();
             } else {
-              return SystemMessageItem(data: dataResource[index - 1],);
+              return SystemMessageItem(systemMessageBean: dataResource[index - 1],);
             }
           },
         ),

@@ -6,13 +6,13 @@ import 'package:flutter_im/chat/sub_view/message_item.dart';
 
 class MessagePage extends StatefulWidget {
 
-  List<MessageData> dataResources = getMessageData();
+  final List<MessageData> dataResources = getMessageData();
 
   @override
-  State createState() => MessagePageState();
+  State createState() => _MessagePageState();
 }
 
-class MessagePageState extends State<MessagePage> {
+class _MessagePageState extends State<MessagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

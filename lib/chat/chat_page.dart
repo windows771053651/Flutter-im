@@ -16,10 +16,10 @@ import 'chat_settings_page.dart';
 /// listview倒置，因此读取数据是也是倒序。由于读取数据时是倒序的，所以消息数据的存储，分发，接收流程依然按照顺序方式处理
 class ChatPage extends StatefulWidget {
   @override
-  State createState() => ChatState();
+  State createState() => _ChatState();
 }
 
-class ChatState extends State<ChatPage> with WidgetsBindingObserver {
+class _ChatState extends State<ChatPage> with WidgetsBindingObserver {
 
   ScrollController _scrollController;
 
@@ -41,6 +41,14 @@ class ChatState extends State<ChatPage> with WidgetsBindingObserver {
   }
 
   @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _scrollController.dispose();
+    MessageControllerImpl.instance.unRegisterUpdateUIListener();
+    super.dispose();
+  }
+
+  @override
   void didChangeMetrics() {
     super.didChangeMetrics();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -56,71 +64,17 @@ class ChatState extends State<ChatPage> with WidgetsBindingObserver {
   }
 
   @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    _scrollController.dispose();
-    MessageControllerImpl.instance.unRegisterUpdateUIListener();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     if (_isFirst) {
       _isFirst = false;
-      List<String> arguments = ModalRoute.of(context).settings.arguments;
-      if (arguments != null && arguments.length == 2) {
-        _name = arguments[0];
-        _avatarUrl = arguments[1];
-        MessageControllerImpl.instance.registerUpdateUIListener((List<ChatMessageBean> initMessages, ChatMessageBean receivedMessage) {
-          if (initMessages != null && initMessages.length > 0) {
-            setState(() {
-              _chatMessage.addAll(initMessages);
-            });
-          } else if (receivedMessage != null) {
-            setState(() {
-              _chatMessage.add(receivedMessage);
-            });
-            _scrollToBottom();
-          }
-        }, _name, _avatarUrl);
-      }
+      _initParams();
     }
     return Scaffold(
       appBar: getAppBar(
         context,
         leftTitle: _name,
         actions: [
-          TouchCallBack(
-            normalColor: Colors.transparent,
-            pressedColor: Colors.green[700],
-            padding: EdgeInsets.only(left: 12, right: 12),
-            child: Image.asset("images/menu_ellipsie_icon.png", width: 32,),
-            callBack: () {
-              Future future = Navigator.of(context).pushNamed(PageId.GROUP_CHAT_CHAT_SETTINGS_PAGE, arguments: _name);
-              future.then((onValue) {
-                if (onValue != null) {
-                  List params = onValue;
-                  if (params.length == 2) {
-                    OperationType operationType = params[0];
-                    if (operationType == OperationType.SETTINGS_BACKGROUND) {
-                      setState(() {
-                        /// 设置聊天背景
-                        backgroundImageFile = onValue[1];
-                      });
-                    } else if (operationType == OperationType.DELETE_CHAT_MESSAGE) {
-                      int count = onValue[1];
-                      if (count > 0) {
-                        setState(() {
-                          /// 清空聊天消息
-                          _chatMessage.clear();
-                        });
-                      }
-                    }
-                  }
-                }
-              });
-            },
-          ),
+          _getAppBarActionsMenu(),
         ],
       ),
       body: Container(
@@ -136,21 +90,7 @@ class ChatState extends State<ChatPage> with WidgetsBindingObserver {
               child: CupertinoScrollbar(
                 child: ScrollConfiguration(
                   behavior: CusBehavior(),
-                  child: ListView.builder(
-                    reverse: true,
-                    controller: _scrollController,
-                    itemCount: _chatMessage.length,
-                    itemBuilder: (context, index) {
-                      return ChatItemWidget(
-                        index: _chatMessage.length - index - 1,
-                        controller: (index) {
-                          return _chatMessage[index];
-                        },
-                        chatMessageBean: _chatMessage[_chatMessage.length - index - 1],
-                        lastItemDividerHeight: (index == 0) ? 12 : 0,
-                      );
-                    },
-                  ),
+                  child: _getChatListView(),
                 ),
               ),
             ),
@@ -163,11 +103,76 @@ class ChatState extends State<ChatPage> with WidgetsBindingObserver {
     );
   }
 
-  Future<Null> _onRefresh() async {
-    await Future.delayed(Duration(seconds: 2), () {
-      setState(() {
-      });
-    });
+  void _initParams() {
+    List<String> arguments = ModalRoute.of(context).settings.arguments;
+    if (arguments != null && arguments.length == 2) {
+      _name = arguments[0];
+      _avatarUrl = arguments[1];
+      MessageControllerImpl.instance.registerUpdateUIListener((List<ChatMessageBean> initMessages, ChatMessageBean receivedMessage) {
+        if (initMessages != null && initMessages.length > 0) {
+          setState(() {
+            _chatMessage.addAll(initMessages);
+          });
+        } else if (receivedMessage != null) {
+          setState(() {
+            _chatMessage.add(receivedMessage);
+          });
+          _scrollToBottom();
+        }
+      }, _name, _avatarUrl);
+    }
+  }
+
+  Widget _getAppBarActionsMenu() {
+    return TouchCallBack(
+      normalColor: Colors.transparent,
+      pressedColor: Colors.green[700],
+      padding: EdgeInsets.only(left: 12, right: 12),
+      child: Image.asset("images/menu_ellipsie_icon.png", width: 32,),
+      callBack: () {
+        Future future = Navigator.of(context).pushNamed(PageId.GROUP_CHAT_CHAT_SETTINGS_PAGE, arguments: _name);
+        future.then((onValue) {
+          if (onValue != null) {
+            List params = onValue;
+            if (params.length == 2) {
+              OperationType operationType = params[0];
+              if (operationType == OperationType.SETTINGS_BACKGROUND) {
+                setState(() {
+                  /// 设置聊天背景
+                  backgroundImageFile = onValue[1];
+                });
+              } else if (operationType == OperationType.DELETE_CHAT_MESSAGE) {
+                int count = onValue[1];
+                if (count > 0) {
+                  setState(() {
+                    /// 清空聊天消息
+                    _chatMessage.clear();
+                  });
+                }
+              }
+            }
+          }
+        });
+      },
+    );
+  }
+
+  Widget _getChatListView() {
+    return ListView.builder(
+      reverse: true,
+      controller: _scrollController,
+      itemCount: _chatMessage.length,
+      itemBuilder: (context, index) {
+        return ChatItemWidget(
+          index: _chatMessage.length - index - 1,
+          controller: (index) {
+            return _chatMessage[index];
+          },
+          chatMessageBean: _chatMessage[_chatMessage.length - index - 1],
+          lastItemDividerHeight: (index == 0) ? 12 : 0,
+        );
+      },
+    );
   }
 
   /// 滚动到底部，0,0就是底部（因为是反向的）

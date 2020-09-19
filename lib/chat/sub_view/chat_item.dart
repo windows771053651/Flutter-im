@@ -7,13 +7,15 @@ import 'package:flutter_im/chat/sub_view/chat_item_type_view/chat_text_item.dart
 
 class ChatItemWidget extends StatelessWidget {
 
-  ChatMessageBean chatMessageBean;
+  final ChatMessageBean chatMessageBean;
 
-  ChatController controller;
+  final ChatController controller;
 
-  int index;
+  final int index;
 
-  double lastItemDividerHeight;
+  final double lastItemDividerHeight;
+
+  final double firstItemDividerHeight;
 
   ChatItemWidget({
     Key key,
@@ -21,13 +23,14 @@ class ChatItemWidget extends StatelessWidget {
     @required this.controller,
     @required this.index,
     this.lastItemDividerHeight = 0,
+    this.firstItemDividerHeight = 12,
   }): super(key: key);
 
   @override
   Widget build(BuildContext context) {
     bool isShowTimeHeader = _isShowTimeHeader();
     return Container(
-      padding: EdgeInsets.only(left: 12, top: 12, right: 12, bottom: lastItemDividerHeight),
+      padding: EdgeInsets.only(left: 12, top: firstItemDividerHeight, right: 12, bottom: lastItemDividerHeight),
       child: Column(
         children: <Widget>[
           Visibility(
