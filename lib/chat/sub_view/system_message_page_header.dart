@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/system_message_subscribe_author_bean.dart';
-import 'package:flutter_im/utils/im_tools.dart';
+import 'package:flutter_im/chat/sub_view/system_message_page_header_item.dart';
 
 class SystemMessageHeader extends StatelessWidget {
 
   final List<SystemMessageSubscribeAuthorBean> _dataResources = getHeaderDataResources();
+
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +30,26 @@ class SystemMessageHeader extends StatelessWidget {
           child: ListView.builder(
             itemCount: _dataResources.length,
             scrollDirection: Axis.horizontal,
+            controller: _scrollController,
             itemBuilder: (context, index) {
               SystemMessageSubscribeAuthorBean bean = _dataResources[index];
+              double marginLeft = 0.0;
+              double marginRight = 0.0;
               if (index == 0) {
-                return _getSubscribeTab(bean.iconUrl, bean.name, marginLeft: 16);
+                marginLeft = 16.0;
               } else if (index == _dataResources.length - 1) {
-                return _getSubscribeTab(bean.iconUrl, bean.name, marginLeft: 24, marginRight: 16);
+                marginLeft = 24.0;
+                marginRight = 16.0;
               } else {
-                return _getSubscribeTab(bean.iconUrl, bean.name, marginLeft: 24);
+                marginLeft = 24.0;
               }
+              return SystemMessageHeaderItem(
+                iconUrl: bean.iconUrl,
+                name: bean.name,
+                marginLeft: marginLeft,
+                marginRight: marginRight,
+                scrollController: _scrollController,
+              );
             },
           ),
         )
@@ -44,28 +57,5 @@ class SystemMessageHeader extends StatelessWidget {
     );
   }
 
-  Widget _getSubscribeTab(String iconUrl, String name, {double marginLeft = 0, double marginRight = 0}) {
-    return Container(
-      margin: EdgeInsets.only(left: marginLeft, right: marginRight),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          getClipRRectImage(networkUrl: iconUrl, width: 44, height: 44, radius: 44 / 2),
-          Container(
-            margin: EdgeInsets.only(top: 4),
-            child: Text(
-              name,
-              style: TextStyle(
-                fontSize: 10,
-                color: Color(0xFF707070),
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+
 }
