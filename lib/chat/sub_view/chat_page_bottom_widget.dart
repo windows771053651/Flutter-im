@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/chat_message_bean.dart';
 import 'package:flutter_im/chat_biz/message_manager_impl.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/personal/personal_constant.dart';
 
 import 'chat_page_bottom_tools_box/chat_page_bottom_tool_box.dart';
 import 'chat_page_bottom_tools_box/tools_box_first_page.dart';
@@ -191,7 +192,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
             ),
             callBack: () {
               MessageControllerImpl.instance.sendMessage(ChatMessageBean.build(
-                name: "一休",
+                name: PersonalConstant.userName,
                 chatMessageType: ChatMessageType.TEXT,
                 avatarUrl: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599128582535&di=9807439e68f649516e0c981f0f6ae910&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20120627%2FImg346630529.jpg",
                 inOutType: InOutType.OUT,

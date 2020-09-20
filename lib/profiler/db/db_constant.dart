@@ -7,6 +7,7 @@ class DBConstant {
 
   /// 聊天消息表
   static final String messageTable = "Message";
+  static final String columnNameUserId = "userId";
   static final String columnNameMessageType = "chatMessageType";
   static final String columnNameAvatarUrl = "avatarUrl";
   static final String columnNameName = "name";
@@ -23,6 +24,7 @@ class DBConstant {
                           """ 
                             CREATE TABLE IF NOT EXISTS $messageTable(
                               id INTEGER PRIMARY KEY AUTOINCREMENT,
+                              $columnNameUserId TEXT,
                               $columnNameMessageType INTEGER,
                               $columnNameAvatarUrl TEXT,
                               $columnNameName TEXT,

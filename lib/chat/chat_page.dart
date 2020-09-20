@@ -31,7 +31,7 @@ class _ChatState extends State<ChatPage> with WidgetsBindingObserver {
 
   List<ChatMessageBean> _chatMessage = List();
 
-  File backgroundImageFile = File("");
+  File _backgroundImageFile = File("");
 
   @override
   void initState() {
@@ -80,7 +80,7 @@ class _ChatState extends State<ChatPage> with WidgetsBindingObserver {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: FileImage(backgroundImageFile),
+            image: FileImage(_backgroundImageFile),
             fit: BoxFit.cover,
           ),
         ),
@@ -139,7 +139,7 @@ class _ChatState extends State<ChatPage> with WidgetsBindingObserver {
               if (operationType == OperationType.SETTINGS_BACKGROUND) {
                 setState(() {
                   /// 设置聊天背景
-                  backgroundImageFile = onValue[1];
+                  _backgroundImageFile = onValue[1];
                 });
               } else if (operationType == OperationType.DELETE_CHAT_MESSAGE) {
                 int count = onValue[1];

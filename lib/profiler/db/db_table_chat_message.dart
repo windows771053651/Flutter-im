@@ -16,6 +16,7 @@ class ImDatabaseProvider extends DatabaseProvider<ChatMessageBean> {
   Future<int> insert(ChatMessageBean bean) async {
     Database db = await database;
     Map<String, dynamic> params = {
+      DBConstant.columnNameUserId: bean.userId,
       DBConstant.columnNameMessageType: bean.chatMessageType.index,
       DBConstant.columnNameAvatarUrl: bean.avatarUrl,
       DBConstant.columnNameName: bean.name,
@@ -33,18 +34,27 @@ class ImDatabaseProvider extends DatabaseProvider<ChatMessageBean> {
   @override
   Future<int> delete(String userId) async {
     Database db = await database;
-    return db.delete(DBConstant.messageTable);
+    return db.delete(
+      DBConstant.messageTable,
+      where: "${DBConstant.columnNameUserId} = ?",
+      whereArgs: [userId],
+    );
   }
 
   @override
-  Future<int> update(ChatMessageBean bean) {
+  Future<int> update(String userId, ChatMessageBean bean) {
 
   }
 
   @override
-  Future<List<Map<String, dynamic>>> query() async {
+  Future<List<Map<String, dynamic>>> query(String userId) async {
+    print("userId:$userId");
     Database db = await database;
-    return db.query(DBConstant.messageTable);
+    return db.query(
+      DBConstant.messageTable,
+      where: "${DBConstant.columnNameUserId} = ?",
+      whereArgs: [userId],
+    );
   }
 
   @override

@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
+import '../personal_constant.dart';
+
 class PersonalHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class PersonalHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "一休",
+                    PersonalConstant.userName,
                     style: TextStyle(
                       fontSize: 18,
                       color: Color(0xff353535),

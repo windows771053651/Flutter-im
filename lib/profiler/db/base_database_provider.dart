@@ -29,7 +29,7 @@ abstract class DatabaseProvider<T> {
 
   Future<int> delete(String userId);
 
-  Future<int> update(T bean);
+  Future<int> update(String userId, T bean);
 
-  Future<List<Map<String, dynamic>>> query();
+  Future<List<Map<String, dynamic>>> query(String userId);
 }

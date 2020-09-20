@@ -122,7 +122,7 @@ class ChatSettingsPage extends StatelessWidget {
                                 ),
                               ),
                               callBack: () {
-                                Future future = MessageControllerImpl.instance.clearAllNativeMessage("");
+                                Future future = MessageControllerImpl.instance.clearAllNativeMessage("${chatUserName.hashCode}");
                                 future.then((onValue) {
                                   print("删除:$onValue条数据");
                                   Navigator.of(context).pop();
