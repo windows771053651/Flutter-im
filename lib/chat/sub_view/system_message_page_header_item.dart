@@ -25,7 +25,7 @@ class SystemMessageHeaderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double horizontalEnableWidth = MediaQuery.of(context).size.width - 16 * 2;
+    double screenWidth = MediaQuery.of(context).size.width;
     double scrollOffset = 0;
     scrollController.addListener(() {
       scrollOffset = scrollController.offset;
@@ -55,16 +55,9 @@ class SystemMessageHeaderItem extends StatelessWidget {
       ),
       callBack: () {
           Rect rect = getWidgetPosition(context);
-          if (rect.left + rect.width / 2 > horizontalEnableWidth / 2) {
-            /// 左移
-            double offset = rect.left + rect.width / 2 - horizontalEnableWidth / 2;
-            _scrollToCenterHorizontal(scrollOffset + offset);
-          } else {
-            /// 右移
-            if (scrollOffset > horizontalEnableWidth / 2) {
-              double offset = (rect.left + rect.width / 2 - horizontalEnableWidth / 2);
-              _scrollToCenterHorizontal(scrollOffset + offset);
-            }
+          if (rect.left + rect.width / 2 != screenWidth / 2) {
+            double offset = (rect.left + rect.width / 2 - screenWidth / 2);
+            _scrollToCenterHorizontal(offset + scrollOffset);
           }
       },
     );
