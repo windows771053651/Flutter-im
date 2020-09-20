@@ -9,7 +9,7 @@ import 'package:flutter_im/contacts/new_friends_page.dart';
 import 'package:flutter_im/contacts/phone_contacts_page.dart';
 import 'package:flutter_im/contacts/remarks_settings.dart';
 import 'package:flutter_im/contacts/user_info_page.dart';
-import 'package:flutter_im/personal/social_updates.dart';
+import 'package:flutter_im/personal/friends_updates.dart';
 import 'package:flutter_im/contacts/stranger_validation_page.dart';
 import 'package:flutter_im/router/page_id.dart';
 import '../personal/image_display_page.dart';
@@ -39,7 +39,7 @@ class RouterManager {
     PageId.GROUP_CONTACTS_PHONE_CONTACTS: (context) => PhoneContactsPage(),
 
     /// 我的模块
-    PageId.GROUP_PERSONAL_SOCIAL_UPDATES: (context) => SocialUpdates(),
+    PageId.GROUP_PERSONAL_FRIENDS_UPDATES: (context) => FriendsUpdates(),
   };
 
   static Map<String, WidgetBuilder> get routers => _routers;

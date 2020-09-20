@@ -11,15 +11,15 @@ import 'chat_page_bottom_tools_box/tools_box_second_page.dart';
 
 /// 聊天页面底部组件
 class ChatBottomWidget extends StatefulWidget {
-  final ListViewScrollToBottom _scrollToBottom;
+  final ListViewScrollToBottom scrollToBottom;
 
-  ChatBottomWidget(this._scrollToBottom);
+  ChatBottomWidget(this.scrollToBottom);
 
   @override
-  State createState() => ChatBottomState();
+  State createState() => _ChatBottomState();
 }
 
-class ChatBottomState extends State<ChatBottomWidget> {
+class _ChatBottomState extends State<ChatBottomWidget> {
   TextEditingController _textEditingController;
 
   FocusNode _focusNode;
@@ -170,7 +170,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
               FocusScope.of(context).requestFocus(FocusNode());
               setState(() {
                 _toolsBoxVisible = true;
-                widget._scrollToBottom();
+                widget.scrollToBottom();
               });
             },
           ),

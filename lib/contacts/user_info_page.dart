@@ -133,7 +133,7 @@ class UserInfoState extends State<UserInfoPage> {
               ),
             ),
             callBack: () {
-              Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_SOCIAL_UPDATES);
+              Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_FRIENDS_UPDATES, arguments: [_contactVO.name, _contactVO.avatarUrl]);
             },
           ),
           Container(

@@ -44,7 +44,7 @@ class PageId{
 
   /// ------------------------------"我的"模块start---------------------------
   /// 好友动态页面
-  static const String GROUP_PERSONAL_SOCIAL_UPDATES = GROUP_PERSONAL + "/social_updates";
+  static const String GROUP_PERSONAL_FRIENDS_UPDATES = GROUP_PERSONAL + "/friends_updates";
   /// ------------------------------"我的"模块end---------------------------
 
 
