@@ -123,6 +123,7 @@ class ChatPictureItem extends StatelessWidget {
       ),
     );
   }
+
   Widget _getPictureWidget() {
     return isStringNotEmpty(chatMessageBean.picturePath)
             ? Image.network(chatMessageBean.picturePath, )

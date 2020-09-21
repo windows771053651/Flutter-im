@@ -71,7 +71,6 @@ class _FriendsUpdatesHeaderState extends State<FriendsUpdatesHeader> {
           padding: EdgeInsets.all(12),
           child: Icon(Icons.photo_camera, color: Colors.white,),
           callBack: () {
-            _displayHeaderBgSelectDialog();
           },
         ),
       ],
@@ -79,37 +78,44 @@ class _FriendsUpdatesHeaderState extends State<FriendsUpdatesHeader> {
   }
 
   Widget _getBackgroundWidget() {
-    return Stack(
-      alignment: Alignment.bottomRight,
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(bottom: 12),
-          child: AspectRatio(
-            aspectRatio: PersonalConstant.friendsUpdatesHeaderBgRatio,
-            child: _getHeaderBackgroundImageWidget(),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(right: 12),
-          child: getClipRRectImage(
-            networkUrl: widget.avatarUrl,
-            radius: 6,
-            width: 60,
-            height: 60,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(bottom: 18, right: 84),
-          child: Text(
-            widget.name,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
+    return TouchCallBack(
+      normalColor: Colors.white,
+      pressedColor: Colors.white,
+      child: Stack(
+        alignment: Alignment.bottomRight,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(bottom: 12),
+            child: AspectRatio(
+              aspectRatio: PersonalConstant.friendsUpdatesHeaderBgRatio,
+              child: _getHeaderBackgroundImageWidget(),
             ),
           ),
-        ),
-      ],
+          Container(
+            margin: EdgeInsets.only(right: 12),
+            child: getClipRRectImage(
+              networkUrl: widget.avatarUrl,
+              radius: 6,
+              width: 60,
+              height: 60,
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(bottom: 18, right: 84),
+            child: Text(
+              widget.name,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+      callBack: () {
+        _displayHeaderBgSelectDialog();
+      },
     );
   }
 
