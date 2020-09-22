@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/personal/bean/friends_updates_bean.dart';
+import 'package:flutter_im/personal/bean/image_display_bean.dart';
 import 'package:flutter_im/router/page_id.dart';
 
 class FriendsUpdatesItemPicture extends StatelessWidget {
@@ -70,7 +71,7 @@ class FriendsUpdatesItemPicture extends StatelessWidget {
         normalColor: Colors.transparent,
         child: Image.network(itemBean.icons[0],),
         callBack: () {
-          Navigator.of(context).pushNamed(PageId.GROUP_MAIN_IMAGE_DISPLAY, arguments: itemBean.icons[0]);
+          Navigator.of(context).pushNamed(PageId.GROUP_MAIN_IMAGE_DISPLAY, arguments: ImageDisplayBean(pictures: itemBean.icons));
         },
       ),
     );
@@ -96,7 +97,7 @@ class FriendsUpdatesItemPicture extends StatelessWidget {
         margin: EdgeInsets.only(top: 2, right: 2),
         child: Image.network(itemBean.icons[i], width: pictureCellWidth, height: pictureCellWidth, fit: BoxFit.cover,),
         callBack: () {
-          Navigator.of(context).pushNamed(PageId.GROUP_MAIN_IMAGE_DISPLAY, arguments: itemBean.icons[i]);
+          Navigator.of(context).pushNamed(PageId.GROUP_MAIN_IMAGE_DISPLAY, arguments: ImageDisplayBean(index:i, pictures: itemBean.icons,),);
         },
       );
       index++;

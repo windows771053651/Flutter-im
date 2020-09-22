@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/chat_message_bean.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/contacts/bean/contact_bean.dart';
+import 'package:flutter_im/personal/bean/image_display_bean.dart';
 import 'package:flutter_im/personal/image_display_page.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/im_tools.dart';
@@ -118,7 +119,7 @@ class ChatPictureItem extends StatelessWidget {
         callBack: () {
           Navigator.of(context).pushNamed(
               PageId.GROUP_MAIN_IMAGE_DISPLAY,
-              arguments: isStringNotEmpty(chatMessageBean.picturePath) ? chatMessageBean.picturePath : (chatMessageBean.nativePicturePath + ImageDisplayPage.nativePictureFlag));
+              arguments: ImageDisplayBean(pictures: [isStringNotEmpty(chatMessageBean.picturePath) ? chatMessageBean.picturePath : (chatMessageBean.nativePicturePath + ImageDisplayPage.nativePictureFlag)]));
         },
       ),
     );

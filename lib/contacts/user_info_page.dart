@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/common_text_item.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/personal/bean/image_display_bean.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
@@ -39,7 +40,7 @@ class UserInfoState extends State<UserInfoPage> {
                   child: getClipRRectImage(networkUrl: _contactVO.avatarUrl),
                   pressedColor: Colors.transparent,
                   callBack: () {
-                    Navigator.of(context).pushNamed(PageId.GROUP_MAIN_IMAGE_DISPLAY, arguments: _contactVO.avatarUrl);
+                    Navigator.of(context).pushNamed(PageId.GROUP_MAIN_IMAGE_DISPLAY, arguments: ImageDisplayBean(pictures: [_contactVO.avatarUrl]));
                   },
                 ),
                 Container(

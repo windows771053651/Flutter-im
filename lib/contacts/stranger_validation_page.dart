@@ -4,6 +4,7 @@ import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/common_text_item.dart';
 import 'package:flutter_im/common/horizontal_line.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/personal/bean/image_display_bean.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
@@ -54,7 +55,7 @@ class _StrangerValidationState extends State<StrangerValidationPage> {
                       child: getClipRRectImage(networkUrl: _avatarUrl,),
                       pressedColor: Colors.transparent,
                       callBack: () {
-                        Navigator.of(context).pushNamed(PageId.GROUP_MAIN_IMAGE_DISPLAY, arguments: _avatarUrl);
+                        Navigator.of(context).pushNamed(PageId.GROUP_MAIN_IMAGE_DISPLAY, arguments: ImageDisplayBean(pictures: [_avatarUrl]));
                       },
                     ),
                     Container(
