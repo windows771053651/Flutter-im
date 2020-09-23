@@ -23,6 +23,8 @@ class FriendsUpdatesItemLink extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             color: Colors.blue[700],
+            decoration: TextDecoration.none,
+            fontWeight: FontWeight.normal,
           ),
         ),
         TouchCallBack(
@@ -53,6 +55,8 @@ class FriendsUpdatesItemLink extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.blue[700],
+                          decoration: TextDecoration.none,
+                          fontWeight: FontWeight.normal,
                         ),
                       ),
                       Text(
@@ -60,6 +64,8 @@ class FriendsUpdatesItemLink extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 10,
                           color: Colors.grey,
+                          decoration: TextDecoration.none,
+                          fontWeight: FontWeight.normal,
                         ),
                       ),
                     ],

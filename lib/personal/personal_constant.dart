@@ -4,5 +4,5 @@ class PersonalConstant {
   /// 朋友圈背景图
   static const String friendsUpdatesHeaderBg = "images/friends_updates_header_bg.jpeg";
   /// 朋友圈背景图比例
-  static const double friendsUpdatesHeaderBgRatio = 1.4;
+  static const double friendsUpdatesHeaderBgRatio = 1.5;
 }

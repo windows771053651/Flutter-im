@@ -6,11 +6,11 @@ import 'package:flutter_im/utils/im_tools.dart';
 import 'friends_updates_item_link.dart';
 import 'friends_updates_item_picture.dart';
 
-class FriendsUpatesItem extends StatelessWidget {
+class FriendsUpdatesItem extends StatelessWidget {
 
   final FriendsUpdatesBean itemBean;
 
-  FriendsUpatesItem(this.itemBean);
+  FriendsUpdatesItem(this.itemBean);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class FriendsUpatesItem extends StatelessWidget {
         border: Border(
           bottom: BorderSide(
             width: 0.5,
-            color: Color(0xffededed),
+            color: Color(0xfff5f5f5),
           )
         ),
       ),

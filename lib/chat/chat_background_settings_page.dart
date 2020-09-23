@@ -8,10 +8,11 @@ import 'package:image_picker/image_picker.dart';
 class ChatBackgroundSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String title = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: getAppBar(
         context,
-        leftTitle: "聊天背景",
+        leftTitle: title,
       ),
       body: Column(
         children: <Widget>[

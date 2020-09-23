@@ -94,7 +94,7 @@ List<FriendsUpdatesBean> getFriendsUpdatesDataResource() {
       icons: [
         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600664942575&di=4f17c645950e4b52cd2abc43964329cf&imgtype=0&src=http%3A%2F%2Fimg.ewebweb.com%2Fuploads%2F20190929%2F23%2F1569771268-wxRzNEtJeW.jpg",
         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600664962324&di=2335d7acbea6bd4bf09b6d11fbfcf7ff&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201607%2F01%2F20160701184747_BP2iZ.jpeg",
-        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600664962324&di=2335d7acbea6bd4bf09b6d11fbfcf7ff&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201607%2F01%2F20160701184747_BP2iZ.jpeg",
+        "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=616293035,1901278771&fm=26&gp=0.jpg",
       ],
     ),
     FriendsUpdatesBean(

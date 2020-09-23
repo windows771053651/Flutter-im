@@ -25,7 +25,7 @@ class ChatSettingsPage extends StatelessWidget {
             leftTitleWidth: 200,
             margin: EdgeInsets.only(top: 12),
             callback: () {
-              Future future = Navigator.of(context).pushNamed(PageId.GROUP_CHAT_CHAT_BACKGROUND_SETTINGS_PAGE);
+              Future future = Navigator.of(context).pushNamed(PageId.GROUP_CHAT_CHAT_BACKGROUND_SETTINGS_PAGE, arguments: "聊天背景");
               future.then((onValue) {
                 if (onValue != null) {
                   print("ChatSettingsPage image:$onValue");

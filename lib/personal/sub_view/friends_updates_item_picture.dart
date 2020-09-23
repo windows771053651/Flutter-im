@@ -26,6 +26,8 @@ class FriendsUpdatesItemPicture extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             color: Colors.blue[700],
+            decoration: TextDecoration.none,
+            fontWeight: FontWeight.normal,
           ),
         ),
         Text(
@@ -33,6 +35,8 @@ class FriendsUpdatesItemPicture extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             color: Colors.black,
+            decoration: TextDecoration.none,
+            fontWeight: FontWeight.normal,
           ),
         ),
         _getNormalItemPictures(context),
