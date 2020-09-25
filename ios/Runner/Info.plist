@@ -46,5 +46,7 @@
     <string>contacts</string>
     <key>io.flutter.embedded_views_preview</key>
     <string>YES</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>App need your agree, can visit your album</string>
 </dict>
 </plist>

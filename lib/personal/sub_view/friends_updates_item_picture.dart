@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,8 @@ import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/personal/bean/friends_updates_bean.dart';
 import 'package:flutter_im/personal/bean/image_display_bean.dart';
 import 'package:flutter_im/router/page_id.dart';
+
+import '../image_display_page.dart';
 
 class FriendsUpdatesItemPicture extends StatelessWidget {
 
@@ -73,9 +76,9 @@ class FriendsUpdatesItemPicture extends StatelessWidget {
       child: TouchCallBack(
         pressedColor: Colors.transparent,
         normalColor: Colors.transparent,
-        child: Image.network(itemBean.icons[0],),
+        child: _getOnePictureModePicWidget(itemBean.icons[0]),
         callBack: () {
-          Navigator.of(context).pushNamed(PageId.GROUP_MAIN_IMAGE_DISPLAY, arguments: ImageDisplayBean(pictures: itemBean.icons));
+          Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_MULTI_IMAGE_DISPLAY, arguments: ImageDisplayBean(pictures: itemBean.icons));
         },
       ),
     );
@@ -99,15 +102,43 @@ class FriendsUpdatesItemPicture extends StatelessWidget {
     for (int i = start; i < end && i < itemBean.icons.length; i++) {
       children[index] = TouchCallBack(
         margin: EdgeInsets.only(top: 2, right: 2),
-        child: Image.network(itemBean.icons[i], width: pictureCellWidth, height: pictureCellWidth, fit: BoxFit.cover,),
+        child: _getMorePictureModePicWidget(itemBean.icons[i], pictureCellWidth),
         callBack: () {
-          Navigator.of(context).pushNamed(PageId.GROUP_MAIN_IMAGE_DISPLAY, arguments: ImageDisplayBean(index:i, pictures: itemBean.icons,),);
+          Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_MULTI_IMAGE_DISPLAY, arguments: ImageDisplayBean(index:i, pictures: itemBean.icons,),);
         },
       );
       index++;
     }
     return Row(
       children: children,
+    );
+  }
+
+  Widget _getOnePictureModePicWidget(String picturePath) {
+    return !picturePath.contains(ImageDisplayPage.nativePictureFlag)
+        ? Image.network(picturePath, fit: BoxFit.contain,)
+        : Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: FileImage(File(picturePath.substring(0, picturePath.indexOf(ImageDisplayPage.nativePictureFlag))),),
+          fit: BoxFit.contain,
+        ),
+      ),
+    );
+  }
+
+  Widget _getMorePictureModePicWidget(String picturePath, double pictureCellWidth) {
+    return !picturePath.contains(ImageDisplayPage.nativePictureFlag)
+        ? Image.network(picturePath, width: pictureCellWidth, height: pictureCellWidth, fit: BoxFit.cover,)
+        : Container(
+            width: pictureCellWidth,
+            height: pictureCellWidth,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: FileImage(File(picturePath.substring(0, picturePath.indexOf(ImageDisplayPage.nativePictureFlag))),),
+                fit: BoxFit.cover,
+              ),
+            ),
     );
   }
 }

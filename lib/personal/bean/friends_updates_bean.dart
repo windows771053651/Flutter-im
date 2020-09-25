@@ -19,6 +19,12 @@ class FriendsUpdatesBean {
     this.link,
     this.replyInfo,
   });
+
+  @override
+  String toString() {
+    return 'FriendsUpdatesBean{userName: $userName, avatarUrl: $avatarUrl, title: $title, icons: $icons, link: $link, replyInfo: $replyInfo}';
+  }
+
 }
 
 class FriendsUpdatesLink {
@@ -45,7 +51,7 @@ List<FriendsUpdatesBean> getFriendsUpdatesDataResource() {
       avatarUrl: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1235218559,506015443&fm=26&gp=0.jpg",
       title: "回家挖地瓜还要转二里地，不好",
       icons: [
-        "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2646478299,3976258389&fm=26&gp=0.jpg",
+        "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3575632660,1307405780&fm=26&gp=0.jpg",
       ],
     ),
     FriendsUpdatesBean(

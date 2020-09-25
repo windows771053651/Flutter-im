@@ -32,7 +32,7 @@ class FriendsUpdatesItemLink extends StatelessWidget {
           padding: EdgeInsets.all(2),
           normalColor: Color(0xffededed),
           callBack: () {
-            Navigator.of(context).pushNamed(PageId.GROUP_MAIN_WEBVIEW_LOADING_PAGE, arguments: [itemBean.link.title, itemBean.link.link]);
+            Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_WEBVIEW_LOADING_PAGE, arguments: [itemBean.link.title, itemBean.link.link]);
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,

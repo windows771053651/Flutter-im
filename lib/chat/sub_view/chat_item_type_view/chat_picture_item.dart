@@ -118,7 +118,7 @@ class ChatPictureItem extends StatelessWidget {
         child: _getPictureWidget(),
         callBack: () {
           Navigator.of(context).pushNamed(
-              PageId.GROUP_MAIN_IMAGE_DISPLAY,
+              PageId.GROUP_PERSONAL_MULTI_IMAGE_DISPLAY,
               arguments: ImageDisplayBean(pictures: [isStringNotEmpty(chatMessageBean.picturePath) ? chatMessageBean.picturePath : (chatMessageBean.nativePicturePath + ImageDisplayPage.nativePictureFlag)]));
         },
       ),

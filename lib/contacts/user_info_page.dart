@@ -40,7 +40,7 @@ class UserInfoState extends State<UserInfoPage> {
                   child: getClipRRectImage(networkUrl: _contactVO.avatarUrl),
                   pressedColor: Colors.transparent,
                   callBack: () {
-                    Navigator.of(context).pushNamed(PageId.GROUP_MAIN_IMAGE_DISPLAY, arguments: ImageDisplayBean(pictures: [_contactVO.avatarUrl]));
+                    Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_MULTI_IMAGE_DISPLAY, arguments: ImageDisplayBean(pictures: [_contactVO.avatarUrl]));
                   },
                 ),
                 Container(

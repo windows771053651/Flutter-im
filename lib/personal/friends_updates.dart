@@ -5,9 +5,11 @@ import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/personal/personal_constant.dart';
 import 'package:flutter_im/personal/sub_view/friends_updates_header.dart';
 import 'package:flutter_im/personal/sub_view/friends_updates_item.dart';
+import 'package:flutter_im/router/page_id.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:photo/photo.dart';
 import 'bean/friends_updates_bean.dart';
+import 'package:photo_manager/photo_manager.dart';
 
 class FriendsUpdates extends StatefulWidget {
   @override
@@ -110,7 +112,6 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
     );
   }
 
-
   /// 朋友圈图片或者拍照对话框
   void _displayFriendsUpdatesDialog() {
     showDialog(
@@ -128,6 +129,7 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
                 _takePhoto(context);
                 break;
               case 1:
+                _testPhotoListParams();
                 break;
             }
           },
@@ -136,10 +138,94 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
     );
   }
 
-  /// 拍照
+  /*相册*/
+  void _testPhotoListParams() async {
+    var assetPathList = await PhotoManager.getImageAsset();
+    _openGallery(pathList: assetPathList);
+  }
+
+  /*相册*/
+  _openGallery({List<AssetPathEntity> pathList}) async {
+    List<AssetEntity> imgList = await PhotoPicker.pickAsset(
+      // BuildContext required
+      context: context,
+      /// The following are optional parameters.
+      themeColor: Colors.green,
+      // the title color and bottom color
+      textColor: Colors.white,
+      // text color
+      padding: 1.0,
+      // item padding
+      dividerColor: Colors.grey,
+      // divider color
+      disableColor: Colors.grey.shade300,
+      // the check box disable color
+      itemRadio: 0.88,
+      // the content item radio
+      maxSelected: 9,
+      // max picker image count
+      // provider: I18nProvider.english,
+      provider: I18nProvider.chinese,
+      // i18n provider ,default is chinese. , you can custom I18nProvider or use ENProvider()
+      rowCount: 4,
+      // item row count
+      thumbSize: 150,
+      // preview thumb size , default is 64
+      sortDelegate: SortDelegate.common,
+      // default is common ,or you make custom delegate to sort your gallery
+      checkBoxBuilderDelegate: DefaultCheckBoxBuilderDelegate(
+        activeColor: Colors.white,
+        unselectedColor: Colors.white,
+        checkColor: Colors.green,
+      ),
+      // default is DefaultCheckBoxBuilderDelegate ,or you make custom delegate to create checkbox
+      // if you want to build custom loading widget,extends LoadingDelegate, [see example/lib/main.dart]
+      badgeDelegate: const DurationBadgeDelegate(),
+      // badgeDelegate to show badge widget
+      pickType: PickType.onlyImage,
+      photoPathList: pathList,
+    );
+
+    if (imgList != null || imgList.isNotEmpty) {
+      List<String> nativePictureAbsPath = [];
+      for (var e in imgList) {
+        var file = await e.file;
+        nativePictureAbsPath.add(file.absolute.path);
+      }
+      _publishFriendsUpdates(nativePictureAbsPath);
+    }
+  }
+
+    /// 拍照
   _takePhoto(BuildContext context) async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
     if (image != null && image.existsSync()) {
+      _publishFriendsUpdates([image.path]);
     }
+  }
+
+  /// 发布朋友圈
+  _publishFriendsUpdates(List pictures) {
+    Future future = Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_PUBLISH_FRIENDS_UPDATES, arguments: [_name, _avatarUrl, pictures]);
+    future.then((onValue) {
+      if (onValue != null) {
+        setState(() {
+          FriendsUpdatesBean bean = onValue;
+          dataResources.insert(0, bean);
+          _scrollToTop();
+        });
+      }
+    });
+  }
+
+  /// 滚动到顶部
+  _scrollToTop() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _controller.animateTo(
+        0.0,
+        curve: Curves.easeOut,
+        duration: const Duration(milliseconds: 300),
+      );
+    });
   }
 }

@@ -21,7 +21,7 @@ class SystemMessageItem extends StatelessWidget {
           pressedColor: Colors.transparent,
           normalColor: Colors.transparent,
           callBack: () {
-            Navigator.of(context).pushNamed(PageId.GROUP_MAIN_WEBVIEW_LOADING_PAGE, arguments: [systemMessageBean.name, systemMessageBean.detailsUrl]);
+            Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_WEBVIEW_LOADING_PAGE, arguments: [systemMessageBean.name, systemMessageBean.detailsUrl]);
           },
           child: Container(
             padding: EdgeInsets.only(top: 8,),
@@ -73,7 +73,7 @@ class SystemMessageItem extends StatelessWidget {
                   bottomLeftRadius: 8,
                   bottomRightRadius: 8,
                   callBack: () {
-                    Navigator.of(context).pushNamed(PageId.GROUP_MAIN_WEBVIEW_LOADING_PAGE, arguments: [systemMessageBean.name, systemMessageBean.detailsUrl]);
+                    Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_WEBVIEW_LOADING_PAGE, arguments: [systemMessageBean.name, systemMessageBean.detailsUrl]);
                   },
                   child: Container(
                     margin: EdgeInsets.only(left: 12, top: 12, right: 12),

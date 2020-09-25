@@ -42,3 +42,11 @@ bool isStringEmpty(String str) {
 bool isStringNotEmpty(String str) {
   return !isStringEmpty(str);
 }
+
+bool isListEmpty(List data) {
+  return isListNotEmpty(data);
+}
+
+bool isListNotEmpty(List data) {
+  return data != null && data.length > 0;
+}

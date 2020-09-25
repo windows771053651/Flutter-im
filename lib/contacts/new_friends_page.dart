@@ -62,7 +62,7 @@ class _NewFriendsState extends State<NewFriendsPage> {
                 ],
               ),
               callBack: () {
-                Navigator.of(context).pushNamed(PageId.GROUP_MAIN_SEARCH);
+                Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_SEARCH);
               },
             ),
           ),

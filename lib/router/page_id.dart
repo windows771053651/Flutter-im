@@ -45,17 +45,19 @@ class PageId{
   /// ------------------------------"我的"模块start---------------------------
   /// 好友动态页面
   static const String GROUP_PERSONAL_FRIENDS_UPDATES = GROUP_PERSONAL + "/friends_updates";
+  /// 发布好友动态页面
+  static const String GROUP_PERSONAL_PUBLISH_FRIENDS_UPDATES = GROUP_PERSONAL + "/publish_friends_updates";
+  /// 搜索页面
+  static const String GROUP_PERSONAL_SEARCH = GROUP_PERSONAL + "/search";
+  /// 展示图片页面
+  static const String GROUP_PERSONAL_MULTI_IMAGE_DISPLAY = GROUP_PERSONAL + "/image_display";
+  /// web页面
+  static const String GROUP_PERSONAL_WEBVIEW_LOADING_PAGE = GROUP_PERSONAL + "/webview_loading_page";
   /// ------------------------------"我的"模块end---------------------------
 
 
   /// ------------------------------"主模块start---------------------------
   /// 主页面
   static const String GROUP_MAIN = GROUP_APP + "/app";
-  /// 搜索页面
-  static const String GROUP_MAIN_SEARCH = GROUP_APP + "/search";
-  /// 展示图片页面
-  static const String GROUP_MAIN_IMAGE_DISPLAY = GROUP_APP + "/image_display";
-  /// web页面
-  static const String GROUP_MAIN_WEBVIEW_LOADING_PAGE = GROUP_APP + "/webview_loading_page";
   /// ------------------------------"主模块end---------------------------
 }

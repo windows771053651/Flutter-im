@@ -55,7 +55,7 @@ class _StrangerValidationState extends State<StrangerValidationPage> {
                       child: getClipRRectImage(networkUrl: _avatarUrl,),
                       pressedColor: Colors.transparent,
                       callBack: () {
-                        Navigator.of(context).pushNamed(PageId.GROUP_MAIN_IMAGE_DISPLAY, arguments: ImageDisplayBean(pictures: [_avatarUrl]));
+                        Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_MULTI_IMAGE_DISPLAY, arguments: ImageDisplayBean(pictures: [_avatarUrl]));
                       },
                     ),
                     Container(

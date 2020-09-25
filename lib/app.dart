@@ -72,7 +72,7 @@ class AppState extends State<App> {
           GestureDetector(
             child: Icon(Icons.search),
             onTap: () {
-              Navigator.of(context).pushNamed(PageId.GROUP_MAIN_SEARCH);
+              Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_SEARCH);
             },
           ),
           PopupMenuButton(
