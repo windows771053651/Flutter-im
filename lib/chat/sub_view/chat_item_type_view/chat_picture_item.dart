@@ -65,7 +65,7 @@ class ChatPictureItem extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(4)),
           ),
-          child: _getPictureOutWidget(context),
+          child: _getPictureOutWidget(context, false),
         ),
       ],
     );
@@ -81,7 +81,7 @@ class ChatPictureItem extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(4)),
           ),
-          child: _getPictureOutWidget(context),
+          child: _getPictureOutWidget(context, true),
         ),
         TouchCallBack(
           normalColor: Colors.transparent,
@@ -104,7 +104,7 @@ class ChatPictureItem extends StatelessWidget {
     );
   }
 
-  Widget _getPictureOutWidget(BuildContext context) {
+  Widget _getPictureOutWidget(BuildContext context, bool isOut) {
     return ConstrainedBox(
       constraints: BoxConstraints(
         minWidth: 50,
@@ -115,7 +115,7 @@ class ChatPictureItem extends StatelessWidget {
       child: TouchCallBack(
         pressedColor: Colors.transparent,
         normalColor: Colors.transparent,
-        child: _getPictureWidget(),
+        child: _getPictureWidget(isOut),
         callBack: () {
           Navigator.of(context).pushNamed(
               PageId.GROUP_PERSONAL_MULTI_IMAGE_DISPLAY,
@@ -125,12 +125,13 @@ class ChatPictureItem extends StatelessWidget {
     );
   }
 
-  Widget _getPictureWidget() {
+  Widget _getPictureWidget(bool isOut) {
     return isStringNotEmpty(chatMessageBean.picturePath)
             ? Image.network(chatMessageBean.picturePath, )
             : Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
+                    alignment: isOut ? Alignment.topRight : Alignment.topLeft,
                     image: FileImage(File(chatMessageBean.nativePicturePath),),
                   ),
                 ),

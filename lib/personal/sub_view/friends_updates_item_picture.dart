@@ -120,6 +120,7 @@ class FriendsUpdatesItemPicture extends StatelessWidget {
         : Container(
       decoration: BoxDecoration(
         image: DecorationImage(
+          alignment: Alignment.topLeft,
           image: FileImage(File(picturePath.substring(0, picturePath.indexOf(ImageDisplayPage.nativePictureFlag))),),
           fit: BoxFit.contain,
         ),
