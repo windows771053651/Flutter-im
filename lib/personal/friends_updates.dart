@@ -188,7 +188,7 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
   }
 
   /// 发布朋友圈
-  _publishFriendsUpdates(List pictures) {
+  _publishFriendsUpdates(List<String> pictures) {
     Future future = Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_PUBLISH_FRIENDS_UPDATES, arguments: [_name, _avatarUrl, pictures]);
     future.then((onValue) {
       if (onValue != null) {
