@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/personal/bean/friends_updates_bean.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
@@ -15,7 +16,7 @@ class FriendsUpdatesItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: EdgeInsets.only(left: 12, top: 12, right: 12, bottom: 6),
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(
@@ -37,12 +38,46 @@ class FriendsUpdatesItem extends StatelessWidget {
           Expanded(
             child: Container(
               margin: EdgeInsets.only(left: 8),
-              child: _getItemWidget(context),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _getItemWidget(context),
+                  Container(
+                    margin: EdgeInsets.only(top: 6),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Text(
+                            itemBean.time,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                        TouchCallBack(
+                          child: Image.asset("images/menu_ellipsie2_icon.png", width: 24, height: 16,),
+                          normalColor: Color(0x10000000),
+                          radius: 2,
+                          callBack: () {
+                            _displayOptionMenu();
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  void _displayOptionMenu() {
+
   }
 
   Widget _getItemWidget(BuildContext context) {

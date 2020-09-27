@@ -28,7 +28,7 @@ class FriendsUpdatesItemLink extends StatelessWidget {
           ),
         ),
         TouchCallBack(
-          margin: EdgeInsets.only(top: 8),
+          margin: EdgeInsets.only(top: 4),
           padding: EdgeInsets.all(2),
           normalColor: Color(0xffededed),
           callBack: () {

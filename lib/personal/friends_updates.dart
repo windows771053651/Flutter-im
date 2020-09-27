@@ -138,13 +138,13 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
     );
   }
 
-  /*相册*/
+  /// 相册
   void _testPhotoListParams() async {
     var assetPathList = await PhotoManager.getImageAsset();
     _openGallery(pathList: assetPathList);
   }
 
-  /*相册*/
+  /// 相册
   _openGallery({List<AssetPathEntity> pathList}) async {
     List<AssetEntity> imgList = await PhotoPicker.pickAsset(
       context: context,

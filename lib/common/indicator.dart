@@ -9,10 +9,16 @@ class Indicator extends StatefulWidget {
 
   final double radius;
 
+  final Color selectedColor;
+
+  final Color unSelectedColor;
+
   Indicator({
     @required this.count,
     @required this.index,
     @required this.radius,
+    this.selectedColor = Colors.grey,
+    this.unSelectedColor = const Color(0xffcdcdcd),
   });
 
   @override
@@ -39,7 +45,7 @@ class _State extends State<Indicator> {
         height: widget.radius,
         decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: widget.index == index ? Colors.grey : Color(0xffcdcdcd),
+            color: widget.index == index ? widget.selectedColor : widget.unSelectedColor,
         ),
       );
     });

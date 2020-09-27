@@ -52,12 +52,12 @@ class FriendsUpdatesItemPicture extends StatelessWidget {
     if (itemBean.icons != null && itemBean.icons.length > 0) {
       if (itemBean.icons.length == 1) {
         return Container(
-          margin: EdgeInsets.only(top: 12),
+          margin: EdgeInsets.only(top: 4),
           child: _getOnePictureItem(context),
         );
       } else {
         return Container(
-          margin: EdgeInsets.only(top: 12),
+          margin: EdgeInsets.only(top: 4),
           child: _getOneMorePictureItem(context),
         );
       }

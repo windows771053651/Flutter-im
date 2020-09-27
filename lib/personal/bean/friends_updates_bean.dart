@@ -1,15 +1,21 @@
+import 'package:flutter/cupertino.dart';
+
 class FriendsUpdatesBean {
-  final String userName;
+  String userName;
 
-  final String avatarUrl;
+  String avatarUrl;
 
-  final String title;
+  String title;
 
-  final List<String> icons;
+  List<String> icons;
 
-  final FriendsUpdatesLink link;
+  FriendsUpdatesLink link;
 
-  final List<String> replyInfo;
+  List<String> replyInfo;
+
+  Praise praise;
+
+  String time;
 
   FriendsUpdatesBean({
     this.userName,
@@ -18,15 +24,12 @@ class FriendsUpdatesBean {
     this.icons,
     this.link,
     this.replyInfo,
+    this.praise,
+    this.time,
   });
-
-  @override
-  String toString() {
-    return 'FriendsUpdatesBean{userName: $userName, avatarUrl: $avatarUrl, title: $title, icons: $icons, link: $link, replyInfo: $replyInfo}';
-  }
-
 }
 
+/// 短链
 class FriendsUpdatesLink {
   final String icon;
 
@@ -44,6 +47,13 @@ class FriendsUpdatesLink {
   });
 }
 
+/// 点赞
+class Praise {
+  String praisedUserName;
+
+  Praise({@required this.praisedUserName});
+}
+
 List<FriendsUpdatesBean> getFriendsUpdatesDataResource() {
   return [
     FriendsUpdatesBean(
@@ -53,6 +63,7 @@ List<FriendsUpdatesBean> getFriendsUpdatesDataResource() {
       icons: [
         "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3575632660,1307405780&fm=26&gp=0.jpg",
       ],
+      time: "2小时前",
     ),
     FriendsUpdatesBean(
       userName: "乔巴",
@@ -62,6 +73,7 @@ List<FriendsUpdatesBean> getFriendsUpdatesDataResource() {
         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600664071953&di=8df84e59f97e11fa5b615868ac170930&imgtype=0&src=http%3A%2F%2Fdmimg.5054399.com%2Fallimg%2Foptuji%2Fopsct%2F2.jpg",
         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600664071953&di=e16861bdfabc6b80e3de945422d9aa91&imgtype=0&src=http%3A%2F%2Fwww.pptbz.com%2Fd%2Ffile%2Fp%2F201612%2F822c78eb2a9e9ea4405ba25f85c3883f.jpg",
       ],
+      time: "3小时前",
     ),
     FriendsUpdatesBean(
       userName: "路飞",
@@ -71,6 +83,7 @@ List<FriendsUpdatesBean> getFriendsUpdatesDataResource() {
         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600664071953&di=8df84e59f97e11fa5b615868ac170930&imgtype=0&src=http%3A%2F%2Fdmimg.5054399.com%2Fallimg%2Foptuji%2Fopsct%2F2.jpg",
         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600664071953&di=e16861bdfabc6b80e3de945422d9aa91&imgtype=0&src=http%3A%2F%2Fwww.pptbz.com%2Fd%2Ffile%2Fp%2F201612%2F822c78eb2a9e9ea4405ba25f85c3883f.jpg",
       ],
+      time: "3小时前",
     ),
     FriendsUpdatesBean(
       userName: "古力娜扎",
@@ -83,6 +96,7 @@ List<FriendsUpdatesBean> getFriendsUpdatesDataResource() {
         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600664419531&di=54c261594dbac44f726e3df8e8c4c5a6&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn09%2F547%2Fw600h747%2F20180513%2F45a2-hamfahx4094936.jpg",
         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600664473930&di=24d3419f9e5546b5ddd28b3f92d25f93&imgtype=0&src=http%3A%2F%2Fimages.hongfen.org%2Fallimg%2F191111%2F2Z_1111235321a93.jpg%3F114_150",
       ],
+      time: "4小时前",
     ),
     FriendsUpdatesBean(
       userName: "娜美",
@@ -92,6 +106,7 @@ List<FriendsUpdatesBean> getFriendsUpdatesDataResource() {
         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600664706070&di=60a5419bc896a3141988e4ef04b46ef9&imgtype=0&src=http%3A%2F%2Fi1.hdslb.com%2Fbfs%2Farchive%2F85b4c85cc72e696ba9f2cf6ab58edf218ae70906.jpg",
         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600664770328&di=30e783223eb076e854794b432faa07e7&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201408%2F29%2F20140829224055_FdeMU.jpeg",
       ],
+      time: "5小时前",
     ),
     FriendsUpdatesBean(
       userName: "罗宾",
@@ -102,6 +117,7 @@ List<FriendsUpdatesBean> getFriendsUpdatesDataResource() {
         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600664962324&di=2335d7acbea6bd4bf09b6d11fbfcf7ff&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201607%2F01%2F20160701184747_BP2iZ.jpeg",
         "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=616293035,1901278771&fm=26&gp=0.jpg",
       ],
+      time: "昨天",
     ),
     FriendsUpdatesBean(
       userName: "李嘉欣",
@@ -110,11 +126,13 @@ List<FriendsUpdatesBean> getFriendsUpdatesDataResource() {
       icons: [
         "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1468919391,1277842569&fm=26&gp=0.jpg",
       ],
+      time: "2天前",
     ),
     FriendsUpdatesBean(
       userName: "山治",
       avatarUrl: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=95678857,1304121916&fm=26&gp=0.jpg",
       title: "谁再敢调戏娜美、罗宾我踢死他",
+      time: "2天前",
     ),
 
     FriendsUpdatesBean(
@@ -126,6 +144,7 @@ List<FriendsUpdatesBean> getFriendsUpdatesDataResource() {
         subTitle: "张韶涵",
         link: "https://y.qq.com/n/yqq/album/001gTzQA1I61B3.html",
       ),
+      time: "2天前",
     ),
   ];
 }
