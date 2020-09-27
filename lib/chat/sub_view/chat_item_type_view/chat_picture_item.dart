@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/chat_message_bean.dart';
@@ -127,7 +128,9 @@ class ChatPictureItem extends StatelessWidget {
 
   Widget _getPictureWidget(bool isOut) {
     return isStringNotEmpty(chatMessageBean.picturePath)
-            ? Image.network(chatMessageBean.picturePath, )
+            ? CachedNetworkImage(
+                imageUrl: chatMessageBean.picturePath,
+              )
             : Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(

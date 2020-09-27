@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/touch_callback.dart';
@@ -115,8 +116,8 @@ class ContactItem extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(4),
       child: imageName == null
-          ? Image.network(
-              contactVO.avatarUrl,
+          ? CachedNetworkImage(
+              imageUrl: contactVO.avatarUrl,
               width: size,
               height: size,
               fit: BoxFit.cover,

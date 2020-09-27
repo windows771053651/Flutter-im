@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/system_message_bean.dart';
@@ -36,7 +37,12 @@ class SystemMessageItem extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       margin: EdgeInsets.only(left: 12),
-                      child: getClipRRectImage(networkUrl: systemMessageBean.authorAvatarUrl, width: 24, height: 24, radius: 24 / 2),
+                      child: getClipRRectImage(
+                          networkUrl: systemMessageBean.authorAvatarUrl,
+                          width: 24,
+                          height: 24,
+                          radius: 24 / 2,
+                      ),
                     ),
                     Expanded(
                       child: Container(
@@ -67,7 +73,10 @@ class SystemMessageItem extends StatelessWidget {
                 ),
                 AspectRatio(
                   aspectRatio: 2.0,
-                  child: Image.network(systemMessageBean.displayPictureUrl, fit: BoxFit.cover,),
+                  child: CachedNetworkImage(
+                    imageUrl: systemMessageBean.displayPictureUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 TouchCallBack(
                   bottomLeftRadius: 8,
@@ -107,7 +116,12 @@ class SystemMessageItem extends StatelessWidget {
                         ),
                         Visibility(
                           visible: systemMessageBean.subIconUrl.length != 0,
-                          child: Image.network(systemMessageBean.subIconUrl, width: 52, height: 52, fit: BoxFit.cover,),
+                          child: CachedNetworkImage(
+                            imageUrl: systemMessageBean.subIconUrl,
+                            width: 52,
+                            height: 52,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ],
                     ),

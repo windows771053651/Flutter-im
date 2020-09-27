@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ Widget getClipRRectImage({String assetPath, String networkUrl, double width = 56
     borderRadius: BorderRadius.circular(radius),
     child: assetPath != null
         ? Image.asset(assetPath, width: width, height: height, fit: BoxFit.cover,)
-        : Image.network(networkUrl, width: width, height: height, fit: BoxFit.cover,),
+        : CachedNetworkImage(imageUrl: networkUrl, width: width, height: height,fit: BoxFit.cover,)
   );
 }
 

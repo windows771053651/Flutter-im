@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/touch_callback.dart';
@@ -116,13 +117,16 @@ class FriendsUpdatesItemPicture extends StatelessWidget {
 
   Widget _getOnePictureModePicWidget(String picturePath) {
     return !picturePath.contains(ImageDisplayPage.nativePictureFlag)
-        ? Image.network(picturePath, fit: BoxFit.contain,)
+        ? CachedNetworkImage(
+            imageUrl: picturePath,
+            fit: BoxFit.cover,
+          )
         : Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          alignment: Alignment.topLeft,
-          image: FileImage(File(picturePath.substring(0, picturePath.indexOf(ImageDisplayPage.nativePictureFlag))),),
-          fit: BoxFit.contain,
+            decoration: BoxDecoration(
+            image: DecorationImage(
+              alignment: Alignment.topLeft,
+              image: FileImage(File(picturePath.substring(0, picturePath.indexOf(ImageDisplayPage.nativePictureFlag))),),
+              fit: BoxFit.contain,
         ),
       ),
     );
@@ -130,7 +134,12 @@ class FriendsUpdatesItemPicture extends StatelessWidget {
 
   Widget _getMorePictureModePicWidget(String picturePath, double pictureCellWidth) {
     return !picturePath.contains(ImageDisplayPage.nativePictureFlag)
-        ? Image.network(picturePath, width: pictureCellWidth, height: pictureCellWidth, fit: BoxFit.cover,)
+        ? CachedNetworkImage(
+            imageUrl: picturePath,
+            width: pictureCellWidth,
+            height: pictureCellWidth,
+            fit: BoxFit.cover,
+          )
         : Container(
             width: pictureCellWidth,
             height: pictureCellWidth,

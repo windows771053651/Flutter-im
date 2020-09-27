@@ -38,7 +38,12 @@ class SystemMessageHeaderItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          getClipRRectImage(networkUrl: iconUrl, width: 44, height: 44, radius: 44 / 2),
+          getClipRRectImage(
+              networkUrl: iconUrl,
+              width: 44,
+              height: 44,
+              radius: 44 / 2,
+          ),
           Container(
             margin: EdgeInsets.only(top: 4),
             child: Text(

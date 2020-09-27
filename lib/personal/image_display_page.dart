@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/touch_callback.dart';
@@ -60,7 +61,7 @@ class ImageDisplayPage extends StatelessWidget {
 
   Widget _getPictureWidget(String picturePath) {
     return !picturePath.contains(nativePictureFlag)
-            ? Image.network(picturePath,)
+            ? CachedNetworkImage(imageUrl: picturePath,)
             : Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
