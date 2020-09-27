@@ -44,7 +44,7 @@ class FriendsUpdatesItem extends StatelessWidget {
                 children: <Widget>[
                   _getItemWidget(context),
                   Container(
-                    margin: EdgeInsets.only(top: 6),
+                    margin: EdgeInsets.only(top: 8),
                     child: Row(
                       children: <Widget>[
                         Expanded(
