@@ -53,6 +53,10 @@ class PageId{
   static const String GROUP_PERSONAL_MULTI_IMAGE_DISPLAY = GROUP_PERSONAL + "/image_display";
   /// web页面
   static const String GROUP_PERSONAL_WEBVIEW_LOADING_PAGE = GROUP_PERSONAL + "/webview_loading_page";
+  /// 个人信息页面
+  static const String GROUP_PERSONAL_PERSONAL_INFO = GROUP_PERSONAL + "/personal_info";
+  /// 二维码名片页面
+  static const String GROUP_PERSONAL_QR_CODE_BUSINESS_CARD= GROUP_PERSONAL + "/qr_code_business_card";
   /// ------------------------------"我的"模块end---------------------------
 
 

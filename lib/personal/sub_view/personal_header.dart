@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
 import '../personal_constant.dart';
@@ -7,9 +9,11 @@ import '../personal_constant.dart';
 class PersonalHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
+    return TouchCallBack(
       padding: EdgeInsets.only(left: 12, right: 12, top: 24, bottom: 24),
+      callBack: () {
+        Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_PERSONAL_INFO);
+      },
       child: Row(
         children: <Widget>[
           getClipRRectImage(assetPath: "images/yixiu.jpg"),
@@ -45,7 +49,11 @@ class PersonalHeader extends StatelessWidget {
               ),
             ),
           ),
-          Image.asset("images/code.png", width: 16, height: 16,),
+          Container(
+            margin: EdgeInsets.only(right: 16),
+            child: Image.asset("images/code.png", width: 16, height: 16,),
+          ),
+          Image.asset("images/icon_arrow_right.png", width: 16, height: 16,),
         ],
       ),
     );

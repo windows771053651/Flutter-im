@@ -31,6 +31,8 @@ class TouchCallBack extends StatefulWidget {
 
   final EdgeInsetsGeometry margin;
 
+  final double minHeight;
+
   TouchCallBack({
     Key key,
     @required this.child,
@@ -45,6 +47,7 @@ class TouchCallBack extends StatefulWidget {
     this.bottomRightRadius = 0,
     this.padding = const EdgeInsets.all(0),
     this.margin = const EdgeInsets.all(0),
+    this.minHeight = 0,
   }): super(key: key);
 
   @override
@@ -72,6 +75,9 @@ class _TouchState extends State<TouchCallBack> {
         decoration: BoxDecoration(
           borderRadius: _getBorderRadius(),
           color: stateColor,
+        ),
+        constraints: BoxConstraints(
+          minHeight: widget.minHeight,
         ),
       ),
       onTap: widget.callBack,
@@ -125,5 +131,3 @@ class _TouchState extends State<TouchCallBack> {
           );
   }
 }
-
-typedef OnTabListener = Function();

@@ -8,6 +8,7 @@ import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
 import 'bean/contact_bean.dart';
+import 'bean/remark_settings_bean.dart';
 
 class UserInfoPage extends StatefulWidget {
   @override
@@ -80,7 +81,7 @@ class UserInfoState extends State<UserInfoPage> {
             leftTitle: "设置备注和标签",
             leftTitleWidth: 200,
             callback: () {
-              Future future = Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_REMARKS_SETTINGS, arguments: _contactVO.name);
+              Future future = Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_REMARKS_SETTINGS, arguments: RemarksSettingsBean("设置备注和标签", "新的备注名称", "请填写备注名", _contactVO.name, "备注名"));
               future.then((value) {
                 if (value != null) {
                   setState(() {

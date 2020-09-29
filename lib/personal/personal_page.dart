@@ -23,7 +23,6 @@ class PersonalPage extends StatelessWidget {
             },
           ),
           HorizontalLine(height: 10,),
-          CommonTextItemView(leftIconAssetPath: "images/icon_me_message.png", leftTitle: "消息管理"),
           HorizontalLine(),
           CommonTextItemView(leftIconAssetPath: "images/icon_photo.png", leftTitle: "我的相册"),
           HorizontalLine(),

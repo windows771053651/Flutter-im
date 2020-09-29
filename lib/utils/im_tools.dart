@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,14 +21,33 @@ Offset getWidgetLocalToGlobal(BuildContext context) {
 }
 
 /// 加载圆角头像
-Widget getClipRRectImage({String assetPath, String networkUrl, double width = 56, double height = 56, double radius = 4}) {
-  assert(assetPath != null || networkUrl != null);
+Widget getClipRRectImage({String assetPath, String networkUrl, String nativePath, double width = 56, double height = 56, double radius = 4}) {
+  assert(assetPath != null || networkUrl != null || nativePath != null);
   return ClipRRect(
     borderRadius: BorderRadius.circular(radius),
-    child: assetPath != null
-        ? Image.asset(assetPath, width: width, height: height, fit: BoxFit.cover,)
-        : CachedNetworkImage(imageUrl: networkUrl, width: width, height: height,fit: BoxFit.cover,)
+    child: _getPictureWidget(assetPath, networkUrl, nativePath, width, height),
   );
+}
+
+Widget _getPictureWidget(String assetPath, String networkUrl, String nativePath, double width, double height) {
+  if (assetPath != null) {
+    return Image.asset(assetPath, width: width, height: height, fit: BoxFit.cover,);
+  } else if (networkUrl != null) {
+    return CachedNetworkImage(imageUrl: networkUrl, width: width, height: height,fit: BoxFit.cover,);
+  } else if (nativePath != null) {
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: FileImage(File(nativePath)),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  } else {
+    return Container();
+  }
 }
 
 /// 字符串是否相等

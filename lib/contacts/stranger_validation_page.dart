@@ -9,6 +9,7 @@ import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
 import 'bean/constant_enum.dart';
+import 'bean/remark_settings_bean.dart';
 
 class StrangerValidationPage extends StatefulWidget {
   @override
@@ -102,7 +103,7 @@ class _StrangerValidationState extends State<StrangerValidationPage> {
                                 ),
                                 callBack: () {
                                   // 设置备注和标签
-                                  Future future = Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_REMARKS_SETTINGS, arguments: _name);
+                                  Future future = Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_REMARKS_SETTINGS, arguments: RemarksSettingsBean("设置备注和标签", "新的备注名称", "请填写备注名", _name, "备注名"));
                                   future.then((onValue) {
                                     if (onValue != null) {
                                       setState(() {

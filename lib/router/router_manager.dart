@@ -11,7 +11,9 @@ import 'package:flutter_im/contacts/remarks_settings.dart';
 import 'package:flutter_im/contacts/user_info_page.dart';
 import 'package:flutter_im/personal/friends_updates.dart';
 import 'package:flutter_im/contacts/stranger_validation_page.dart';
+import 'package:flutter_im/personal/personal_info_page.dart';
 import 'package:flutter_im/personal/publish_friends_updates.dart';
+import 'package:flutter_im/personal/qr_code_business_card.dart';
 import 'package:flutter_im/router/page_id.dart';
 import '../personal/image_display_page.dart';
 import '../personal/search_page.dart';
@@ -21,9 +23,6 @@ class RouterManager {
   static Map<String, WidgetBuilder> _routers = {
     /// 主模块
     PageId.GROUP_MAIN: (context) => App(),
-    PageId.GROUP_PERSONAL_SEARCH: (context) => SearchPage(),
-    PageId.GROUP_PERSONAL_MULTI_IMAGE_DISPLAY: (context) => ImageDisplayPage(),
-    PageId.GROUP_PERSONAL_WEBVIEW_LOADING_PAGE: (context) => WebViewLoadingPage(),
 
     /// 聊天模块
     PageId.GROUP_CHAT_CHAT_PAGE: (context) => ChatPage(),
@@ -42,6 +41,11 @@ class RouterManager {
 
     /// 我的模块
     PageId.GROUP_PERSONAL_FRIENDS_UPDATES: (context) => FriendsUpdates(),
+    PageId.GROUP_PERSONAL_SEARCH: (context) => SearchPage(),
+    PageId.GROUP_PERSONAL_MULTI_IMAGE_DISPLAY: (context) => ImageDisplayPage(),
+    PageId.GROUP_PERSONAL_WEBVIEW_LOADING_PAGE: (context) => WebViewLoadingPage(),
+    PageId.GROUP_PERSONAL_PERSONAL_INFO: (context) => PersonalInfoPage(),
+    PageId.GROUP_PERSONAL_QR_CODE_BUSINESS_CARD: (context) => QRCodeBusinessCard(),
   };
 
   static Map<String, WidgetBuilder> get routers => _routers;

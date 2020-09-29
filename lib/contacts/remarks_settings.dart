@@ -4,6 +4,8 @@ import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/utils/show_toast.dart';
 
+import 'bean/remark_settings_bean.dart';
+
 class RemarksSettings extends StatefulWidget {
   @override
   State createState() => _SettingsState();
@@ -17,6 +19,8 @@ class _SettingsState extends State<RemarksSettings> {
 
   bool _isFirst = true;
 
+  RemarksSettingsBean remarksSettingsBean;
+
   @override
   void dispose() {
     _textEditingController.dispose();
@@ -25,11 +29,11 @@ class _SettingsState extends State<RemarksSettings> {
 
   @override
   Widget build(BuildContext context) {
-    String _name = ModalRoute.of(context).settings.arguments;
     if (_isFirst) {
+      remarksSettingsBean = ModalRoute.of(context).settings.arguments;
       _isFirst = false;
       _textEditingController = TextEditingController.fromValue(TextEditingValue(
-        text: _name,
+        text: remarksSettingsBean.value,
       ));
       _textEditingController.addListener(() {
         setState(() {
@@ -42,7 +46,7 @@ class _SettingsState extends State<RemarksSettings> {
     return Scaffold(
       appBar: getAppBar(
         context,
-        leftTitle: "设置备注和标签",
+        leftTitle: remarksSettingsBean.title,
         actions: [
           Container(
             width: 80,
@@ -56,7 +60,7 @@ class _SettingsState extends State<RemarksSettings> {
               ),
               onPressed: () {
                 if (_textEditingController.text.isEmpty) {
-                  showToast("请填写备注名");
+                  showToast(remarksSettingsBean.toastText);
                 } else {
                   Navigator.of(context).pop(_textEditingController.text);
                 }
@@ -71,7 +75,7 @@ class _SettingsState extends State<RemarksSettings> {
           Container(
             margin: EdgeInsets.only(left: 12, top: 8, bottom: 8),
             child: Text(
-              "备注名",
+              remarksSettingsBean.tips,
               style: TextStyle(
                 fontSize: 12,
                 color: Colors.grey,
@@ -99,7 +103,7 @@ class _SettingsState extends State<RemarksSettings> {
                 Expanded(
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: "新的备注名称",
+                      hintText: remarksSettingsBean.hintText,
                       hintStyle: TextStyle(
                         fontSize: 14,
                         color: Colors.grey,
