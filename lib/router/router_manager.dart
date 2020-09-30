@@ -9,9 +9,11 @@ import 'package:flutter_im/contacts/new_friends_page.dart';
 import 'package:flutter_im/contacts/phone_contacts_page.dart';
 import 'package:flutter_im/contacts/remarks_settings.dart';
 import 'package:flutter_im/contacts/user_info_page.dart';
+import 'package:flutter_im/personal/custom_service_page.dart';
 import 'package:flutter_im/personal/friends_updates.dart';
 import 'package:flutter_im/contacts/stranger_validation_page.dart';
 import 'package:flutter_im/personal/gallery_page.dart';
+import 'package:flutter_im/personal/my_file_page.dart';
 import 'package:flutter_im/personal/personal_info_page.dart';
 import 'package:flutter_im/personal/publish_friends_updates.dart';
 import 'package:flutter_im/personal/qr_code_business_card.dart';
@@ -48,6 +50,8 @@ class RouterManager {
     PageId.GROUP_PERSONAL_PERSONAL_INFO: (context) => PersonalInfoPage(),
     PageId.GROUP_PERSONAL_QR_CODE_BUSINESS_CARD: (context) => QRCodeBusinessCard(),
     PageId.GROUP_PERSONAL_GALLERY_PAGE: (context) => GalleryPage(),
+    PageId.GROUP_PERSONAL_MY_FILE_PAGE: (context) => FilePage(),
+    PageId.GROUP_PERSONAL_CUSTOM_SERVICE_PAGE: (context) => CustomServicePage(),
   };
 
   static Map<String, WidgetBuilder> get routers => _routers;

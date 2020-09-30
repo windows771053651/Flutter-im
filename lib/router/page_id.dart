@@ -59,6 +59,10 @@ class PageId{
   static const String GROUP_PERSONAL_QR_CODE_BUSINESS_CARD = GROUP_PERSONAL + "/qr_code_business_card";
   /// 相册
   static const String GROUP_PERSONAL_GALLERY_PAGE = GROUP_PERSONAL + "/gallery_page";
+  /// 我的文件
+  static const String GROUP_PERSONAL_MY_FILE_PAGE = GROUP_PERSONAL + "/my_file_page";
+  /// 客服中心
+  static const String GROUP_PERSONAL_CUSTOM_SERVICE_PAGE = GROUP_PERSONAL + "/custom_service_page";
   /// ------------------------------"我的"模块end---------------------------
 
 
