@@ -56,7 +56,9 @@ class PageId{
   /// 个人信息页面
   static const String GROUP_PERSONAL_PERSONAL_INFO = GROUP_PERSONAL + "/personal_info";
   /// 二维码名片页面
-  static const String GROUP_PERSONAL_QR_CODE_BUSINESS_CARD= GROUP_PERSONAL + "/qr_code_business_card";
+  static const String GROUP_PERSONAL_QR_CODE_BUSINESS_CARD = GROUP_PERSONAL + "/qr_code_business_card";
+  /// 相册
+  static const String GROUP_PERSONAL_GALLERY_PAGE = GROUP_PERSONAL + "/gallery_page";
   /// ------------------------------"我的"模块end---------------------------
 
 

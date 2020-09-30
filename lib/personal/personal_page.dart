@@ -24,7 +24,13 @@ class PersonalPage extends StatelessWidget {
           ),
           HorizontalLine(height: 10,),
           HorizontalLine(),
-          CommonTextItemView(leftIconAssetPath: "images/icon_photo.png", leftTitle: "我的相册"),
+          CommonTextItemView(
+            leftIconAssetPath: "images/icon_photo.png",
+            leftTitle: "我的相册",
+            callback: () {
+              Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_GALLERY_PAGE);
+            },
+          ),
           HorizontalLine(),
           CommonTextItemView(leftIconAssetPath: "images/icon_file.png", leftTitle: "我的文件"),
           HorizontalLine(),

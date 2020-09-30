@@ -11,6 +11,7 @@ import 'package:flutter_im/contacts/remarks_settings.dart';
 import 'package:flutter_im/contacts/user_info_page.dart';
 import 'package:flutter_im/personal/friends_updates.dart';
 import 'package:flutter_im/contacts/stranger_validation_page.dart';
+import 'package:flutter_im/personal/gallery_page.dart';
 import 'package:flutter_im/personal/personal_info_page.dart';
 import 'package:flutter_im/personal/publish_friends_updates.dart';
 import 'package:flutter_im/personal/qr_code_business_card.dart';
@@ -46,6 +47,7 @@ class RouterManager {
     PageId.GROUP_PERSONAL_WEBVIEW_LOADING_PAGE: (context) => WebViewLoadingPage(),
     PageId.GROUP_PERSONAL_PERSONAL_INFO: (context) => PersonalInfoPage(),
     PageId.GROUP_PERSONAL_QR_CODE_BUSINESS_CARD: (context) => QRCodeBusinessCard(),
+    PageId.GROUP_PERSONAL_GALLERY_PAGE: (context) => GalleryPage(),
   };
 
   static Map<String, WidgetBuilder> get routers => _routers;
