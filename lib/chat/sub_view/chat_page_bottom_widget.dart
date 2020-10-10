@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/chat_message_bean.dart';
+import 'package:flutter_im/chat/sub_view/chat_page_bottom_emoji.dart';
 import 'package:flutter_im/chat_biz/message_manager_impl.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/personal/personal_constant.dart';
@@ -30,17 +31,22 @@ class _ChatBottomState extends State<ChatBottomWidget> {
   /// 控制录音按钮的显示
   bool _recordVoiceBtnVisible = false;
 
-  /// 底部工具箱显示
+  /// 底部工具箱是否显示
   bool _toolsBoxVisible = false;
+
+  /// 底部emoji是否显示
+  bool _emojiViewVisible = false;
 
   @override
   void initState() {
     super.initState();
     _focusNode = FocusNode();
     _focusNode.addListener(() {
+      print("addListener");
       if (!_toolsBoxVisible || _focusNode.hasFocus) {
         setState(() {
           _toolsBoxVisible = false;
+          _emojiViewVisible = false;
         });
       }
     });
@@ -64,7 +70,6 @@ class _ChatBottomState extends State<ChatBottomWidget> {
     return Column(
       children: <Widget>[
         Container(
-          height: 46,
           decoration: BoxDecoration(
             color: Color(0xFFebebeb),
             border: Border(
@@ -87,6 +92,7 @@ class _ChatBottomState extends State<ChatBottomWidget> {
                   setState(() {
                     _recordVoiceBtnVisible = !_recordVoiceBtnVisible;
                     _toolsBoxVisible = false;
+                    _emojiViewVisible = false;
                     if (!_recordVoiceBtnVisible) {
                       /// 下一帧绘制完成时弹起软键盘
                       WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
@@ -98,6 +104,10 @@ class _ChatBottomState extends State<ChatBottomWidget> {
               ),
               Expanded(
                 child: Container(
+                  alignment: Alignment.centerLeft,
+                  constraints: BoxConstraints(
+                    minHeight: 36,
+                  ),
                   margin: EdgeInsets.only(top: 6, bottom: 6),
                   padding: EdgeInsets.only(left: 6, right: 6),
                   decoration: BoxDecoration(
@@ -108,10 +118,21 @@ class _ChatBottomState extends State<ChatBottomWidget> {
                 ),
               ),
               _getBottomIcon(
-                assetPath: "images/chat_emoji_icon.png",
+                assetPath: _emojiViewVisible ? "images/hide_soft_keyboard_icon.png" : "images/chat_emoji_icon.png",
                 left: 6,
                 callback: () {
-                  FocusScope.of(context).requestFocus(FocusNode());
+                  FocusScope.of(context).requestFocus(_focusNode);
+                  WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+                    setState(() {
+                      _emojiViewVisible = !_emojiViewVisible;
+                      _toolsBoxVisible = false;
+                      if (_emojiViewVisible) {
+
+                      } else {
+
+                      }
+                    });
+                  });
                 },
               ),
               _getRightSendAddWidget(),
@@ -126,6 +147,12 @@ class _ChatBottomState extends State<ChatBottomWidget> {
               ToolsBoxSecondPage(),
             ],
           ),
+        ),
+        Visibility(
+          visible: _emojiViewVisible,
+          child: ChatPageBottomEmoji((String emoji) {
+            _textEditingController.text = _textEditingController.text + emoji;
+          }),
         ),
       ],
     );
@@ -147,14 +174,18 @@ class _ChatBottomState extends State<ChatBottomWidget> {
             focusNode: _focusNode,
             decoration: InputDecoration(
               border: InputBorder.none,
+              contentPadding: EdgeInsets.all(0),
             ),
-            maxLines: 1,
+            maxLines: 3,
+            minLines: 1,
             style: TextStyle(
               fontSize: 14,
               color: Colors.black,
             ),
             textAlignVertical: TextAlignVertical.center,
             controller: _textEditingController,
+            showCursor: true,
+            readOnly: true,
           );
   }
 
@@ -170,6 +201,7 @@ class _ChatBottomState extends State<ChatBottomWidget> {
               FocusScope.of(context).requestFocus(FocusNode());
               setState(() {
                 _toolsBoxVisible = true;
+                _emojiViewVisible = false;
                 widget.scrollToBottom();
               });
             },
@@ -194,7 +226,7 @@ class _ChatBottomState extends State<ChatBottomWidget> {
               MessageControllerImpl.instance.sendMessage(ChatMessageBean.build(
                 name: PersonalConstant.userName,
                 chatMessageType: ChatMessageType.TEXT,
-                avatarUrl: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599128582535&di=9807439e68f649516e0c981f0f6ae910&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20120627%2FImg346630529.jpg",
+                avatarUrl: PersonalConstant.userAvatar,
                 inOutType: InOutType.OUT,
                 chatMessage: _textEditingController.text,
               ));

@@ -58,6 +58,7 @@ class PublishFriendsUpdates extends StatelessWidget {
                   avatarUrl: _avatarUrl,
                   title: _content,
                   icons: _nativePictureDisplayAbsPath,
+                  time: "刚刚"
                 );
                 Navigator.of(context).pop(bean);
               },

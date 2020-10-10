@@ -16,27 +16,27 @@ class ImDatabaseProvider extends DatabaseProvider<ChatMessageBean> {
   Future<int> insert(ChatMessageBean bean) async {
     Database db = await database;
     Map<String, dynamic> params = {
-      DBConstant.columnNameUserId: bean.userId,
-      DBConstant.columnNameMessageType: bean.chatMessageType.index,
-      DBConstant.columnNameAvatarUrl: bean.avatarUrl,
-      DBConstant.columnNameName: bean.name,
-      DBConstant.columnNameTime: bean.time,
-      DBConstant.columnNamePictureUrl: bean.picturePath,
-      DBConstant.columnNameVoiceUrl: bean.voiceUrl,
-      DBConstant.columnNameLocation: bean.location,
-      DBConstant.columnNameInOutType: bean.inOutType.index,
-      DBConstant.columnNameMessageContent: bean.chatMessage,
-      DBConstant.columnNameNativePictureUri: bean.nativePicturePath,
+      DBConstant.COLUMN_NAME_USER_ID: bean.userId,
+      DBConstant.COLUMN_NAME_MESSAGE_TYPE: bean.chatMessageType.index,
+      DBConstant.COLUMN_NAME_AVATAR_URL: bean.avatarUrl,
+      DBConstant.COLUMN_NAME_NAME: bean.name,
+      DBConstant.COLUMN_NAME_TIME: bean.time,
+      DBConstant.COLUMN_NAME_PICTURE_URL: bean.picturePath,
+      DBConstant.COLUMN_NAME_VOICE_URL: bean.voiceUrl,
+      DBConstant.COLUMN_NAME_LOCATION: bean.location,
+      DBConstant.COLUMN_NAME_IN_OUT_TYPE: bean.inOutType.index,
+      DBConstant.COLUMN_NAME_CONTENT: bean.chatMessage,
+      DBConstant.COLUMN_NAME_NATIVE_PICTURE_URI: bean.nativePicturePath,
     };
-    return db.insert(DBConstant.messageTable, params);
+    return db.insert(DBConstant.MESSAGE_Table, params);
   }
 
   @override
   Future<int> delete(String userId) async {
     Database db = await database;
     return db.delete(
-      DBConstant.messageTable,
-      where: "${DBConstant.columnNameUserId} = ?",
+      DBConstant.MESSAGE_Table,
+      where: "${DBConstant.COLUMN_NAME_USER_ID} = ?",
       whereArgs: [userId],
     );
   }
@@ -51,8 +51,8 @@ class ImDatabaseProvider extends DatabaseProvider<ChatMessageBean> {
     print("userId:$userId");
     Database db = await database;
     return db.query(
-      DBConstant.messageTable,
-      where: "${DBConstant.columnNameUserId} = ?",
+      DBConstant.MESSAGE_Table,
+      where: "${DBConstant.COLUMN_NAME_USER_ID} = ?",
       whereArgs: [userId],
     );
   }

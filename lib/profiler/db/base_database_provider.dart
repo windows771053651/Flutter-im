@@ -13,9 +13,9 @@ abstract class DatabaseProvider<T> {
       var path = await getDatabasesPath();
       print("database path:$path");
       _instance = await openDatabase(
-        path + "/" + DBConstant.databaseName,
+        path + "/" + DBConstant.DATABASE_NAME,
         onCreate: createDatabase,
-        version: DBConstant.databaseVersion,
+        version: DBConstant.VERSION,
       );
     }
     return _instance;

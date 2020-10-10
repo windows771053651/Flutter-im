@@ -88,24 +88,24 @@ class MessageControllerImpl extends MessageManager<ChatMessageBean> {
       if (onValue != null && onValue.length > 0) {
         List<ChatMessageBean> nativeMessages = List();
         onValue.forEach((Map<String, dynamic> bean) {
-          String avatarUrlIn = bean[DBConstant.columnNameAvatarUrl];
-          String nameIn = bean[DBConstant.columnNameName];
-          InOutType inOutType = getInOutTypeByIndex(bean[DBConstant.columnNameInOutType]);
+          String avatarUrlIn = bean[DBConstant.COLUMN_NAME_AVATAR_URL];
+          String nameIn = bean[DBConstant.COLUMN_NAME_NAME];
+          InOutType inOutType = getInOutTypeByIndex(bean[DBConstant.COLUMN_NAME_IN_OUT_TYPE]);
           if (inOutType == InOutType.IN) {
             avatarUrlIn = this._avatarUrl;
             nameIn = this._name;
           }
           ChatMessageBean chatMessageBean = ChatMessageBean.build(
-            chatMessageType: getChatMessageTypeByIndex(bean[DBConstant.columnNameMessageType]),
+            chatMessageType: getChatMessageTypeByIndex(bean[DBConstant.COLUMN_NAME_MESSAGE_TYPE]),
             avatarUrl: avatarUrlIn,
             name: nameIn,
-            time: bean[DBConstant.columnNameTime],
-            picturePath: bean[DBConstant.columnNamePictureUrl],
-            voiceUrl: bean[DBConstant.columnNameVoiceUrl],
-            location: bean[DBConstant.columnNameLocation],
+            time: bean[DBConstant.COLUMN_NAME_TIME],
+            picturePath: bean[DBConstant.COLUMN_NAME_PICTURE_URL],
+            voiceUrl: bean[DBConstant.COLUMN_NAME_VOICE_URL],
+            location: bean[DBConstant.COLUMN_NAME_LOCATION],
             inOutType: inOutType,
-            chatMessage: bean[DBConstant.columnNameMessageContent],
-            nativePicturePath: bean[DBConstant.columnNameNativePictureUri],
+            chatMessage: bean[DBConstant.COLUMN_NAME_CONTENT],
+            nativePicturePath: bean[DBConstant.COLUMN_NAME_NATIVE_PICTURE_URI],
           );
           nativeMessages.add(chatMessageBean);
         });

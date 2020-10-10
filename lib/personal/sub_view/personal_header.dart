@@ -16,7 +16,7 @@ class PersonalHeader extends StatelessWidget {
       },
       child: Row(
         children: <Widget>[
-          getClipRRectImage(assetPath: "images/yixiu.jpg"),
+          getClipRRectImage(networkUrl: PersonalConstant.userAvatar),
           Expanded(
             child: Container(
               margin: EdgeInsets.only(left: 12),

@@ -1,6 +1,8 @@
 class PersonalConstant {
   /// 当前默认登陆用户信息
   static const String userName = "一休";
+
+  static const String userAvatar = "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3325422970,167027431&fm=26&gp=0.jpg";
   /// 账号
   static const String userCode = "yixiu1976";
   /// 朋友圈背景图
