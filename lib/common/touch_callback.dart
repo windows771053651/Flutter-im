@@ -13,6 +13,8 @@ class TouchCallBack extends StatefulWidget {
 
   final VoidCallback longPressCallBack;
 
+  final VoidCallback onTouchDownCallBack;
+
   final Color pressedColor;
 
   final Color normalColor;
@@ -38,6 +40,7 @@ class TouchCallBack extends StatefulWidget {
     @required this.child,
     this.callBack,
     this.longPressCallBack,
+    this.onTouchDownCallBack,
     this.pressedColor = const Color(0xffd8d8d8),
     this.normalColor = Colors.white,
     this.radius = 0,
@@ -83,6 +86,9 @@ class _TouchState extends State<TouchCallBack> {
       onTap: widget.callBack,
       onLongPress: widget.longPressCallBack,
       onTapDown: (details) {
+        if (widget.onTouchDownCallBack != null) {
+          widget.onTouchDownCallBack();
+        }
         setState(() {
           stateColor = widget.pressedColor;
         });
@@ -98,6 +104,9 @@ class _TouchState extends State<TouchCallBack> {
         });
       },
       onPanDown: (d) {
+        if (widget.onTouchDownCallBack != null) {
+          widget.onTouchDownCallBack();
+        }
         setState(() {
           stateColor = widget.pressedColor;
         });

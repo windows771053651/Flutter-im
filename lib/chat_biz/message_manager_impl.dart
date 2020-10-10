@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter_im/chat/bean/chat_message_bean.dart';
+import 'package:flutter_im/database/db_constant.dart';
+import 'package:flutter_im/database/db_table_chat_message.dart';
 import 'package:flutter_im/personal/personal_constant.dart';
-import 'package:flutter_im/profiler/db/db_constant.dart';
-import 'package:flutter_im/profiler/db/db_table_chat_message.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
 import 'listener/chat_message_listener.dart';

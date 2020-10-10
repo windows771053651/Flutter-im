@@ -12,15 +12,19 @@ import 'chat_page_bottom_tools_box/tools_box_second_page.dart';
 
 /// 聊天页面底部组件
 class ChatBottomWidget extends StatefulWidget {
-  final ListViewScrollToBottom scrollToBottom;
 
-  ChatBottomWidget(this.scrollToBottom);
+  final ListViewScrollToBottomController scrollToBottomController;
+
+  ChatBottomWidget({
+    Key key,
+    this.scrollToBottomController,
+  }): super(key: key);
 
   @override
-  State createState() => _ChatBottomState();
+  State createState() => ChatBottomState();
 }
 
-class _ChatBottomState extends State<ChatBottomWidget> {
+class ChatBottomState extends State<ChatBottomWidget> {
   TextEditingController _textEditingController;
 
   FocusNode _focusNode;
@@ -185,7 +189,7 @@ class _ChatBottomState extends State<ChatBottomWidget> {
             textAlignVertical: TextAlignVertical.center,
             controller: _textEditingController,
             showCursor: true,
-            readOnly: true,
+            readOnly: false,
           );
   }
 
@@ -198,11 +202,11 @@ class _ChatBottomState extends State<ChatBottomWidget> {
           child: _getBottomIcon(
             assetPath: "images/chat_add_icon.png",
             callback: () {
-              FocusScope.of(context).requestFocus(FocusNode());
+              _hideKeyBoard();
               setState(() {
                 _toolsBoxVisible = true;
                 _emojiViewVisible = false;
-                widget.scrollToBottom();
+                widget.scrollToBottomController();
               });
             },
           ),
@@ -259,6 +263,18 @@ class _ChatBottomState extends State<ChatBottomWidget> {
       callBack: callback,
     );
   }
+
+  void closeBottomWidgetAndKeyBoard() {
+    _hideKeyBoard();
+    setState(() {
+      _toolsBoxVisible = false;
+      _emojiViewVisible = false;
+    });
+  }
+
+  void _hideKeyBoard() {
+    FocusScope.of(context).requestFocus(FocusNode());
+  }
 }
 
-typedef ListViewScrollToBottom = Function();
+typedef ListViewScrollToBottomController = Function();

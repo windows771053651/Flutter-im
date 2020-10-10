@@ -33,6 +33,8 @@ class _ChatState extends State<ChatPage> with WidgetsBindingObserver {
 
   File _backgroundImageFile = File("");
 
+  GlobalKey _bottomWidgetKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
@@ -77,29 +79,7 @@ class _ChatState extends State<ChatPage> with WidgetsBindingObserver {
           _getAppBarActionsMenu(),
         ],
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: FileImage(_backgroundImageFile),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: CupertinoScrollbar(
-                child: ScrollConfiguration(
-                  behavior: CusBehavior(),
-                  child: _getChatListView(),
-                ),
-              ),
-            ),
-            ChatBottomWidget(() {
-              _scrollToBottom();
-            }),
-          ],
-        ),
-      ),
+      body: _body(),
     );
   }
 
@@ -154,6 +134,43 @@ class _ChatState extends State<ChatPage> with WidgetsBindingObserver {
           }
         });
       },
+    );
+  }
+
+  Widget _body() {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: FileImage(_backgroundImageFile),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: TouchCallBack(
+              pressedColor: Colors.transparent,
+              normalColor: Colors.transparent,
+              child: CupertinoScrollbar(
+                child: ScrollConfiguration(
+                  behavior: CusBehavior(),
+                  child: _getChatListView(),
+                ),
+              ),
+              onTouchDownCallBack: () {
+                ChatBottomState chatBottomState = _bottomWidgetKey.currentState;
+                chatBottomState.closeBottomWidgetAndKeyBoard();
+              },
+            ),
+          ),
+          ChatBottomWidget(
+            key: _bottomWidgetKey,
+            scrollToBottomController: () {
+              _scrollToBottom();
+            },
+          ),
+        ],
+      ),
     );
   }
 
