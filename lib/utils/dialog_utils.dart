@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/horizontal_line.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/utils/im_tools.dart';
 
 class DialogUtil {
-  /// todo content未定义
   static void showBaseDialog(BuildContext context,
       String content, {
         String title = '提示',
@@ -26,75 +26,69 @@ class DialogUtil {
                       fontSize: 14,
                     ),
                   ),
-                  padding: EdgeInsets.only(bottom: 24),
                 ),
+                _contentWidget(content),
                 HorizontalLine(
                   height: 0.5,
                 ),
-                Column(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            height: 42,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(2)),
-                            ),
-                            child: TouchCallBack(
-                              bottomLeftRadius: 2,
-                              child: Center(
-                                child: Text(
-                                  left,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                  ),
-                                ),
+                    Expanded(
+                      child: Container(
+                        height: 42,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(2)),
+                        ),
+                        child: TouchCallBack(
+                          bottomLeftRadius: 2,
+                          child: Center(
+                            child: Text(
+                              left,
+                              style: TextStyle(
+                                fontSize: 14,
                               ),
-                              callBack: () {
-                                if (leftClick != null) {
-                                  leftClick();
-                                } else {
-                                  Navigator.of(context).pop();
-                                }
-                              },
                             ),
                           ),
+                          callBack: () {
+                            if (leftClick != null) {
+                              leftClick();
+                            }
+                            Navigator.of(context).pop();
+                          },
                         ),
-                        Container(
-                          width: 0.5,
-                          height: 42,
-                          color: Color(0xffededed),
+                      ),
+                    ),
+                    Container(
+                      width: 0.5,
+                      height: 42,
+                      color: Color(0xffededed),
+                    ),
+                    Expanded(
+                      child: Container(
+                        height: 42,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(2)),
                         ),
-                        Expanded(
-                          child: Container(
-                            height: 42,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(2)),
-                            ),
-                            child: TouchCallBack(
-                              bottomRightRadius: 2,
-                              child: Center(
-                                child: Text(
-                                  right,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.blue[700],
-                                  ),
-                                ),
+                        child: TouchCallBack(
+                          bottomRightRadius: 2,
+                          child: Center(
+                            child: Text(
+                              right,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.blue[700],
                               ),
-                              callBack: () {
-                                if (rightClick != null) {
-                                  rightClick();
-                                } else {
-                                  Navigator.of(context).pop();
-                                }
-                              },
                             ),
                           ),
+                          callBack: () {
+                            if (rightClick != null) {
+                              rightClick();
+                            }
+                            Navigator.of(context).pop();
+                          },
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 )
@@ -104,5 +98,19 @@ class DialogUtil {
         ],
       );
     });
+  }
+
+  static _contentWidget(String content) {
+    return isStringEmpty(content)
+        ? Container(height: 24,)
+        : Container(
+            child: Text(
+              content,
+              style: TextStyle(
+                fontSize: 14,
+              ),
+            ),
+            margin: EdgeInsets.only(top: 12, bottom: 16),
+          );
   }
 }

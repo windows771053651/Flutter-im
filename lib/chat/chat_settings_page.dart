@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_im/chat_biz/message_manager_impl.dart';
 import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/common_text_item.dart';
-import 'package:flutter_im/common/horizontal_line.dart';
-import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/router/page_id.dart';
+import 'package:flutter_im/utils/dialog_utils.dart';
 
 class ChatSettingsPage extends StatelessWidget {
   @override
@@ -39,109 +38,23 @@ class ChatSettingsPage extends StatelessWidget {
             leftTitleWidth: 200,
             margin: EdgeInsets.only(top: 12),
             callback: () {
-              showDeleteNativeChatMessageDialog(context, _chatUserName);
+              DialogUtil.showBaseDialog(
+                context,
+                "确定删除和$_chatUserName的聊天记录吗？",
+                right: "清空",
+                rightClick: () {
+                  Future future = MessageControllerImpl.instance.clearAllNativeMessage("${_chatUserName.hashCode}");
+                  future.then((onValue) {
+                    print("删除:$onValue条数据");
+                    Navigator.of(context).pop([OperationType.DELETE_CHAT_MESSAGE, onValue]);
+                  });
+                }
+              );
             },
           ),
         ],
       ),
     );
-  }
-
-  void showDeleteNativeChatMessageDialog(BuildContext context, String chatUserName) {
-    showDialog(context: context, builder: (context) {
-      return SimpleDialog(
-        contentPadding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-        children: <Widget>[
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  child: Text(
-                    "确定删除和$chatUserName的聊天记录吗？",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                    ),
-                  ),
-                  margin: EdgeInsets.only(top: 30, bottom: 30),
-                ),
-                HorizontalLine(
-                  height: 0.5,
-                ),
-                Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            height: 46,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(2)),
-                            ),
-                            child: TouchCallBack(
-                              bottomLeftRadius: 2,
-                              child: Center(
-                                child: Text(
-                                  "取消",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              callBack: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 0.5,
-                          height: 46,
-                          color: Color(0xffededed),
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 46,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(2)),
-                            ),
-                            child: TouchCallBack(
-                              bottomRightRadius: 2,
-                              child: Center(
-                                child: Text(
-                                  "清空",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              callBack: () {
-                                Future future = MessageControllerImpl.instance.clearAllNativeMessage("${chatUserName.hashCode}");
-                                future.then((onValue) {
-                                  print("删除:$onValue条数据");
-                                  Navigator.of(context).pop();
-                                  Navigator.of(context).pop([OperationType.DELETE_CHAT_MESSAGE, onValue]);
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ],
-      );
-    });
   }
 }
 
