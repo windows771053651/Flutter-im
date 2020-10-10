@@ -35,84 +35,83 @@ class ChatTextItem extends StatelessWidget {
   }
 
   Widget _getInTextItem(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        TouchCallBack(
-          normalColor: Colors.transparent,
-          pressedColor: Colors.transparent,
-          callBack: () {
-            ContactVO contact = ContactVO(
-              name: chatMessageBean.name,
-              avatarUrl: chatMessageBean.avatarUrl,
-              serialNum: PinyinHelper.getPinyinE(chatMessageBean.name, separator: " ", defPinyin: '#', format: PinyinFormat.WITHOUT_TONE),
-            );
-            Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_USER_INFO, arguments: contact);
-          },
-          child: getClipRRectImage(
-            networkUrl: chatMessageBean.avatarUrl,
-            width: 34,
-            height: 34,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(left: 12),
-          padding: EdgeInsets.only(left: 12, top: 8, right: 12, bottom: 8),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(4)),
-          ),
-          child: Text(
-            chatMessageBean.chatMessage,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.black,
+    return Container(
+      margin: EdgeInsets.only(right: 45),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          _headPortrait(context),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _contentWidget(EdgeInsets.only(left: 12)),
+              ],
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
   Widget _getOutTextItem(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(right: 12),
-          padding: EdgeInsets.only(left: 12, top: 8, right: 12, bottom: 8),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(4)),
-          ),
-          child: Text(
-            chatMessageBean.chatMessage,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.black,
+    return Container(
+      margin: EdgeInsets.only(left: 45),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                _contentWidget(EdgeInsets.only(right: 12)),
+              ],
             ),
           ),
+          _headPortrait(context),
+        ],
+      ),
+    );
+  }
+
+  Widget _contentWidget(EdgeInsetsGeometry margin) {
+    return Container(
+      margin: margin,
+      padding: EdgeInsets.only(left: 12, top: 8, right: 12, bottom: 8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(4)),
+      ),
+      child: Text(
+        chatMessageBean.chatMessage,
+        style: TextStyle(
+          fontSize: 14,
+          color: Colors.black,
         ),
-        TouchCallBack(
-          normalColor: Colors.transparent,
-          pressedColor: Colors.transparent,
-          callBack: () {
-            ContactVO contact = ContactVO(
-              name: chatMessageBean.name,
-              avatarUrl: chatMessageBean.avatarUrl,
-              serialNum: PinyinHelper.getPinyinE(chatMessageBean.name, separator: " ", defPinyin: '#', format: PinyinFormat.WITHOUT_TONE),
-            );
-            Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_USER_INFO, arguments: contact);
-          },
-          child: getClipRRectImage(
-            networkUrl: chatMessageBean.avatarUrl,
-            width: 34,
-            height: 34,
-          ),
-        ),
-      ],
+      ),
+    );
+  }
+
+  /// 头像
+  Widget _headPortrait(BuildContext context) {
+    return TouchCallBack(
+      normalColor: Colors.transparent,
+      pressedColor: Colors.transparent,
+      callBack: () {
+        ContactVO contact = ContactVO(
+          name: chatMessageBean.name,
+          avatarUrl: chatMessageBean.avatarUrl,
+          serialNum: PinyinHelper.getPinyinE(chatMessageBean.name, separator: " ", defPinyin: '#', format: PinyinFormat.WITHOUT_TONE),
+        );
+        Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_USER_INFO, arguments: contact);
+      },
+      child: getClipRRectImage(
+        networkUrl: chatMessageBean.avatarUrl,
+        width: 34,
+        height: 34,
+      ),
     );
   }
 }
