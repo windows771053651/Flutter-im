@@ -9,6 +9,7 @@ import 'package:flutter_im/chat/sub_view/chat_page_bottom_widget.dart';
 import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/router/page_id.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'bean/chat_message_bean.dart';
 import '../chat_biz/message_manager_impl.dart';
 import 'chat_settings_page.dart';
@@ -53,16 +54,13 @@ class _ChatState extends State<ChatPage> with WidgetsBindingObserver {
   @override
   void didChangeMetrics() {
     super.didChangeMetrics();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        if (MediaQuery.of(context).viewInsets.bottom == 0) {
-          // 关闭键盘
-        } else {
-          // 显示键盘
+    KeyboardVisibilityNotification().addNewListener(
+      onChange: (bool visible) {
+        if (visible) {
           _scrollToBottom();
         }
-      });
-    });
+      },
+    );
   }
 
   @override

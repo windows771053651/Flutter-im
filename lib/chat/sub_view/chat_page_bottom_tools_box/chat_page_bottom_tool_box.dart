@@ -36,7 +36,6 @@ class _State extends State<ChatPageBottomToolBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 240,
       color: Color(0xFFebebeb),
       padding: EdgeInsets.only(top: 32),
       child: Column(

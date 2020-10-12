@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_im/chat/chat_tools.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 
 class ChatPageBottomEmoji extends StatelessWidget {
@@ -12,14 +13,13 @@ class ChatPageBottomEmoji extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: DefaultAssetBundle.of(context).loadString("assets/emoji_list.json"),
+        future: ChatTools.loadEmoji(context),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<dynamic> data = json.decode(snapshot.data.toString());
             return Stack(
               children: <Widget>[
                 Container(
-                  height: 240,
                   padding: EdgeInsets.only(
                     left: 5,
                     top: 5,

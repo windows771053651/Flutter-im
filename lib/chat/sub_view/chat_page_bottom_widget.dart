@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/chat_message_bean.dart';
@@ -41,12 +43,14 @@ class ChatBottomState extends State<ChatBottomWidget> {
   /// 底部emoji是否显示
   bool _emojiViewVisible = false;
 
+  /// 是否可以显示软键盘。当emoji view显示时，软键盘不可以弹出，否则可以弹出
+  bool _keyboardEnableVisible = true;
+
   @override
   void initState() {
     super.initState();
     _focusNode = FocusNode();
     _focusNode.addListener(() {
-      print("addListener");
       if (!_toolsBoxVisible || _focusNode.hasFocus) {
         setState(() {
           _toolsBoxVisible = false;
@@ -97,6 +101,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
                     _recordVoiceBtnVisible = !_recordVoiceBtnVisible;
                     _toolsBoxVisible = false;
                     _emojiViewVisible = false;
+                    _keyboardEnableVisible = true;
                     if (!_recordVoiceBtnVisible) {
                       /// 下一帧绘制完成时弹起软键盘
                       WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
@@ -125,41 +130,71 @@ class ChatBottomState extends State<ChatBottomWidget> {
                 assetPath: _emojiViewVisible ? "images/hide_soft_keyboard_icon.png" : "images/chat_emoji_icon.png",
                 left: 6,
                 callback: () {
-                  FocusScope.of(context).requestFocus(_focusNode);
-                  WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+                  _recordVoiceBtnVisible = false;
+                  if (!_emojiViewVisible) {
                     setState(() {
-                      _emojiViewVisible = !_emojiViewVisible;
-                      _toolsBoxVisible = false;
-                      if (_emojiViewVisible) {
-
-                      } else {
-
-                      }
+                      _keyboardEnableVisible = false;
                     });
-                  });
+                    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+                      FocusScope.of(context).requestFocus(_focusNode);
+                      WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+                        setState(() {
+                          if (_emojiViewVisible) {
+                            _emojiViewVisible = false;
+                            _keyboardEnableVisible = true;
+                          } else {
+                            _toolsBoxVisible = false;
+                            _keyboardEnableVisible = false;
+                            Future.delayed(Duration(milliseconds: 100), () {
+                              setState(() {
+                                _emojiViewVisible = true;
+                              });
+                            });
+                          }
+                        });
+                      });
+                    });
+                  } else {
+                    setState(() {
+                      _emojiViewVisible = false;
+                      _keyboardEnableVisible = true;
+                    });
+                    FocusScope.of(context).requestFocus(_focusNode);
+                  }
                 },
               ),
               _getRightSendAddWidget(),
             ],
           ),
         ),
-        Visibility(
-          visible: _toolsBoxVisible,
-          child: ChatPageBottomToolBox(
-            pageList: [
-              ToolBoxFirstPage(),
-              ToolsBoxSecondPage(),
-            ],
-          ),
-        ),
-        Visibility(
-          visible: _emojiViewVisible,
-          child: ChatPageBottomEmoji((String emoji) {
-            _textEditingController.text = _textEditingController.text + emoji;
-          }),
-        ),
+        (_toolsBoxVisible || _emojiViewVisible)
+            ? Container(
+                height: 240,
+                child: _bottomWidget(),
+              )
+              : SizedBox(
+                  height: 0,
+                )
       ],
     );
+  }
+
+  /// 底部可控显示区域
+  Widget _bottomWidget() {
+    Widget widget;
+    if (_toolsBoxVisible) {
+      widget = ChatPageBottomToolBox(
+        pageList: [
+          ToolBoxFirstPage(),
+          ToolsBoxSecondPage(),
+        ],
+      );
+    } else if (_emojiViewVisible) {
+      widget = ChatPageBottomEmoji((String emoji) {
+        _textEditingController.text = _textEditingController.text + emoji;
+      });
+    }
+    return widget;
   }
 
   /// 录音按钮和文本编辑框
@@ -189,7 +224,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
             textAlignVertical: TextAlignVertical.center,
             controller: _textEditingController,
             showCursor: true,
-            readOnly: false,
+            readOnly: !_keyboardEnableVisible,
           );
   }
 
@@ -203,11 +238,23 @@ class ChatBottomState extends State<ChatBottomWidget> {
             assetPath: "images/chat_add_icon.png",
             callback: () {
               _hideKeyBoard();
-              setState(() {
-                _toolsBoxVisible = true;
-                _emojiViewVisible = false;
-                widget.scrollToBottomController();
-              });
+              if (_emojiViewVisible) {
+                setState(() {
+                  _toolsBoxVisible = true;
+                  _emojiViewVisible = false;
+                  _keyboardEnableVisible = true;
+                  widget.scrollToBottomController();
+                });
+              } else {
+                Future.delayed(Duration(milliseconds: 100), () {
+                  setState(() {
+                    _toolsBoxVisible = true;
+                    _emojiViewVisible = false;
+                    _keyboardEnableVisible = true;
+                    widget.scrollToBottomController();
+                  });
+                });
+              }
             },
           ),
         ),
@@ -227,13 +274,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
               ),
             ),
             callBack: () {
-              MessageControllerImpl.instance.sendMessage(ChatMessageBean.build(
-                name: PersonalConstant.userName,
-                chatMessageType: ChatMessageType.TEXT,
-                avatarUrl: PersonalConstant.userAvatar,
-                inOutType: InOutType.OUT,
-                chatMessage: _textEditingController.text,
-              ));
+              _sendMessage();
               _textEditingController.clear();
             },
           ),
@@ -264,6 +305,18 @@ class ChatBottomState extends State<ChatBottomWidget> {
     );
   }
 
+  /// 发送文本消息
+  void _sendMessage() {
+    MessageControllerImpl.instance.sendMessage(ChatMessageBean.build(
+      name: PersonalConstant.userName,
+      chatMessageType: ChatMessageType.TEXT,
+      avatarUrl: PersonalConstant.userAvatar,
+      inOutType: InOutType.OUT,
+      chatMessage: _textEditingController.text,
+    ));
+  }
+
+  /// 关闭底部view和键盘
   void closeBottomWidgetAndKeyBoard() {
     _hideKeyBoard();
     setState(() {
@@ -272,8 +325,9 @@ class ChatBottomState extends State<ChatBottomWidget> {
     });
   }
 
+  /// 关闭软键盘
   void _hideKeyBoard() {
-    FocusScope.of(context).requestFocus(FocusNode());
+    _focusNode.unfocus();
   }
 }
 

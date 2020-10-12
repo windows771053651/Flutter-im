@@ -33,6 +33,7 @@ dependencies:
   date_format: "^1.0.4" #日期格式化
   qr_flutter: ^3.1.0 #生成二维码
   image_gallery_saver: ^1.1.0 #保存图片
+  keyboard_visibility: ^0.5.2 #软键盘
 
 dev_dependencies:
   flutter_test:
