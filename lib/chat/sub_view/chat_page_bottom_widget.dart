@@ -28,7 +28,6 @@ class ChatBottomWidget extends StatefulWidget {
 }
 
 class ChatBottomState extends State<ChatBottomWidget> {
-  TextEditingController _textEditingController;
 
   FocusNode _focusNode;
 
@@ -47,6 +46,8 @@ class ChatBottomState extends State<ChatBottomWidget> {
   /// 是否可以显示软键盘。当emoji view显示时，软键盘不可以弹出，否则可以弹出
   bool _keyboardEnableVisible = true;
 
+  String _inputContent = "";
+
   @override
   void initState() {
     super.initState();
@@ -59,17 +60,10 @@ class ChatBottomState extends State<ChatBottomWidget> {
         });
       }
     });
-    _textEditingController = TextEditingController();
-    _textEditingController.addListener(() {
-      setState(() {
-        _sendBtnVisible = _textEditingController.text.isNotEmpty;
-      });
-    });
   }
 
   @override
   void dispose() {
-    _textEditingController.dispose();
     _focusNode.dispose();
     super.dispose();
   }
@@ -192,7 +186,9 @@ class ChatBottomState extends State<ChatBottomWidget> {
       );
     } else if (_emojiViewVisible) {
       widget = ChatPageBottomEmoji((String emoji) {
-        _textEditingController.text = _textEditingController.text + emoji;
+        setState(() {
+          _inputContent = _inputContent + emoji;
+        });
       });
     }
     return widget;
@@ -223,9 +219,25 @@ class ChatBottomState extends State<ChatBottomWidget> {
               color: Colors.black,
             ),
             textAlignVertical: TextAlignVertical.center,
-            controller: _textEditingController,
+            controller: TextEditingController.fromValue(
+              TextEditingValue(
+                text: _inputContent,
+                selection: TextSelection.fromPosition(
+                  TextPosition(
+                  affinity: TextAffinity.downstream,
+                  offset: _inputContent.length,
+                ),
+              ),
+              ),
+            ),
             showCursor: true,
             readOnly: !_keyboardEnableVisible,
+            onChanged: (value) {
+              _inputContent = value;
+              setState(() {
+                _sendBtnVisible = value.isNotEmpty;
+              });
+            },
           );
   }
 
@@ -236,7 +248,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
         Visibility(
           visible: !_sendBtnVisible,
           child: _getBottomIcon(
-            assetPath: "images/chat_add_icon.png",
+            assetPath: FileUtil.getImagePath("chat_add_icon"),
             callback: () {
               _hideKeyBoard();
               if (_emojiViewVisible) {
@@ -276,7 +288,10 @@ class ChatBottomState extends State<ChatBottomWidget> {
             ),
             callBack: () {
               _sendMessage();
-              _textEditingController.clear();
+              setState(() {
+                _inputContent = "";
+                _sendBtnVisible = false;
+              });
             },
           ),
         ),
@@ -313,7 +328,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
       chatMessageType: ChatMessageType.TEXT,
       avatarUrl: PersonalConstant.userAvatar,
       inOutType: InOutType.OUT,
-      chatMessage: _textEditingController.text,
+      chatMessage: _inputContent,
     ));
   }
 
