@@ -88,7 +88,7 @@ class ContactItem extends StatelessWidget {
         subTitleVisible = true;
       } else {
         ContactVO last = controller(index - 1);
-        subTitleVisible = !compareString(last.initials, contactVO.initials);
+        subTitleVisible = !IMUtils.compareString(last.initials, contactVO.initials);
       }
       if (subTitleVisible) {
         return Container(

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_im/utils/im_tools.dart' show getWidgetPosition;
+import 'package:flutter_im/utils/im_tools.dart';
 
 OverlayEntry _overlayEntry;
 
@@ -17,7 +17,7 @@ OverlayEntry _overlayEntry;
 
 void showLayer(BuildContext context, List<Widget> children) {
   OverlayState overlayState = Overlay.of(context);
-  final Rect widgetPosition = getWidgetPosition(context);
+  final Rect widgetPosition = IMUtils.getWidgetPosition(context);
   _overlayEntry = _createContextMenuOverlayEntry(widgetPosition, children);
   overlayState.insert(
     _overlayEntry,

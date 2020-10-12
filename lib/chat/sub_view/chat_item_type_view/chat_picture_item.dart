@@ -55,7 +55,7 @@ class ChatPictureItem extends StatelessWidget {
             );
             Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_USER_INFO, arguments: contact);
           },
-          child: getClipRRectImage(
+          child: IMUtils.getClipRRectImage(
             networkUrl: chatMessageBean.avatarUrl,
             width: 34,
             height: 34,
@@ -95,7 +95,7 @@ class ChatPictureItem extends StatelessWidget {
             );
             Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_USER_INFO, arguments: contact);
           },
-          child: getClipRRectImage(
+          child: IMUtils.getClipRRectImage(
             networkUrl: chatMessageBean.avatarUrl,
             width: 34,
             height: 34,
@@ -120,14 +120,14 @@ class ChatPictureItem extends StatelessWidget {
         callBack: () {
           Navigator.of(context).pushNamed(
               PageId.GROUP_PERSONAL_MULTI_IMAGE_DISPLAY,
-              arguments: ImageDisplayBean(pictures: [isStringNotEmpty(chatMessageBean.picturePath) ? chatMessageBean.picturePath : (chatMessageBean.nativePicturePath + ImageDisplayPage.nativePictureFlag)]));
+              arguments: ImageDisplayBean(pictures: [IMUtils.isStringNotEmpty(chatMessageBean.picturePath) ? chatMessageBean.picturePath : (chatMessageBean.nativePicturePath + ImageDisplayPage.nativePictureFlag)]));
         },
       ),
     );
   }
 
   Widget _getPictureWidget(bool isOut) {
-    return isStringNotEmpty(chatMessageBean.picturePath)
+    return IMUtils.isStringNotEmpty(chatMessageBean.picturePath)
             ? CachedNetworkImage(
                 imageUrl: chatMessageBean.picturePath,
               )

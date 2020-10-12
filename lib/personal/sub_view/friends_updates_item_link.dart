@@ -38,7 +38,7 @@ class FriendsUpdatesItemLink extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              getClipRRectImage(
+              IMUtils.getClipRRectImage(
                 networkUrl: itemBean.link.icon,
                 radius: 0,
                 width: 36,

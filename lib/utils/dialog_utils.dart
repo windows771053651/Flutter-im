@@ -101,7 +101,7 @@ class DialogUtil {
   }
 
   static _contentWidget(String content) {
-    return isStringEmpty(content)
+    return IMUtils.isStringEmpty(content)
         ? Container(height: 24,)
         : Container(
             child: Text(

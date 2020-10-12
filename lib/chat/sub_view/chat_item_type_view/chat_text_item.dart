@@ -107,7 +107,7 @@ class ChatTextItem extends StatelessWidget {
         );
         Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_USER_INFO, arguments: contact);
       },
-      child: getClipRRectImage(
+      child: IMUtils.getClipRRectImage(
         networkUrl: chatMessageBean.avatarUrl,
         width: 34,
         height: 34,

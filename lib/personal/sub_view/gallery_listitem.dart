@@ -50,7 +50,7 @@ class GalleryItem extends StatelessWidget {
       return true;
     } else {
       GalleryBean last = controller(index - 1);
-      if (compareString(last.year, data.year)) {
+      if (IMUtils.compareString(last.year, data.year)) {
         return false;
       } else {
         return true;

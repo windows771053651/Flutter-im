@@ -76,7 +76,7 @@ class MessageControllerImpl extends MessageManager<ChatMessageBean> {
   @override
   void registerUpdateUIListener(IUpdateUIListener listener, String name, String avatarUrl) {
     assert(listener != null, "注册的UI更新监听器为null");
-    assert(isStringNotEmpty(name), "注册的UI更新监听器时用户名不能为空");
+    assert(IMUtils.isStringNotEmpty(name), "注册的UI更新监听器时用户名不能为空");
     this._listener = listener;
     this._name = name;
     this._avatarUrl = avatarUrl;

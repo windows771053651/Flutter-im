@@ -99,7 +99,7 @@ class _NewFriendsState extends State<NewFriendsPage> {
                 padding: EdgeInsets.only(left: 12, top: 10, right: 12, bottom: 10),
                 child: Row(
                   children: <Widget>[
-                    getClipRRectImage(assetPath: "images/nazha.jpg", width: 42, height: 42),
+                    IMUtils.getClipRRectImage(assetPath: "images/nazha.jpg", width: 42, height: 42),
                     Expanded(
                       child: Container(
                         margin: EdgeInsets.only(left: 12),

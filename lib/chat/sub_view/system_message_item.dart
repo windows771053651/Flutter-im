@@ -37,7 +37,7 @@ class SystemMessageItem extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       margin: EdgeInsets.only(left: 12),
-                      child: getClipRRectImage(
+                      child: IMUtils.getClipRRectImage(
                           networkUrl: systemMessageBean.authorAvatarUrl,
                           width: 24,
                           height: 24,

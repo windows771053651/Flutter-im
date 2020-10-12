@@ -58,7 +58,7 @@ class ChatItemWidget extends StatelessWidget {
       visible = true;
     } else {
       ChatMessageBean last = controller(index - 1);
-      visible = !compareString(last.time, chatMessageBean.time);
+      visible = !IMUtils.compareString(last.time, chatMessageBean.time);
     }
 
     return visible;

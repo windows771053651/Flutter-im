@@ -50,7 +50,7 @@ class ChatMessageBean {
     this.chatMessage,
     this.nativePicturePath,
   }) {
-    assert(isStringNotEmpty(this.name), "聊天消息用户名不能为空");
+    assert(IMUtils.isStringNotEmpty(this.name), "聊天消息用户名不能为空");
     this.userId = "${this.name.hashCode}";
   }
 
@@ -67,9 +67,9 @@ class ChatMessageBean {
     String location,
   }) {
     assert(chatMessageType != null, "请指定消息类型");
-    assert(chatMessageType != ChatMessageType.TEXT || (chatMessageType == ChatMessageType.TEXT && isStringNotEmpty(chatMessage)), "请指定发送文本内容");
+    assert(chatMessageType != ChatMessageType.TEXT || (chatMessageType == ChatMessageType.TEXT && IMUtils.isStringNotEmpty(chatMessage)), "请指定发送文本内容");
     assert(chatMessageType != ChatMessageType.PICTURE
-            || (chatMessageType == ChatMessageType.PICTURE && (isStringNotEmpty(picturePath) || isStringNotEmpty(nativePicturePath))), "发送图片地址信息错误");
+            || (chatMessageType == ChatMessageType.PICTURE && (IMUtils.isStringNotEmpty(picturePath) || IMUtils.isStringNotEmpty(nativePicturePath))), "发送图片地址信息错误");
 
     return ChatMessageBean(
       name: name,

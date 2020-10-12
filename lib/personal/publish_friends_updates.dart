@@ -29,7 +29,7 @@ class PublishFriendsUpdates extends StatelessWidget {
     _name = params[0];
     _avatarUrl = params[1];
     _nativePictureAbsPath = params[2];
-    if (isListNotEmpty(_nativePictureAbsPath)) {
+    if (IMUtils.isListNotEmpty(_nativePictureAbsPath)) {
       _nativePictureDisplayAbsPath = List();
       _nativePictureAbsPath.forEach((bean) {
         _nativePictureDisplayAbsPath.add(bean + ImageDisplayPage.nativePictureFlag);

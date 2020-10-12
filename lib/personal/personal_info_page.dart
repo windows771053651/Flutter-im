@@ -130,7 +130,7 @@ class _State extends State<PersonalInfoPage> {
 
   Widget _getAvatarImageWidget() {
     return _isAvatarNativeResource
-        ? getClipRRectImage(nativePath: _backgroundImageNativePath)
-        : getClipRRectImage(assetPath: "images/yixiu.jpg");
+        ? IMUtils.getClipRRectImage(nativePath: _backgroundImageNativePath)
+        : IMUtils.getClipRRectImage(assetPath: "images/yixiu.jpg");
   }
 }

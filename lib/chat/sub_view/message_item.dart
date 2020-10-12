@@ -38,7 +38,7 @@ class MessageItem extends StatelessWidget {
               child: Stack(
                 alignment: Alignment.topRight,
                 children: <Widget>[
-                  getClipRRectImage(networkUrl: messageData.avatar, width: 40, height: 40),
+                  IMUtils.getClipRRectImage(networkUrl: messageData.avatar, width: 40, height: 40),
                   Visibility(
                     visible: !messageData.read,
                     child: Circle(radius: 4),
@@ -136,7 +136,7 @@ class MessageItem extends StatelessWidget {
   }
 
   RelativeRect _getContextMenuRelativeRect(BuildContext context) {
-    Rect rect = getWidgetPosition(context);
+    Rect rect = IMUtils.getWidgetPosition(context);
     double screenHeight = MediaQuery.of(context).size.height;
     if (screenHeight - rect.top - rect.height < contextMenuHeight) {
       /// view下边沿到屏幕底部的距离不足以显示menu时，将menu显示在view的上边

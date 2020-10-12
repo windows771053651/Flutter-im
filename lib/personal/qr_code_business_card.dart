@@ -94,7 +94,7 @@ class QRCodeBusinessCard extends StatelessWidget {
   Widget _getUserInfoWidget() {
     return Row(
       children: <Widget>[
-        getClipRRectImage(assetPath: "images/yixiu.jpg"),
+        IMUtils.getClipRRectImage(assetPath: "images/yixiu.jpg"),
         Container(
           margin: EdgeInsets.only(left: 12),
           child: Column(
@@ -151,7 +151,7 @@ class QRCodeBusinessCard extends StatelessWidget {
     if (permission == PermissionStatus.granted) {
       PermissionHandler().requestPermissions(<PermissionGroup>[PermissionGroup.storage]);
       final result = await ImageGallerySaver.saveImage(uint8list.buffer.asUint8List());
-      if (isStringNotEmpty(result)) {
+      if (IMUtils.isStringNotEmpty(result)) {
         showToast("保存成功");
       } else {
         showToast("保存失败");

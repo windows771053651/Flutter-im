@@ -38,7 +38,7 @@ class SystemMessageHeaderItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          getClipRRectImage(
+          IMUtils.getClipRRectImage(
               networkUrl: iconUrl,
               width: 44,
               height: 44,
@@ -59,7 +59,7 @@ class SystemMessageHeaderItem extends StatelessWidget {
         ],
       ),
       callBack: () {
-          Rect rect = getWidgetPosition(context);
+          Rect rect = IMUtils.getWidgetPosition(context);
           if (rect.left + rect.width / 2 != screenWidth / 2) {
             double offset = (rect.left + rect.width / 2 - screenWidth / 2);
             _scrollToCenterHorizontal(offset + scrollOffset);

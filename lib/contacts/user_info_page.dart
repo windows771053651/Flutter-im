@@ -38,7 +38,7 @@ class UserInfoState extends State<UserInfoPage> {
             child: Row(
               children: <Widget>[
                 TouchCallBack(
-                  child: getClipRRectImage(networkUrl: _contactVO.avatarUrl),
+                  child: IMUtils.getClipRRectImage(networkUrl: _contactVO.avatarUrl),
                   pressedColor: Colors.transparent,
                   callBack: () {
                     Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_MULTI_IMAGE_DISPLAY, arguments: ImageDisplayBean(pictures: [_contactVO.avatarUrl]));
