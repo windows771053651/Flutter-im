@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/horizontal_line.dart';
 import 'package:flutter_im/common/common_text_item.dart';
-import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/personal/personal_constant.dart';
 import 'package:flutter_im/personal/sub_view/personal_header.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/dialog_utils.dart';
+import 'package:flutter_im/utils/file_util.dart';
 
 class PersonalPage extends StatelessWidget {
   @override
@@ -18,7 +18,7 @@ class PersonalPage extends StatelessWidget {
           PersonalHeader(),
           HorizontalLine(height: 10,),
           CommonTextItemView(
-            leftIconAssetPath: "images/icon_me_friends.png",
+            leftIconAssetPath: FileUtil.getImagePath("icon_me_friends"),
             leftTitle: "好友动态",
             callback: () {
               Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_FRIENDS_UPDATES, arguments: [PersonalConstant.userName, PersonalConstant.userAvatar]);
@@ -27,7 +27,7 @@ class PersonalPage extends StatelessWidget {
           HorizontalLine(height: 10,),
           HorizontalLine(),
           CommonTextItemView(
-            leftIconAssetPath: "images/icon_photo.png",
+            leftIconAssetPath: FileUtil.getImagePath("icon_photo"),
             leftTitle: "我的相册",
             callback: () {
               Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_GALLERY_PAGE);
@@ -35,7 +35,7 @@ class PersonalPage extends StatelessWidget {
           ),
           HorizontalLine(),
           CommonTextItemView(
-            leftIconAssetPath: "images/icon_file.png",
+            leftIconAssetPath: FileUtil.getImagePath("icon_file"),
             leftTitle: "我的文件",
             callback: () {
               Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_MY_FILE_PAGE);
@@ -43,7 +43,7 @@ class PersonalPage extends StatelessWidget {
           ),
           HorizontalLine(),
           CommonTextItemView(
-            leftIconAssetPath: "images/icon_me_service.png",
+            leftIconAssetPath: FileUtil.getImagePath("icon_me_service"),
             leftTitle: "联系客服",
             callback: () {
               Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_CUSTOM_SERVICE_PAGE);
@@ -51,7 +51,7 @@ class PersonalPage extends StatelessWidget {
           ),
           HorizontalLine(height: 10,),
           CommonTextItemView(
-            leftIconAssetPath: "images/icon_me_clear.png",
+            leftIconAssetPath: FileUtil.getImagePath("icon_me_clear"),
             leftTitle: "清理缓存",
             callback: () {
               DialogUtil.showBaseDialog(context, "", title: "清理缓存");

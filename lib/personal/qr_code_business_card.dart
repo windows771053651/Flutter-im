@@ -9,6 +9,7 @@ import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/bottom_sheet_dialog.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/personal/personal_constant.dart';
+import 'package:flutter_im/utils/file_util.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 import 'package:flutter_im/utils/show_toast.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -32,7 +33,7 @@ class QRCodeBusinessCard extends StatelessWidget {
             pressedColor: Colors.green[700],
             padding: EdgeInsets.only(left: 12, right: 12),
             child: Image.asset(
-              "images/menu_ellipsie_icon.png",
+              FileUtil.getImagePath("menu_ellipsie_icon"),
               width: 32,
             ),
             callBack: () {
@@ -94,7 +95,7 @@ class QRCodeBusinessCard extends StatelessWidget {
   Widget _getUserInfoWidget() {
     return Row(
       children: <Widget>[
-        IMUtils.getClipRRectImage(assetPath: "images/yixiu.jpg"),
+        IMUtils.getClipRRectImage(assetPath: FileUtil.getImagePath("yixiu", format: "jpg"),),
         Container(
           margin: EdgeInsets.only(left: 12),
           child: Column(

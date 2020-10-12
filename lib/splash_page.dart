@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/router/page_id.dart';
+import 'package:flutter_im/utils/file_util.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class LoadingState extends State<SplashPage> {
       child: Stack(
         children: <Widget>[
           Image.asset(
-            "images/splash_icon.jpg",
+            FileUtil.getImagePath("splash_icon", format: "jpg"),
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,

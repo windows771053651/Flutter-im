@@ -7,6 +7,7 @@ import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/contacts/bean/remark_settings_bean.dart';
 import 'package:flutter_im/personal/personal_constant.dart';
 import 'package:flutter_im/router/page_id.dart';
+import 'package:flutter_im/utils/file_util.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -104,7 +105,7 @@ class _State extends State<PersonalInfoPage> {
             child: _getAvatarImageWidget(),
           ),
           Image.asset(
-            "images/icon_arrow_right.png",
+            FileUtil.getImagePath("icon_arrow_right"),
             width: 16,
             height: 16,
             fit: BoxFit.cover,
@@ -131,6 +132,6 @@ class _State extends State<PersonalInfoPage> {
   Widget _getAvatarImageWidget() {
     return _isAvatarNativeResource
         ? IMUtils.getClipRRectImage(nativePath: _backgroundImageNativePath)
-        : IMUtils.getClipRRectImage(assetPath: "images/yixiu.jpg");
+        : IMUtils.getClipRRectImage(assetPath: FileUtil.getImagePath("yixiu", format: "jpg"));
   }
 }

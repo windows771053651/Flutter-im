@@ -7,6 +7,7 @@ import 'package:flutter_im/chat/sub_view/chat_page_bottom_emoji.dart';
 import 'package:flutter_im/chat_biz/message_manager_impl.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/personal/personal_constant.dart';
+import 'package:flutter_im/utils/file_util.dart';
 
 import 'chat_page_bottom_tools_box/chat_page_bottom_tool_box.dart';
 import 'chat_page_bottom_tools_box/tools_box_first_page.dart';
@@ -94,7 +95,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
           child: Row(
             children: <Widget>[
               _getBottomIcon(
-                assetPath: "images/chat_voice_icon.png",
+                assetPath: FileUtil.getImagePath("chat_voice_icon"),
                 left: 6,
                 callback: () {
                   setState(() {
@@ -127,7 +128,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
                 ),
               ),
               _getBottomIcon(
-                assetPath: _emojiViewVisible ? "images/hide_soft_keyboard_icon.png" : "images/chat_emoji_icon.png",
+                assetPath: _emojiViewVisible ? FileUtil.getImagePath("hide_soft_keyboard_icon") : FileUtil.getImagePath("chat_emoji_icon"),
                 left: 6,
                 callback: () {
                   _recordVoiceBtnVisible = false;

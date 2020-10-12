@@ -4,6 +4,7 @@ import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/common_text_item.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/router/page_id.dart';
+import 'package:flutter_im/utils/file_util.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
 import 'bean/constant_enum.dart';
@@ -99,7 +100,7 @@ class _NewFriendsState extends State<NewFriendsPage> {
                 padding: EdgeInsets.only(left: 12, top: 10, right: 12, bottom: 10),
                 child: Row(
                   children: <Widget>[
-                    IMUtils.getClipRRectImage(assetPath: "images/nazha.jpg", width: 42, height: 42),
+                    IMUtils.getClipRRectImage(assetPath: FileUtil.getImagePath("nazha", format: "jpg"), width: 42, height: 42),
                     Expanded(
                       child: Container(
                         margin: EdgeInsets.only(left: 12),

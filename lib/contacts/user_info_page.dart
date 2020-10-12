@@ -5,6 +5,7 @@ import 'package:flutter_im/common/common_text_item.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/personal/bean/image_display_bean.dart';
 import 'package:flutter_im/router/page_id.dart';
+import 'package:flutter_im/utils/file_util.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
 import 'bean/contact_bean.dart';
@@ -119,14 +120,14 @@ class UserInfoState extends State<UserInfoPage> {
                   Expanded(
                     child: Row(
                       children: <Widget>[
-                        _getImage("images/avatar_kobe_icon.jpg", marginLeft: 24),
-                        _getImage("images/avatar_qiaoba_icon.jpg"),
-                        _getImage("images/avatar_lufei_icon.jpg"),
+                        _getImage(FileUtil.getImagePath("avatar_kobe_icon", format: "jpg"), marginLeft: 24),
+                        _getImage(FileUtil.getImagePath("avatar_qiaoba_icon", format: "jpg")),
+                        _getImage(FileUtil.getImagePath("avatar_lufei_icon", format: "jpg")),
                       ],
                     ),
                   ),
                   Image.asset(
-                    "images/icon_arrow_right.png",
+                    FileUtil.getImagePath("icon_arrow_right"),
                     width: 16,
                     height: 16,
                     fit: BoxFit.cover,
@@ -147,7 +148,7 @@ class UserInfoState extends State<UserInfoPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset("images/icon_user_info_message.png", width: 20, height: 20, fit: BoxFit.cover,),
+                  Image.asset(FileUtil.getImagePath("icon_user_info_message"), width: 20, height: 20, fit: BoxFit.cover,),
                   Container(width: 8,),
                   Text(
                     "发消息",
@@ -172,7 +173,7 @@ class UserInfoState extends State<UserInfoPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset("images/icon_user_info_audio.png", width: 20, height: 20, fit: BoxFit.cover,),
+                  Image.asset(FileUtil.getImagePath("icon_user_info_audio"), width: 20, height: 20, fit: BoxFit.cover,),
                   Container(width: 8,),
                   Text(
                     "音视频通话",

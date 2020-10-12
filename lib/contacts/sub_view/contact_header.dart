@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_im/router/page_id.dart';
+import 'package:flutter_im/utils/file_util.dart';
 
 import 'contact_item.dart';
 
@@ -10,7 +11,7 @@ class ContactHeader extends StatelessWidget {
       children: <Widget>[
         ContactItem(
           titleName: "添加好友",
-          imageName: "images/icon_addfriend.png",
+          imageName: FileUtil.getImagePath("icon_addfriend"),
           size: 28,
           headerSutTitleVisible: false,
           callback: () {
@@ -19,7 +20,7 @@ class ContactHeader extends StatelessWidget {
         ),
         ContactItem(
           titleName: "公共聊天室",
-          imageName: "images/icon_group.png",
+          imageName: FileUtil.getImagePath("icon_group"),
           size: 28,
           headerSutTitleVisible: false,
           callback: () {

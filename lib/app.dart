@@ -4,6 +4,7 @@ import 'package:flutter_im/chat/message_page.dart';
 import 'package:flutter_im/contacts/contacts_page.dart';
 import 'package:flutter_im/personal/personal_page.dart';
 import 'package:flutter_im/router/page_id.dart';
+import 'package:flutter_im/utils/file_util.dart';
 
 class App extends StatefulWidget {
   @override
@@ -80,9 +81,9 @@ class AppState extends State<App> {
             icon: Icon(Icons.add),
             itemBuilder: (context) {
               return [
-                _popupMenuItem("发起会话", MENU_TAB_GROUP_CHAT, imagePath: "images/icon_menu_group.png"),
-                _popupMenuItem("添加好友", MENU_TAB_ADD_FRIENDS, imagePath: "images/icon_menu_addfriend.png"),
-                _popupMenuItem("联系客服", MENU_TAB_SERVICE, imagePath: "images/icon_menu_service.png"),
+                _popupMenuItem("发起会话", MENU_TAB_GROUP_CHAT, imagePath: FileUtil.getImagePath("icon_menu_group")),
+                _popupMenuItem("添加好友", MENU_TAB_ADD_FRIENDS, imagePath: FileUtil.getImagePath("icon_menu_addfriend")),
+                _popupMenuItem("联系客服", MENU_TAB_SERVICE, imagePath: FileUtil.getImagePath("icon_menu_service")),
               ];
             },
             onSelected: (value) {
@@ -110,9 +111,9 @@ class AppState extends State<App> {
           });
         },
         items: [
-          _getBottomNavigationBarItem(TAB_MESSAGE, "images/message_normal.png", "images/message_pressed.png"),
-          _getBottomNavigationBarItem(TAB_CONTACTS, "images/contact_list_normal.png", "images/contact_list_pressed.png"),
-          _getBottomNavigationBarItem(TAB_PERSONAL, "images/profile_normal.png", "images/profile_pressed.png"),
+          _getBottomNavigationBarItem(TAB_MESSAGE, "images/message_normal.png",FileUtil.getImagePath("message_pressed")),
+          _getBottomNavigationBarItem(TAB_CONTACTS, "images/contact_list_normal.png", FileUtil.getImagePath("contact_list_pressed")),
+          _getBottomNavigationBarItem(TAB_PERSONAL, "images/profile_normal.png", FileUtil.getImagePath("profile_pressed")),
         ],
       ),
       body: IndexedStack(

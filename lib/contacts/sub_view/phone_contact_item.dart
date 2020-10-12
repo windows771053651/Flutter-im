@@ -2,6 +2,7 @@ import 'package:easy_contact_picker/easy_contact_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/utils/file_util.dart';
 
 class PhoneContactItem extends StatelessWidget {
 
@@ -83,7 +84,7 @@ class PhoneContactItem extends StatelessWidget {
   Widget _getAvatar() {
     return ClipRRect(
       borderRadius: BorderRadius.circular(4),
-      child: Image.asset("images/nazha.jpg", width: 34, height: 34, fit: BoxFit.cover,),
+      child: Image.asset(FileUtil.getImagePath("nazha", format: "jpg"), width: 34, height: 34, fit: BoxFit.cover,),
     );
   }
 }

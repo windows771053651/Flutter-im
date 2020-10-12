@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/common_text_item.dart';
+import 'package:flutter_im/utils/file_util.dart';
 
 class FriendPermissionSettings extends StatefulWidget {
 
@@ -43,7 +44,7 @@ class _FriendPermissionSettingsState extends State<FriendPermissionSettings> {
             leftTitle: "聊天、好友动态、运动等",
             leftTitleWidth: 180,
             arrowRightIconVisible: widget.selected,
-            arrowRightIconAssetPath: "images/icon_selected.png",
+            arrowRightIconAssetPath: FileUtil.getImagePath("icon_selected"),
             arrowRightIconSize: 32,
             callback: () {
               if (!widget.selected) {
@@ -59,7 +60,7 @@ class _FriendPermissionSettingsState extends State<FriendPermissionSettings> {
           CommonTextItemView(
             leftTitle: "仅聊天",
             arrowRightIconVisible: !widget.selected,
-            arrowRightIconAssetPath: "images/icon_selected.png",
+            arrowRightIconAssetPath: FileUtil.getImagePath("icon_selected"),
             arrowRightIconSize: 32,
             callback: () {
               if (widget.selected) {

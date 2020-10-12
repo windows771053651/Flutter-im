@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_im/utils/file_util.dart';
 
 getAppBar(BuildContext context, {
   Key key,
@@ -20,7 +21,7 @@ getAppBar(BuildContext context, {
       visible: leftIconVisible,
       child: FlatButton(
           child: Image.asset(
-            "images/icon_arrow_left.png",
+            FileUtil.getImagePath("icon_arrow_left"),
             width: 20,
             height: 20,
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/router/page_id.dart';
+import 'package:flutter_im/utils/file_util.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
 import '../personal_constant.dart';
@@ -51,9 +52,9 @@ class PersonalHeader extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(right: 16),
-            child: Image.asset("images/code.png", width: 16, height: 16,),
+            child: Image.asset(FileUtil.getImagePath("code"), width: 16, height: 16,),
           ),
-          Image.asset("images/icon_arrow_right.png", width: 16, height: 16,),
+          Image.asset(FileUtil.getImagePath("icon_arrow_right"), width: 16, height: 16,),
         ],
       ),
     );

@@ -9,6 +9,7 @@ import 'package:flutter_im/chat/sub_view/chat_page_bottom_widget.dart';
 import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/router/page_id.dart';
+import 'package:flutter_im/utils/file_util.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'bean/chat_message_bean.dart';
 import '../chat_biz/message_manager_impl.dart';
@@ -106,7 +107,7 @@ class _ChatState extends State<ChatPage> with WidgetsBindingObserver {
       normalColor: Colors.transparent,
       pressedColor: Colors.green[700],
       padding: EdgeInsets.only(left: 12, right: 12),
-      child: Image.asset("images/menu_ellipsie_icon.png", width: 32,),
+      child: Image.asset(FileUtil.getImagePath("menu_ellipsie_icon"), width: 32,),
       callBack: () {
         Future future = Navigator.of(context).pushNamed(PageId.GROUP_CHAT_CHAT_SETTINGS_PAGE, arguments: _name);
         future.then((onValue) {
