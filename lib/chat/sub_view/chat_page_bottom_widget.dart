@@ -12,6 +12,7 @@ import 'package:flutter_im/utils/file_util.dart';
 import 'chat_page_bottom_tools_box/chat_page_bottom_tool_box.dart';
 import 'chat_page_bottom_tools_box/tools_box_first_page.dart';
 import 'chat_page_bottom_tools_box/tools_box_second_page.dart';
+import 'package:flutter_im/utils/im_tools.dart';
 
 /// 聊天页面底部组件
 class ChatBottomWidget extends StatefulWidget {
@@ -48,6 +49,8 @@ class ChatBottomState extends State<ChatBottomWidget> {
 
   String _inputContent = "";
 
+  GlobalKey _inputGlobalKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
@@ -70,6 +73,25 @@ class ChatBottomState extends State<ChatBottomWidget> {
 
   @override
   Widget build(BuildContext context) {
+    return Listener(
+      child: _bottomBody(),
+      onPointerDown: (enter) {
+        Offset offset = IMUtils.getWidgetPosition2(_inputGlobalKey);
+        Size size = IMUtils.getWidgetSize(_inputGlobalKey);
+        double right = offset.dx + size.width;
+        double bottom = offset.dy + size.height;
+        if (enter.position.dx >= offset.dx && enter.position.dx <= right && enter.position.dy >= offset.dy && enter.position.dy <= bottom) {
+          setState(() {
+            _keyboardEnableVisible = true;
+            _toolsBoxVisible = false;
+            _emojiViewVisible = false;
+          });
+        }
+      },
+    );
+  }
+
+  Widget _bottomBody() {
     return Column(
       children: <Widget>[
         Container(
@@ -164,12 +186,12 @@ class ChatBottomState extends State<ChatBottomWidget> {
         ),
         (_toolsBoxVisible || _emojiViewVisible)
             ? Container(
-                height: 240,
-                child: _bottomWidget(),
-              )
-              : SizedBox(
-                  height: 0,
-                )
+          height: 240,
+          child: _bottomWidget(),
+        )
+            : SizedBox(
+          height: 0,
+        )
       ],
     );
   }
@@ -207,6 +229,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
             ),
           )
         : TextField(
+            key: _inputGlobalKey,
             focusNode: _focusNode,
             decoration: InputDecoration(
               border: InputBorder.none,

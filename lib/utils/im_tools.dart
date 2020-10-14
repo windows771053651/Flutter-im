@@ -12,10 +12,16 @@ class IMUtils {
     return Rect.fromLTRB(topLeft.dx, topLeft.dy, bottomRight.dx, bottomRight.dy);
   }
 
-  /// 获取Widget和屏幕的相对位置关系
-  static Offset getWidgetLocalToGlobal(BuildContext context) {
-    RenderBox box = context.findRenderObject();
-    return box.localToGlobal(Offset.zero);
+  /// 获取Widget的范围属性，均为相对屏幕起始零点坐标计算所得
+  static Offset getWidgetPosition2(GlobalKey anchorKey) {
+    RenderBox renderBox = anchorKey.currentContext.findRenderObject();
+    return renderBox.localToGlobal(Offset.zero);
+  }
+
+  /// 获取Widget大小
+  static Size getWidgetSize(GlobalKey anchorKey) {
+    RenderBox renderBox = anchorKey.currentContext.findRenderObject();
+    return renderBox.size;
   }
 
   /// 加载圆角头像
