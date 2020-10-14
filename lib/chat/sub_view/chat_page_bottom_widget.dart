@@ -76,11 +76,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
     return Listener(
       child: _bottomBody(),
       onPointerDown: (enter) {
-        Offset offset = IMUtils.getWidgetPosition2(_inputGlobalKey);
-        Size size = IMUtils.getWidgetSize(_inputGlobalKey);
-        double right = offset.dx + size.width;
-        double bottom = offset.dy + size.height;
-        if (enter.position.dx >= offset.dx && enter.position.dx <= right && enter.position.dy >= offset.dy && enter.position.dy <= bottom) {
+        if (_isShouldDisplaySoftKeyboard(enter)) {
           setState(() {
             _keyboardEnableVisible = true;
             _toolsBoxVisible = false;
@@ -89,6 +85,15 @@ class ChatBottomState extends State<ChatBottomWidget> {
         }
       },
     );
+  }
+
+  /// 点击Widget，触屏点是否在目标范围内
+  bool _isShouldDisplaySoftKeyboard(PointerDownEvent enter) {
+    Offset offset = IMUtils.getWidgetPosition2(_inputGlobalKey);
+    Size size = IMUtils.getWidgetSize(_inputGlobalKey);
+    double right = offset.dx + size.width;
+    double bottom = offset.dy + size.height;
+    return enter.position.dx >= offset.dx && enter.position.dx <= right && enter.position.dy >= offset.dy && enter.position.dy <= bottom;
   }
 
   Widget _bottomBody() {
@@ -110,158 +115,146 @@ class ChatBottomState extends State<ChatBottomWidget> {
           ),
           child: Row(
             children: <Widget>[
-              _getBottomIcon(
-                assetPath: FileUtil.getImagePath("chat_voice_icon"),
-                left: 6,
-                callback: () {
-                  setState(() {
-                    _recordVoiceBtnVisible = !_recordVoiceBtnVisible;
-                    _toolsBoxVisible = false;
-                    _emojiViewVisible = false;
-                    _keyboardEnableVisible = true;
-                    if (!_recordVoiceBtnVisible) {
-                      /// 下一帧绘制完成时弹起软键盘
-                      WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-                        FocusScope.of(context).requestFocus(_focusNode);
-                      });
-                    }
-                  });
-                },
-              ),
-              Expanded(
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  constraints: BoxConstraints(
-                    minHeight: 36,
-                  ),
-                  margin: EdgeInsets.only(top: 6, bottom: 6),
-                  padding: EdgeInsets.only(left: 6, right: 6),
-                  decoration: BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
-                  ),
-                  child: _getRecordVoiceWidget(),
-                ),
-              ),
-              _getBottomIcon(
-                assetPath: _emojiViewVisible ? FileUtil.getImagePath("hide_soft_keyboard_icon") : FileUtil.getImagePath("chat_emoji_icon"),
-                left: 6,
-                callback: () {
-                  _recordVoiceBtnVisible = false;
-                  if (!_emojiViewVisible) {
-                    setState(() {
-                      _keyboardEnableVisible = false;
-                    });
-                    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-                      FocusScope.of(context).requestFocus(_focusNode);
-                      WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-                        setState(() {
-                          if (_emojiViewVisible) {
-                            _emojiViewVisible = false;
-                            _keyboardEnableVisible = true;
-                          } else {
-                            _toolsBoxVisible = false;
-                            _keyboardEnableVisible = false;
-                            Future.delayed(Duration(milliseconds: 100), () {
-                              setState(() {
-                                _emojiViewVisible = true;
-                              });
-                            });
-                          }
-                        });
-                      });
-                    });
-                  } else {
-                    setState(() {
-                      _emojiViewVisible = false;
-                      _keyboardEnableVisible = true;
-                    });
-                    FocusScope.of(context).requestFocus(_focusNode);
-                  }
-                },
-              ),
+              _getVoiceWidget(),
+              _getRecordVoiceWidget(),
+              _getEmojiWidget(),
               _getRightSendAddWidget(),
             ],
           ),
         ),
         (_toolsBoxVisible || _emojiViewVisible)
             ? Container(
-          height: 240,
-          child: _bottomWidget(),
-        )
+                height: 240,
+                child: _bottomWidget(),
+              )
             : SizedBox(
-          height: 0,
-        )
+                height: 0,
+            )
       ],
     );
   }
 
-  /// 底部可控显示区域
-  Widget _bottomWidget() {
-    Widget widget;
-    if (_toolsBoxVisible) {
-      widget = ChatPageBottomToolBox(
-        pageList: [
-          ToolBoxFirstPage(),
-          ToolsBoxSecondPage(),
-        ],
-      );
-    } else if (_emojiViewVisible) {
-      widget = ChatPageBottomEmoji((String emoji) {
+  Widget _getVoiceWidget() {
+    return _getBottomIcon(
+      assetPath: FileUtil.getImagePath("chat_voice_icon"),
+      left: 6,
+      callback: () {
         setState(() {
-          _inputContent = _inputContent + emoji;
+          _recordVoiceBtnVisible = !_recordVoiceBtnVisible;
+          _toolsBoxVisible = false;
+          _emojiViewVisible = false;
+          _keyboardEnableVisible = true;
+          if (!_recordVoiceBtnVisible) {
+            /// 下一帧绘制完成时弹起软键盘
+            WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+              FocusScope.of(context).requestFocus(_focusNode);
+            });
+          }
         });
-      });
-    }
-    return widget;
+      },
+    );
   }
 
   /// 录音按钮和文本编辑框
   Widget _getRecordVoiceWidget() {
-    return _recordVoiceBtnVisible
-        ? Center(
-            child: Text(
-              "按住 说话",
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.black,
-              ),
-            ),
-          )
-        : TextField(
-            key: _inputGlobalKey,
-            focusNode: _focusNode,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.all(0),
-            ),
-            maxLines: 3,
-            minLines: 1,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.black,
-            ),
-            textAlignVertical: TextAlignVertical.center,
-            controller: TextEditingController.fromValue(
-              TextEditingValue(
-                text: _inputContent,
-                selection: TextSelection.fromPosition(
-                  TextPosition(
-                  affinity: TextAffinity.downstream,
-                  offset: _inputContent.length,
+    return Expanded(
+      child: Container(
+        alignment: Alignment.centerLeft,
+        constraints: BoxConstraints(
+          minHeight: 36,
+        ),
+        margin: EdgeInsets.only(top: 6, bottom: 6),
+        padding: EdgeInsets.only(left: 6, right: 6),
+        decoration: BoxDecoration(
+          color: Colors.white70,
+          borderRadius: BorderRadius.all(Radius.circular(4)),
+        ),
+        child: _recordVoiceBtnVisible
+            ? Center(
+                child: Text(
+                  "按住 说话",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                  ),
                 ),
+              )
+            : TextField(
+                key: _inputGlobalKey,
+                focusNode: _focusNode,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(0),
+                ),
+                maxLines: 3,
+                minLines: 1,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.black,
+                ),
+                textAlignVertical: TextAlignVertical.center,
+                controller: TextEditingController.fromValue(
+                  TextEditingValue(
+                    text: _inputContent,
+                    selection: TextSelection.fromPosition(
+                      TextPosition(
+                        affinity: TextAffinity.downstream,
+                        offset: _inputContent.length,
+                      ),
+                    ),
+                  ),
+                ),
+                showCursor: true,
+                readOnly: !_keyboardEnableVisible,
+                onChanged: (value) {
+                  _inputContent = value;
+                  setState(() {
+                    _sendBtnVisible = value.isNotEmpty;
+                  });
+                },
               ),
-              ),
-            ),
-            showCursor: true,
-            readOnly: !_keyboardEnableVisible,
-            onChanged: (value) {
-              _inputContent = value;
+      ),
+    );
+  }
+
+  Widget _getEmojiWidget() {
+    return _getBottomIcon(
+      assetPath: _emojiViewVisible ? FileUtil.getImagePath("hide_soft_keyboard_icon") : FileUtil.getImagePath("chat_emoji_icon"),
+      left: 6,
+      callback: () {
+        _recordVoiceBtnVisible = false;
+        if (!_emojiViewVisible) {
+          setState(() {
+            _keyboardEnableVisible = false;
+          });
+          WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+            FocusScope.of(context).requestFocus(_focusNode);
+            WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
               setState(() {
-                _sendBtnVisible = value.isNotEmpty;
+                if (_emojiViewVisible) {
+                  _emojiViewVisible = false;
+                  _keyboardEnableVisible = true;
+                } else {
+                  _toolsBoxVisible = false;
+                  _keyboardEnableVisible = false;
+                  Future.delayed(Duration(milliseconds: 100), () {
+                    setState(() {
+                      _emojiViewVisible = true;
+                    });
+                  });
+                }
               });
-            },
-          );
+            });
+          });
+        } else {
+          setState(() {
+            _emojiViewVisible = false;
+            _keyboardEnableVisible = true;
+          });
+          FocusScope.of(context).requestFocus(_focusNode);
+        }
+      },
+    );
   }
 
   /// 发送按钮、加号组件
@@ -322,6 +315,26 @@ class ChatBottomState extends State<ChatBottomWidget> {
     );
   }
 
+  /// 底部可控显示区域
+  Widget _bottomWidget() {
+    Widget widget;
+    if (_toolsBoxVisible) {
+      widget = ChatPageBottomToolBox(
+        pageList: [
+          ToolBoxFirstPage(),
+          ToolsBoxSecondPage(),
+        ],
+      );
+    } else if (_emojiViewVisible) {
+      widget = ChatPageBottomEmoji((String emoji) {
+        setState(() {
+          _inputContent = _inputContent + emoji;
+        });
+      });
+    }
+    return widget;
+  }
+
   Widget _getBottomIcon({
     String assetPath,
     VoidCallback callback,
@@ -333,11 +346,11 @@ class ChatBottomState extends State<ChatBottomWidget> {
       child: Container(
         padding: EdgeInsets.only(left: left, right: 6, top: 4, bottom: 4),
         child: Image.asset(
-          assetPath,
-          width: 26,
-          height: 26,
-          fit: BoxFit.cover,
-          color: Color(0xff2c2c2c),
+                assetPath,
+                width: 26,
+                height: 26,
+                fit: BoxFit.cover,
+                color: Color(0xff2c2c2c),
         ),
       ),
       callBack: callback,
