@@ -4,6 +4,7 @@ import 'package:flutter_im/chat/message_page.dart';
 import 'package:flutter_im/contacts/contacts_page.dart';
 import 'package:flutter_im/personal/personal_page.dart';
 import 'package:flutter_im/router/page_id.dart';
+import 'package:flutter_im/utils/android_back.dart';
 import 'package:flutter_im/utils/file_util.dart';
 
 class App extends StatefulWidget {
@@ -117,10 +118,10 @@ class AppState extends State<App> {
         ],
       ),
       body: WillPopScope(
-//        onWillPop: () {
-//          /// 物理返回键，返回到桌面
-//          _backPress();
-//        },
+        onWillPop: () {
+          /// 物理返回键，返回到桌面
+          _backPress();
+        },
         child: IndexedStack(
           index: _currentIndex,
           children: bodyList,
@@ -161,5 +162,9 @@ class AppState extends State<App> {
   }
 
   _backPress() {
+    //设置为返回不退出app
+    AndroidBackTop.backDeskTop();
+    //一定要return false
+    return false;
   }
 }
