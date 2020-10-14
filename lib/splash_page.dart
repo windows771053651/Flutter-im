@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/file_util.dart';
 import 'package:flutter_im/utils/timer_util.dart';
+
+import 'constants/constants.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -48,16 +51,30 @@ class LoadingState extends State<SplashPage> {
     Navigator.of(context).pushReplacementNamed(PageId.GROUP_MAIN);
   }
 
+  Widget _buildSplashBg() {
+    return new Image.asset(
+      FileUtil.getImagePath('splash_bg', format: "jpg"),
+      width: double.infinity,
+      fit: BoxFit.fill,
+      height: double.infinity,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Stack(
+    return new Material(
+      child: new Stack(
         children: <Widget>[
-          Image.asset(
-            FileUtil.getImagePath("splash_icon", format: "jpg"),
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
+          Container(
+            alignment: Alignment.center,
+            child: CachedNetworkImage(
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.fill,
+              imageUrl: Constants.URL_ADVERTISING,
+              placeholder: (context, url) => _buildSplashBg(),
+              errorWidget: (context, url, error) => _buildSplashBg(),
+            ),
           ),
           Positioned(
             bottom: 20,
@@ -90,5 +107,4 @@ class LoadingState extends State<SplashPage> {
       ),
     );
   }
-
 }
