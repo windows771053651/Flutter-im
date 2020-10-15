@@ -3,12 +3,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/chat_tools.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/utils/file_util.dart';
 
 class ChatPageBottomEmoji extends StatelessWidget {
 
-  OnEmojiChangedListener _listener;
+  final OnEmojiAddedListener onEmojiAdded;
 
-  ChatPageBottomEmoji(this._listener);
+  final OnEmojiDeleteListener onEmojiDelete;
+
+  ChatPageBottomEmoji({
+    this.onEmojiAdded,
+    this.onEmojiDelete,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +49,30 @@ class ChatPageBottomEmoji extends StatelessWidget {
                             ),
                           ),
                           callBack: () {
-                            if (_listener != null) {
-                              _listener(String.fromCharCode(data[index]["unicode"]));
+                            if (onEmojiAdded != null) {
+                              onEmojiAdded(String.fromCharCode(data[index]["unicode"]));
                             }
                           },
                         );
                       },
                       childCount: data.length,
                     ),
+                  ),
+                ),
+                Positioned(
+                  right: 0,
+                  bottom: 0,
+                  child: TouchCallBack(
+                    pressedColor: Colors.white,
+                    padding: EdgeInsets.only(left: 34, top: 12),
+                    child: IconButton(
+                      icon: Image.asset(FileUtil.getImagePath("face_delete"), width: 60, height: 60),
+                    ),
+                    callBack: () {
+                      if (onEmojiDelete != null) {
+                        onEmojiDelete();
+                      }
+                    },
                   ),
                 ),
               ],
@@ -64,4 +86,6 @@ class ChatPageBottomEmoji extends StatelessWidget {
   }
 }
 
-typedef OnEmojiChangedListener = Function(String emoji);
+typedef OnEmojiAddedListener = Function(String emoji);
+
+typedef OnEmojiDeleteListener = Function();

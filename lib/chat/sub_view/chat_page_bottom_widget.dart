@@ -326,13 +326,27 @@ class ChatBottomState extends State<ChatBottomWidget> {
         ],
       );
     } else if (_emojiViewVisible) {
-      widget = ChatPageBottomEmoji((String emoji) {
-        setState(() {
-          _inputContent = _inputContent + emoji;
-        });
-      });
+      widget = ChatPageBottomEmoji(
+        onEmojiAdded: (String emoji) {
+          setState(() {
+            _inputContent = _inputContent + emoji;
+          });
+        },
+        onEmojiDelete: () {
+          setState(() {
+            _inputContent = deleteInputContent(_inputContent);
+          });
+        },
+      );
     }
     return widget;
+  }
+
+  /// 将输入框内容转成unicode编码，从后往前每次删除一个unicode，达到删除文本内容的目的
+  String deleteInputContent(String str) {
+    int unitLen = 1;
+    var sRunes = str.runes;
+    return sRunes.length >= unitLen ?  String.fromCharCodes(sRunes, 0, sRunes.length - unitLen) : str;
   }
 
   Widget _getBottomIcon({
