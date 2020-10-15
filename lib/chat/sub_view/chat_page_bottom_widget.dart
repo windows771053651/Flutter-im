@@ -76,7 +76,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
     return Listener(
       child: _bottomBody(),
       onPointerDown: (enter) {
-        if (_isShouldDisplaySoftKeyboard(enter)) {
+        if (_isShouldDisplaySoftKeyboard(enter) && _emojiViewVisible) {
           setState(() {
             _keyboardEnableVisible = true;
             _toolsBoxVisible = false;

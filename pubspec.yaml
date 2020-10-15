@@ -34,6 +34,7 @@ dependencies:
   qr_flutter: ^3.1.0 #生成二维码
   image_gallery_saver: ^1.1.0 #保存图片
   keyboard_visibility: ^0.5.2 #软键盘
+  video_player: ^0.11.1+2 # 视频播放器
 
 dev_dependencies:
   flutter_test:
@@ -54,6 +55,7 @@ flutter:
   assets:
     - images/
     - assets/
+    - assets/video/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

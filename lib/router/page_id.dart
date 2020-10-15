@@ -63,6 +63,8 @@ class PageId{
   static const String GROUP_PERSONAL_MY_FILE_PAGE = GROUP_PERSONAL + "/my_file_page";
   /// 客服中心
   static const String GROUP_PERSONAL_CUSTOM_SERVICE_PAGE = GROUP_PERSONAL + "/custom_service_page";
+  /// 视频播放
+  static const String GROUP_PERSONAL_AUDIO_PLAYING_PAGE = GROUP_PERSONAL + "/audio_playing";
   /// ------------------------------"我的"模块end---------------------------
 
 

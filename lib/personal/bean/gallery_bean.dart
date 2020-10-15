@@ -243,7 +243,7 @@ List<GalleryBean> getVideoDataResource() {
         GallerySubBean(
           thumb:
               "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3043221178,131832452&fm=26&gp=0.jpg",
-          videoUrl: "https://v.qq.com/x/cover/ljj50eycdp302ry/o0636y7d24v.html",
+          videoUrl: "assets/video/a.mp4",
           isVideo: true,
           videoTitle: "于文文成名曲",
         ),
@@ -256,7 +256,7 @@ List<GalleryBean> getVideoDataResource() {
         GallerySubBean(
           thumb:
               "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1601455445793&di=4df15b76e84647d944b1206ec9e7d8bd&imgtype=0&src=http%3A%2F%2Fgss0.baidu.com%2F7Po3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fwh%3D450%2C600%3B%2Fsign%3De3edc6aec7ef76093c5e919b1bed8ffa%2F83025aafa40f4bfb14f45c670f4f78f0f73618d9.jpg",
-          videoUrl: "https://v.qq.com/x/cover/ljj50eycdp302ry/m0625x5v1ic.html",
+          videoUrl: "assets/video/b.mp4",
           isVideo: true,
           videoTitle: "毛不易《体面》",
         ),

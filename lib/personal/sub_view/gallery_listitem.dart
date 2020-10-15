@@ -117,7 +117,7 @@ class GalleryItem extends StatelessWidget {
         child: _getMorePictureModePicWidget(gallerySubBean.thumb, pictureCellWidth),
         callBack: () {
           if (gallerySubBean.isVideo) {
-            Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_WEBVIEW_LOADING_PAGE, arguments: [gallerySubBean.videoTitle, gallerySubBean.videoUrl]);
+            Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_AUDIO_PLAYING_PAGE, arguments: [gallerySubBean.videoTitle, gallerySubBean.videoUrl]);
           } else {
             Navigator.of(context).pushNamed(
               PageId.GROUP_PERSONAL_MULTI_IMAGE_DISPLAY,
