@@ -91,12 +91,17 @@ class AppState extends State<App> {
               switch(value) {
                 case MENU_TAB_GROUP_CHAT:
                   // 发起会话
+                  setState(() {
+                    _currentIndex = TAB_CONTACTS;
+                  });
                   break;
                 case MENU_TAB_ADD_FRIENDS:
                   // 添加好友
+                  Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_NEW_FRIENDS);
                   break;
                 case MENU_TAB_SERVICE:
                   // 联系客服
+                  Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_CUSTOM_SERVICE_PAGE);
                   break;
               }
             },
