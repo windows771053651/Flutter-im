@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/chat_biz/message_manager_impl.dart';
+import 'package:flutter_im/chat_biz/session_manager_impl.dart';
 import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/common_text_item.dart';
 import 'package:flutter_im/router/page_id.dart';
@@ -46,6 +47,7 @@ class ChatSettingsPage extends StatelessWidget {
                   Future future = MessageControllerImpl.instance.clearAllNativeMessage("${_chatUserName.hashCode}");
                   future.then((onValue) {
                     print("删除:$onValue条数据");
+                    SessionManagerImpl.instance.deleteSession("${_chatUserName.hashCode}");
                     Navigator.of(context).pop([OperationType.DELETE_CHAT_MESSAGE, onValue]);
                   });
                 }

@@ -5,6 +5,8 @@ typedef InitChatMessageCallback = void Function(List<ChatMessageBean> initMessag
 
 typedef InitChatSessionCallback = void Function(List<ChatSession> initSessions);
 
+typedef OnChatSessionDeleteCallback = void Function(String targetUserId);
+
 abstract class OnChatMessageUpdateListener {
   void onChatMessageUpdate(ChatMessageBean newMessages);
 }

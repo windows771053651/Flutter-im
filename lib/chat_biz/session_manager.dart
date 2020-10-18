@@ -9,4 +9,6 @@ abstract class SessionManager<T extends ChatSession> {
   void insertSession(ChatSession session);
 
   void registerInitChatSessionListener(InitChatSessionCallback initChatSessionCallback);
+
+  void registerOnSessionDeletedLister(OnChatSessionDeleteCallback onChatSessionDeleteCallback);
 }

@@ -17,6 +17,8 @@ class SessionManagerImpl extends SessionManager {
 
   ImSessionDatabaseProvider _imSessionDatabaseProvider;
 
+  OnChatSessionDeleteCallback _onChatSessionDeleteCallback;
+
   static SessionManagerImpl _getInstance() {
     if (_instance == null) {
       _instance = SessionManagerImpl._internal();
@@ -28,6 +30,9 @@ class SessionManagerImpl extends SessionManager {
   @override
   Future<int> deleteSession(String targetUserId) {
     _imSessionDatabaseProvider.delete(targetUserId);
+    if (_onChatSessionDeleteCallback != null) {
+      _onChatSessionDeleteCallback(targetUserId);
+    }
   }
 
   @override
@@ -63,5 +68,9 @@ class SessionManagerImpl extends SessionManager {
         initChatSessionCallback(nativeSessions);
       }
     });
+  }
+
+  void registerOnSessionDeletedLister(OnChatSessionDeleteCallback onChatSessionDeleteCallback) {
+    this._onChatSessionDeleteCallback = onChatSessionDeleteCallback;
   }
 }

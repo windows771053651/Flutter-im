@@ -33,6 +33,28 @@ class _MessagePageState extends MessageState<MessagePage> {
         _dataResources.addAll(initSessions);
       });
     });
+    SessionManagerImpl.instance.registerOnSessionDeletedLister((String targetUserId) {
+      if (IMUtils.isStringNotEmpty(targetUserId)) {
+        ChatSession target = _getDeleteTargetSession(targetUserId);
+        if (target != null) {
+          setState(() {
+            _dataResources.remove(target);
+          });
+        }
+      }
+    });
+  }
+
+  /// 获取要删除的session
+  ChatSession _getDeleteTargetSession(String targetUserId) {
+    ChatSession target;
+    for (ChatSession bean in _dataResources) {
+      if (IMUtils.compareString(targetUserId, bean.userId)) {
+        target = bean;
+        break;
+      }
+    }
+    return target;
   }
 
   @override
@@ -52,9 +74,6 @@ class _MessagePageState extends MessageState<MessagePage> {
                   _dataResources.insert(0, chatSession);
                 });
               } else if (type == ContextMenuEnum.DELETE_MESSAGE) {
-                setState(() {
-                  _dataResources.remove(chatSession);
-                });
                 SessionManagerImpl.instance.deleteSession(chatSession.userId);
               }
             },);
