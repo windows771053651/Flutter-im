@@ -1,4 +1,4 @@
-import 'dart:io';
+
 import 'dart:typed_data';
 import 'dart:ui' as prefix0;
 
@@ -8,7 +8,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/bottom_sheet_dialog.dart';
 import 'package:flutter_im/common/touch_callback.dart';
-import 'package:flutter_im/personal/personal_constant.dart';
+import 'package:flutter_im/constants/constants.dart';
 import 'package:flutter_im/utils/file_util.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 import 'package:flutter_im/utils/show_toast.dart';
@@ -85,7 +85,7 @@ class QRCodeBusinessCard extends StatelessWidget {
         child: QrImage (
           backgroundColor: Color(0xffffffff),
           padding: EdgeInsets.all(0),
-          data: PersonalConstant.userName,
+          data: Constants.userName,
           size: _cardSize,
         ),
       ),
@@ -102,7 +102,7 @@ class QRCodeBusinessCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                PersonalConstant.userName,
+                Constants.userName,
                 style: TextStyle(
                   fontSize: 14,
                 ),

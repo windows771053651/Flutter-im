@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_im/constants/constants.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
 enum ChatMessageType {
@@ -18,9 +19,17 @@ enum InOutType {
 class ChatMessageBean {
   final ChatMessageType chatMessageType;
 
-  final String avatarUrl;
+  /// 聊天对象的姓名
+  final String targetName;
 
-  final String name;
+  /// 聊天对象的头像
+  final String targetAvatarUrl;
+
+  /// 当前对象的姓名
+  final String currentName;
+
+  /// 当前用户的头像
+  final String currentAvatarUrl;
 
   final String time;
 
@@ -36,28 +45,18 @@ class ChatMessageBean {
 
   final String nativePicturePath;
 
-  String userId;
+  /// 聊天对象的uiserid
+  String targetUserId;
 
-  ChatMessageBean({
-    this.chatMessageType,
-    this.avatarUrl,
-    @required this.name,
-    this.time,
-    this.picturePath,
-    this.voiceUrl,
-    this.location,
-    this.inOutType,
-    this.chatMessage,
-    this.nativePicturePath,
-  }) {
-    assert(IMUtils.isStringNotEmpty(this.name), "聊天消息用户名不能为空");
-    this.userId = "${this.name.hashCode}";
-  }
+  /// 当前用户的uiserid
+  String currentUserId;
 
   static ChatMessageBean build({
-    @required String name,
+    @required String targetName,
+    @required String currentName,
     @required ChatMessageType chatMessageType,
-    @required String avatarUrl,
+    @required String currentAvatarUrl,
+    @required String targetAvatarUrl,
     @required InOutType inOutType,
     String chatMessage,
     String picturePath,
@@ -72,9 +71,11 @@ class ChatMessageBean {
             || (chatMessageType == ChatMessageType.PICTURE && (IMUtils.isStringNotEmpty(picturePath) || IMUtils.isStringNotEmpty(nativePicturePath))), "发送图片地址信息错误");
 
     return ChatMessageBean(
-      name: name,
+      targetName: targetName,
+      targetAvatarUrl: targetAvatarUrl,
+      currentName: currentName,
+      currentAvatarUrl: currentAvatarUrl,
       chatMessageType: chatMessageType,
-      avatarUrl: avatarUrl,
       time: time,
       inOutType: inOutType,
       chatMessage: chatMessage,
@@ -85,9 +86,28 @@ class ChatMessageBean {
     );
   }
 
+  ChatMessageBean({
+    this.chatMessageType,
+    @required this.targetName,
+    @required this.currentName,
+    this.targetAvatarUrl,
+    this.currentAvatarUrl,
+    this.time,
+    this.picturePath,
+    this.voiceUrl,
+    this.location,
+    this.inOutType,
+    this.chatMessage,
+    this.nativePicturePath,
+  }) {
+    assert(IMUtils.isStringNotEmpty(this.targetName), "聊天消息用户名不能为空");
+    this.targetUserId = "${this.targetName.hashCode}";
+    this.currentUserId = "${this.currentName.hashCode}";
+  }
+
   @override
   String toString() {
-    return 'ChatMessageBean{chatMessageType: $chatMessageType, name: $name, time: $time, inOutType: $inOutType, chatMessage: $chatMessage}';
+    return 'ChatMessageBean{chatMessageType: $chatMessageType, name: $targetName, time: $time, inOutType: $inOutType, chatMessage: $chatMessage}';
   }
 }
 
@@ -124,34 +144,41 @@ InOutType getInOutTypeByIndex(int index) {
 List<ChatMessageBean> getDefaultChatMessage(String name, String avatar) {
   return [
     ChatMessageBean(
-      name: name,
+      currentName: Constants.userName,
+      currentAvatarUrl: Constants.userAvatar,
+      targetName: name,
+      targetAvatarUrl: avatar,
       chatMessageType: ChatMessageType.TEXT,
-      avatarUrl: avatar,
       time: "15:01",
       inOutType: InOutType.IN,
       chatMessage: "炒股必亏",
     ),
     ChatMessageBean(
-      name: name,
+      currentName: Constants.userName,
+      currentAvatarUrl: Constants.userAvatar,
+      targetName: name,
+      targetAvatarUrl: avatar,
       chatMessageType: ChatMessageType.TEXT,
-      avatarUrl: avatar,
       time: "15:01",
       inOutType: InOutType.IN,
       chatMessage: "必亏啊",
     ),
     ChatMessageBean(
-      name: name,
+      currentName: Constants.userName,
+      currentAvatarUrl: Constants.userAvatar,
+      targetName: name,
+      targetAvatarUrl: avatar,
       chatMessageType: ChatMessageType.PICTURE,
-      avatarUrl: avatar,
       time: "15:01",
       inOutType: InOutType.IN,
-      chatMessage: "扣我880分，返还我40分",
       picturePath: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2143033927,6164022&fm=26&gp=0.jpg",
     ),
     ChatMessageBean(
-      name: name,
+      currentName: Constants.userName,
+      currentAvatarUrl: Constants.userAvatar,
+      targetName: name,
+      targetAvatarUrl: avatar,
       chatMessageType: ChatMessageType.TEXT,
-      avatarUrl: avatar,
       time: "15:01",
       inOutType: InOutType.IN,
       chatMessage: "必亏啊，兄弟",

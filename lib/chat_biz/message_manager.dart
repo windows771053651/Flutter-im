@@ -38,7 +38,11 @@ abstract class MessageManager<T extends ChatMessageBean> {
   /// 清除指定用户信息
   Future<int> clearAllNativeMessage(String userId);
 
-  void registerUpdateUIListener(IUpdateUIListener listener, String name, String avatarUrl);
+  void init(String name, String avatarUrl);
 
-  void unRegisterUpdateUIListener();
+  void registerInitChatMessageListener(InitChatMessageCallback initChatMessageCallback);
+
+  void registerChatMessageUpdateListener(OnChatMessageUpdateListener onChatMessageUpdateListener);
+
+  void unRegisterUpdateUIListener(OnChatMessageUpdateListener onChatMessageUpdateListener);
 }

@@ -11,6 +11,7 @@ import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/file_util.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'base_chat.dart';
 import 'bean/chat_message_bean.dart';
 import '../chat_biz/message_manager_impl.dart';
 import 'chat_settings_page.dart';
@@ -21,7 +22,7 @@ class ChatPage extends StatefulWidget {
   State createState() => _ChatState();
 }
 
-class _ChatState extends State<ChatPage> with WidgetsBindingObserver {
+class _ChatState extends MessageState<ChatPage> with WidgetsBindingObserver {
 
   ScrollController _scrollController;
 
@@ -41,14 +42,11 @@ class _ChatState extends State<ChatPage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
     _scrollController.dispose();
-    MessageControllerImpl.instance.unRegisterUpdateUIListener();
     super.dispose();
   }
 
@@ -87,18 +85,24 @@ class _ChatState extends State<ChatPage> with WidgetsBindingObserver {
     if (arguments != null && arguments.length == 2) {
       _name = arguments[0];
       _avatarUrl = arguments[1];
-      MessageControllerImpl.instance.registerUpdateUIListener((List<ChatMessageBean> initMessages, ChatMessageBean receivedMessage) {
+      MessageControllerImpl.instance.init(_name, _avatarUrl);
+      MessageControllerImpl.instance.registerInitChatMessageListener((List<ChatMessageBean> initMessages) {
         if (initMessages != null && initMessages.length > 0) {
           setState(() {
             _chatMessage.addAll(initMessages);
           });
-        } else if (receivedMessage != null) {
-          setState(() {
-            _chatMessage.add(receivedMessage);
-          });
-          _scrollToBottom();
         }
-      }, _name, _avatarUrl);
+      });
+    }
+  }
+
+  @override
+  void onChatMessageUpdate(ChatMessageBean newMessages) {
+    if (newMessages != null) {
+      setState(() {
+        _chatMessage.add(newMessages);
+      });
+      _scrollToBottom();
     }
   }
 
@@ -163,6 +167,8 @@ class _ChatState extends State<ChatPage> with WidgetsBindingObserver {
             ),
           ),
           ChatBottomWidget(
+            _name,
+            _avatarUrl,
             key: _bottomWidgetKey,
             scrollToBottomController: () {
               _scrollToBottom();

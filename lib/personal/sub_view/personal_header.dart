@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/constants/constants.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/file_util.dart';
 import 'package:flutter_im/utils/im_tools.dart';
-
-import '../personal_constant.dart';
 
 class PersonalHeader extends StatelessWidget {
   @override
@@ -17,7 +16,7 @@ class PersonalHeader extends StatelessWidget {
       },
       child: Row(
         children: <Widget>[
-          IMUtils.getClipRRectImage(networkUrl: PersonalConstant.userAvatar),
+          IMUtils.getClipRRectImage(networkUrl: Constants.userAvatar),
           Expanded(
             child: Container(
               margin: EdgeInsets.only(left: 12),
@@ -26,7 +25,7 @@ class PersonalHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    PersonalConstant.userName,
+                    Constants.userName,
                     style: TextStyle(
                       fontSize: 18,
                       color: Color(0xff353535),

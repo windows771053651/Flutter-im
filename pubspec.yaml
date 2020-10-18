@@ -35,6 +35,7 @@ dependencies:
   image_gallery_saver: ^1.1.0 #保存图片
   keyboard_visibility: ^0.5.2 #软键盘
   video_player: ^0.10.0+5 # 视频播放器
+  shared_preferences: ^0.4.3 #存储
 
 dev_dependencies:
   flutter_test:

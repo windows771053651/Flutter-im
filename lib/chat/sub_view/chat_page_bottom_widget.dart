@@ -6,7 +6,7 @@ import 'package:flutter_im/chat/bean/chat_message_bean.dart';
 import 'package:flutter_im/chat/sub_view/chat_page_bottom_emoji.dart';
 import 'package:flutter_im/chat_biz/message_manager_impl.dart';
 import 'package:flutter_im/common/touch_callback.dart';
-import 'package:flutter_im/personal/personal_constant.dart';
+import 'package:flutter_im/constants/constants.dart';
 import 'package:flutter_im/utils/file_util.dart';
 
 import 'chat_page_bottom_tools_box/chat_page_bottom_tool_box.dart';
@@ -19,10 +19,14 @@ class ChatBottomWidget extends StatefulWidget {
 
   final ListViewScrollToBottomController scrollToBottomController;
 
-  ChatBottomWidget({
-    Key key,
-    this.scrollToBottomController,
-  }): super(key: key);
+  final String targetName;
+
+  final String targetAvatarUrl;
+
+  ChatBottomWidget(this.targetName, this.targetAvatarUrl, {
+        Key key,
+        this.scrollToBottomController,
+      }): super(key: key);
 
   @override
   State createState() => ChatBottomState();
@@ -317,29 +321,31 @@ class ChatBottomState extends State<ChatBottomWidget> {
 
   /// 底部可控显示区域
   Widget _bottomWidget() {
-    Widget widget;
+    Widget bottomWidget;
     if (_toolsBoxVisible) {
-      widget = ChatPageBottomToolBox(
+      bottomWidget = ChatPageBottomToolBox(
         pageList: [
-          ToolBoxFirstPage(),
+          ToolBoxFirstPage(widget.targetName, widget.targetAvatarUrl),
           ToolsBoxSecondPage(),
         ],
       );
     } else if (_emojiViewVisible) {
-      widget = ChatPageBottomEmoji(
+      bottomWidget = ChatPageBottomEmoji(
         onEmojiAdded: (String emoji) {
           setState(() {
             _inputContent = _inputContent + emoji;
+            _sendBtnVisible = _inputContent.isNotEmpty;
           });
         },
         onEmojiDelete: () {
           setState(() {
             _inputContent = deleteInputContent(_inputContent);
+            _sendBtnVisible = _inputContent.isNotEmpty;
           });
         },
       );
     }
-    return widget;
+    return bottomWidget;
   }
 
   /// 将输入框内容转成unicode编码，从后往前每次删除一个unicode，达到删除文本内容的目的
@@ -374,9 +380,11 @@ class ChatBottomState extends State<ChatBottomWidget> {
   /// 发送文本消息
   void _sendMessage() {
     MessageControllerImpl.instance.sendMessage(ChatMessageBean.build(
-      name: PersonalConstant.userName,
+      targetName: widget.targetName,
+      targetAvatarUrl: widget.targetAvatarUrl,
+      currentName: Constants.userName,
+      currentAvatarUrl: Constants.userAvatar,
       chatMessageType: ChatMessageType.TEXT,
-      avatarUrl: PersonalConstant.userAvatar,
       inOutType: InOutType.OUT,
       chatMessage: _inputContent,
     ));

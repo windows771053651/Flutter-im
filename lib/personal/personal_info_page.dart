@@ -4,8 +4,8 @@ import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/common_text_item.dart';
 import 'package:flutter_im/common/horizontal_line.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/constants/constants.dart';
 import 'package:flutter_im/contacts/bean/remark_settings_bean.dart';
-import 'package:flutter_im/personal/personal_constant.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/file_util.dart';
 import 'package:flutter_im/utils/im_tools.dart';
@@ -24,9 +24,9 @@ class _State extends State<PersonalInfoPage> {
   /// 是否是本地图片
   bool _isAvatarNativeResource = false;
 
-  String name = PersonalConstant.userName;
+  String name = Constants.userName;
 
-  String code = PersonalConstant.userCode;
+  String code = Constants.userCode;
 
   @override
   Widget build(BuildContext context) {

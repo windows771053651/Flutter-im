@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/horizontal_line.dart';
 import 'package:flutter_im/common/common_text_item.dart';
-import 'package:flutter_im/personal/personal_constant.dart';
+import 'package:flutter_im/constants/constants.dart';
 import 'package:flutter_im/personal/sub_view/personal_header.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/dialog_utils.dart';
@@ -21,7 +21,7 @@ class PersonalPage extends StatelessWidget {
             leftIconAssetPath: FileUtil.getImagePath("icon_me_friends"),
             leftTitle: "好友动态",
             callback: () {
-              Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_FRIENDS_UPDATES, arguments: [PersonalConstant.userName, PersonalConstant.userAvatar]);
+              Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_FRIENDS_UPDATES, arguments: [Constants.userName, Constants.userAvatar]);
             },
           ),
           HorizontalLine(height: 10,),

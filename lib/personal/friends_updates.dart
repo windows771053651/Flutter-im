@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/bottom_sheet_dialog.dart';
 import 'package:flutter_im/common/touch_callback.dart';
-import 'package:flutter_im/personal/personal_constant.dart';
+import 'package:flutter_im/constants/constants.dart';
 import 'package:flutter_im/personal/sub_view/friends_updates_header.dart';
 import 'package:flutter_im/personal/sub_view/friends_updates_item.dart';
 import 'package:flutter_im/router/page_id.dart';
@@ -45,7 +45,7 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
     _controller = ScrollController();
     _controller.addListener(() {
       double offset = _controller.offset;
-      if (offset < MediaQuery.of(context).size.width / PersonalConstant.friendsUpdatesHeaderBgRatio * (1 / 2)) {
+      if (offset < MediaQuery.of(context).size.width / Constants.friendsUpdatesHeaderBgRatio * (1 / 2)) {
         setState(() {
           _titleVisible = false;
         });
@@ -87,7 +87,7 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
                 },
               ),
             ],
-            expandedHeight: MediaQuery.of(context).size.width / PersonalConstant.friendsUpdatesHeaderBgRatio,
+            expandedHeight: MediaQuery.of(context).size.width / Constants.friendsUpdatesHeaderBgRatio,
             flexibleSpace: FlexibleSpaceBar(
               title: Visibility(
                 visible: _titleVisible,

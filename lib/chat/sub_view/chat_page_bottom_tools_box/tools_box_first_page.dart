@@ -4,14 +4,18 @@ import 'package:flutter_im/chat/bean/chat_message_bean.dart';
 import 'package:flutter_im/chat/bean/tools_box_item_bean.dart';
 import 'package:flutter_im/chat/sub_view/chat_page_bottom_tools_box/tools_box_item_factory.dart';
 import 'package:flutter_im/chat_biz/message_manager_impl.dart';
-import 'package:flutter_im/personal/personal_constant.dart';
+import 'package:flutter_im/constants/constants.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ToolBoxFirstPage extends StatelessWidget {
 
   ToolsBoxItemFactoryImpl _toolsBoxItemFactoryImpl;
 
-  ToolBoxFirstPage() {
+  final String targetName;
+
+  final String targetAvatarUrl;
+
+  ToolBoxFirstPage(this.targetName, this.targetAvatarUrl,) {
     _toolsBoxItemFactoryImpl = ToolsBoxItemFactory();
   }
 
@@ -82,9 +86,11 @@ class ToolBoxFirstPage extends StatelessWidget {
   /// 发送图片消息
   _sendPictureMessage(String path) {
     MessageControllerImpl.instance.sendMessage(ChatMessageBean.build(
-      name: PersonalConstant.userName,
+      targetName: targetName,
+      targetAvatarUrl: targetAvatarUrl,
+      currentName: Constants.userName,
+      currentAvatarUrl: Constants.userAvatar,
       chatMessageType: ChatMessageType.PICTURE,
-      avatarUrl: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599128582535&di=9807439e68f649516e0c981f0f6ae910&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20120627%2FImg346630529.jpg",
       inOutType: InOutType.OUT,
       nativePicturePath: path,
     ));

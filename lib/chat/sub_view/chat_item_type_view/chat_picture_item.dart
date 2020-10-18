@@ -49,14 +49,14 @@ class ChatPictureItem extends StatelessWidget {
           pressedColor: Colors.transparent,
           callBack: () {
             ContactVO contact = ContactVO(
-              name: chatMessageBean.name,
-              avatarUrl: chatMessageBean.avatarUrl,
-              serialNum: PinyinHelper.getPinyinE(chatMessageBean.name, separator: " ", defPinyin: '#', format: PinyinFormat.WITHOUT_TONE),
+              name: chatMessageBean.targetName,
+              avatarUrl: chatMessageBean.targetAvatarUrl,
+              serialNum: PinyinHelper.getPinyinE(chatMessageBean.targetName, separator: " ", defPinyin: '#', format: PinyinFormat.WITHOUT_TONE),
             );
             Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_USER_INFO, arguments: contact);
           },
           child: IMUtils.getClipRRectImage(
-            networkUrl: chatMessageBean.avatarUrl,
+            networkUrl: chatMessageBean.targetAvatarUrl,
             width: 34,
             height: 34,
           ),
@@ -89,14 +89,14 @@ class ChatPictureItem extends StatelessWidget {
           pressedColor: Colors.transparent,
           callBack: () {
             ContactVO contact = ContactVO(
-              name: chatMessageBean.name,
-              avatarUrl: chatMessageBean.avatarUrl,
-              serialNum: PinyinHelper.getPinyinE(chatMessageBean.name, separator: " ", defPinyin: '#', format: PinyinFormat.WITHOUT_TONE),
+              name: chatMessageBean.currentName,
+              avatarUrl: chatMessageBean.currentAvatarUrl,
+              serialNum: PinyinHelper.getPinyinE(chatMessageBean.currentName, separator: " ", defPinyin: '#', format: PinyinFormat.WITHOUT_TONE),
             );
             Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_USER_INFO, arguments: contact);
           },
           child: IMUtils.getClipRRectImage(
-            networkUrl: chatMessageBean.avatarUrl,
+            networkUrl: chatMessageBean.targetAvatarUrl,
             width: 34,
             height: 34,
           ),

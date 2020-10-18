@@ -1,7 +1,7 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_im/chat/bean/message_bean.dart';
+import 'package:flutter_im/chat/bean/chat_session.dart';
 import 'package:flutter_im/common/circle.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/router/page_id.dart';
@@ -9,7 +9,7 @@ import 'package:flutter_im/utils/im_tools.dart';
 
 class MessageItem extends StatelessWidget {
   
-  final MessageData messageData;
+  final ChatSession messageData;
 
   final OnContextMenuSelector onContextMenuSelected;
 
@@ -52,7 +52,7 @@ class MessageItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    messageData.title,
+                    messageData.name,
                     style: TextStyle(
                       fontSize: 14,
                       color: Color(0xff353535),
@@ -63,7 +63,7 @@ class MessageItem extends StatelessWidget {
                     height: 2,
                   ),
                   Text(
-                    messageData.subTitle,
+                    messageData.lastChatMessageContent,
                     style: TextStyle(
                       fontSize: 12,
                       color: Color(0xffa9a9a9),
@@ -114,9 +114,9 @@ class MessageItem extends StatelessWidget {
           if (messageData.messageType == MessageType.SYSTEM) {
             Navigator.of(context).pushNamed(PageId.GROUP_CHAT_SYSTEM_MESSAGE_PAGE);
           } else if (messageData.messageType == MessageType.CHAT) {
-            Navigator.of(context).pushNamed(PageId.GROUP_CHAT_CHAT_PAGE, arguments: [messageData.title, messageData.avatar]);
+            Navigator.of(context).pushNamed(PageId.GROUP_CHAT_CHAT_PAGE, arguments: [messageData.name, messageData.avatar]);
           } else if (messageData.messageType == MessageType.GROUP) {
-            Navigator.of(context).pushNamed(PageId.GROUP_CHAT_CHAT_PAGE, arguments: [messageData.title, messageData.avatar]);
+            Navigator.of(context).pushNamed(PageId.GROUP_CHAT_CHAT_PAGE, arguments: [messageData.name, messageData.avatar]);
           }
         },
         longPressCallBack: () {
@@ -162,7 +162,7 @@ class MessageItem extends StatelessWidget {
   }
 }
 
-typedef OnContextMenuSelector = void Function(MessageData messageData, ContextMenuEnum type);
+typedef OnContextMenuSelector = void Function(ChatSession messageData, ContextMenuEnum type);
 
 /// ItemView点击弹出的ContextMenu三个选项对应的枚举类型
 enum ContextMenuEnum {

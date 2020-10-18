@@ -11,25 +11,27 @@ abstract class DatabaseProvider<T> {
   Future<Database> get database async {
     if (_instance == null) {
       var path = await getDatabasesPath();
-      print("database path:$path");
       _instance = await openDatabase(
         path + "/" + DBConstant.DATABASE_NAME,
-        onCreate: createDatabase,
+        onCreate: _createDatabase,
         version: DBConstant.VERSION,
       );
     }
     return _instance;
   }
 
-  createDatabase(Database db, int version);
+  _createDatabase(Database db, int version) {
+    db.execute(DBConstant.sqlCreateTableMessage);
+    db.execute(DBConstant.sqlCreateTableMessageSession);
+  }
 
   closeDB();
 
   Future<int> insert(T bean);
 
-  Future<int> delete(String userId);
+  Future<int> delete(String targetUserId);
 
-  Future<int> update(String userId, T bean);
+  Future<int> update(String targetUserId, T bean);
 
-  Future<List<Map<String, dynamic>>> query(String userId);
+  Future<List<Map<String, dynamic>>> query(String targetUserId);
 }

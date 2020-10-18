@@ -41,7 +41,7 @@ class ChatTextItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          _headPortrait(context),
+          _headPortrait(context, chatMessageBean.targetName, chatMessageBean.targetAvatarUrl),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +70,7 @@ class ChatTextItem extends StatelessWidget {
               ],
             ),
           ),
-          _headPortrait(context),
+          _headPortrait(context, chatMessageBean.currentName, chatMessageBean.currentAvatarUrl),
         ],
       ),
     );
@@ -95,20 +95,20 @@ class ChatTextItem extends StatelessWidget {
   }
 
   /// 头像
-  Widget _headPortrait(BuildContext context) {
+  Widget _headPortrait(BuildContext context, String name, String avatar) {
     return TouchCallBack(
       normalColor: Colors.transparent,
       pressedColor: Colors.transparent,
       callBack: () {
         ContactVO contact = ContactVO(
-          name: chatMessageBean.name,
-          avatarUrl: chatMessageBean.avatarUrl,
-          serialNum: PinyinHelper.getPinyinE(chatMessageBean.name, separator: " ", defPinyin: '#', format: PinyinFormat.WITHOUT_TONE),
+          name: name,
+          avatarUrl: avatar,
+          serialNum: PinyinHelper.getPinyinE(name, separator: " ", defPinyin: '#', format: PinyinFormat.WITHOUT_TONE),
         );
         Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_USER_INFO, arguments: contact);
       },
       child: IMUtils.getClipRRectImage(
-        networkUrl: chatMessageBean.avatarUrl,
+        networkUrl: avatar,
         width: 34,
         height: 34,
       ),

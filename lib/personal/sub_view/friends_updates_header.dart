@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/bottom_sheet_dialog.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/constants/constants.dart';
 import 'package:flutter_im/router/page_id.dart';
 
-import '../personal_constant.dart';
 
 class FriendsUpdatesHeader extends StatefulWidget {
 
@@ -40,7 +40,7 @@ class _FriendsUpdatesHeaderState extends State<FriendsUpdatesHeader> {
       normalColor: Colors.white,
       pressedColor: Colors.white,
       child: AspectRatio(
-        aspectRatio: PersonalConstant.friendsUpdatesHeaderBgRatio,
+        aspectRatio: Constants.friendsUpdatesHeaderBgRatio,
         child: _getHeaderBackgroundImageWidget(),
       ),
       callBack: () {
@@ -58,7 +58,7 @@ class _FriendsUpdatesHeaderState extends State<FriendsUpdatesHeader> {
           fit: BoxFit.cover,
         ),
       ),)
-        : Image.asset(PersonalConstant.friendsUpdatesHeaderBg, fit: BoxFit.cover,);
+        : Image.asset(Constants.friendsUpdatesHeaderBg, fit: BoxFit.cover,);
   }
 
   /// 显示背景图片选择对话框
