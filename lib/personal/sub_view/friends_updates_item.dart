@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/personal/bean/friends_updates_bean.dart';
-import 'package:flutter_im/utils/file_util.dart';
 import 'package:flutter_im/utils/im_tools.dart';
-
+import 'comment_bubble.dart';
 import 'friends_updates_item_link.dart';
 import 'friends_updates_item_picture.dart';
 
@@ -13,6 +11,8 @@ class FriendsUpdatesItem extends StatelessWidget {
   final FriendsUpdatesBean itemBean;
 
   FriendsUpdatesItem(this.itemBean);
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,14 +57,9 @@ class FriendsUpdatesItem extends StatelessWidget {
                             ),
                           ),
                         ),
-                        TouchCallBack(
-                          child: Image.asset(FileUtil.getImagePath("menu_ellipsie2_icon"), width: 24, height: 16,),
-                          normalColor: Color(0x10000000),
-                          radius: 2,
-                          callBack: () {
-                            _displayOptionMenu();
-                          },
-                        ),
+                        CommentBubbleWidget((type) {
+                          print(type);
+                        }),
                       ],
                     ),
                   ),
@@ -75,10 +70,6 @@ class FriendsUpdatesItem extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void _displayOptionMenu() {
-
   }
 
   Widget _getItemWidget(BuildContext context) {
