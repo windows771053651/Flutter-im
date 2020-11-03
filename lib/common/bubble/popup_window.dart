@@ -44,7 +44,7 @@ class PopupWindow extends StatelessWidget {
 
 class PopRoute extends PopupRoute {
 
-  final Duration _duration = Duration(milliseconds: 300);
+  final Duration _duration = Duration(milliseconds: 1);
 
   Widget child;
 

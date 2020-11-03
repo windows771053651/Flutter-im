@@ -64,43 +64,61 @@ class _State extends State<FriendsUpdatesItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   _getItemWidget(context),
-                  Container(
-                    margin: EdgeInsets.only(top: 8),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Text(
-                            widget.itemBean.time,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                        CommentBubbleWidget((type) {
-                          if (!widget.itemBean.praised) {
-                            setState(() {
-                              widget.itemBean.praised = true;
-                              widget.itemBean.praises.add(Praise(widget.userName));
-                            });
-                          } else {
-                            Praise delete = _getPraise();
-                            if (delete != null) {
-                              setState(() {
-                                widget.itemBean.praised = false;
-                                widget.itemBean.praises.remove(delete);
-                              });
-                            }
-                          }
-                        }, widget.itemBean.praised),
-                      ],
-                    ),
-                  ),
+                  _itemTimeAndBubbleWidget(),
                   _commentAndFabulousWidget(),
                 ],
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  /// 除点赞、评论、时间、菜单(点赞、评论功能菜单)区域以外的widget
+  Widget _getItemWidget(BuildContext context) {
+    if (widget.itemBean.link != null) {
+      return FriendsUpdatesItemLink(widget.itemBean);
+    } else {
+      return FriendsUpdatesItemPicture(widget.itemBean);
+    }
+  }
+
+  /// 时间和菜单
+  Widget _itemTimeAndBubbleWidget() {
+    return Container(
+      margin: EdgeInsets.only(top: 8),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Text(
+              widget.itemBean.time,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey,
+              ),
+            ),
+          ),
+          CommentBubbleWidget((type) {
+            if (type == CommentBubbleWidget.PRAISE) {
+              if (!widget.itemBean.praised) {
+                setState(() {
+                  widget.itemBean.praised = true;
+                  widget.itemBean.praises.add(Praise(widget.userName));
+                });
+              } else {
+                Praise delete = _getPraise();
+                if (delete != null) {
+                  setState(() {
+                    widget.itemBean.praised = false;
+                    widget.itemBean.praises.remove(delete);
+                  });
+                }
+              }
+            } else if (type == CommentBubbleWidget.COMMENT) {
+
+            }
+          }, widget.itemBean.praised),
         ],
       ),
     );
@@ -163,15 +181,6 @@ class _State extends State<FriendsUpdatesItem> {
                 );
         }),
       );
-    }
-  }
-
-  /// 除点赞、评论区域以外的widget
-  Widget _getItemWidget(BuildContext context) {
-    if (widget.itemBean.link != null) {
-      return FriendsUpdatesItemLink(widget.itemBean);
-    } else {
-      return FriendsUpdatesItemPicture(widget.itemBean);
     }
   }
 }

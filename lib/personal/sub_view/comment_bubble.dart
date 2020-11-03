@@ -9,8 +9,10 @@ import 'package:flutter_im/utils/im_tools.dart';
 
 class CommentBubbleWidget extends StatelessWidget {
 
-  static final FABULOUS = 0X001;
+  /// 回调类型：点赞
+  static final PRAISE = 0X001;
 
+  /// 回调类型：评论
   static final COMMENT = 0X002;
 
   final GlobalKey _globalKey = GlobalKey();
@@ -28,8 +30,14 @@ class CommentBubbleWidget extends StatelessWidget {
   /// 是否已点赞
   final bool hasPraise;
 
+  Map<int, int> map;
+
   CommentBubbleWidget(this.onItemSelected, this.hasPraise) {
     _titles = hasPraise ? ['取消', '评论'] : ['赞', '评论'];
+    map = {
+      0: PRAISE,
+      1: COMMENT,
+    };
   }
 
   @override
@@ -76,7 +84,7 @@ class CommentBubbleWidget extends StatelessWidget {
                         normalColor: Colors.transparent,
                         callBack: () {
                           if (onItemSelected != null) {
-                            onItemSelected(i);
+                            onItemSelected(map[i]);
                           }
                           Navigator.of(context).pop();
                         },
