@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/chat_session.dart';
 import 'package:flutter_im/common/circle.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
@@ -26,7 +27,7 @@ class MessageItem extends StatelessWidget {
         border: Border(
           bottom: BorderSide(
             width: 0.5,
-            color: Color(0xffededed),
+            color: IMColors.c_ffededed,
           ),
         ),
       ),
@@ -55,7 +56,7 @@ class MessageItem extends StatelessWidget {
                     messageData.name,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Color(0xff353535),
+                      color: IMColors.c_ff353535,
                     ),
                     maxLines: 1,
                   ),
@@ -66,7 +67,7 @@ class MessageItem extends StatelessWidget {
                     messageData.lastChatMessageContent,
                     style: TextStyle(
                       fontSize: 12,
-                      color: Color(0xffa9a9a9),
+                      color: IMColors.c_ffa9a9a9,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -83,7 +84,7 @@ class MessageItem extends StatelessWidget {
                     formatDate(messageData.time, [HH, ":", nn, ":", ss]),
                     style: TextStyle(
                       fontSize: 12,
-                      color: Color(0xffa9a9a9),
+                      color: IMColors.c_ffa9a9a9,
                     ),
                   ),
                   Container(
@@ -98,7 +99,7 @@ class MessageItem extends StatelessWidget {
                       formatDate(messageData.time, [HH, ":", nn, ":", ss]),
                       style: TextStyle(
                         fontSize: 12,
-                        color: Color(0xffa9a9a9),
+                        color: IMColors.c_ffa9a9a9,
                       ),
                     ),
                   ),

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/search_app_bar.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/resource/colors.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -25,7 +26,7 @@ class _State extends State<SearchPage> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           border: Border.all(
-            color: Color(0xffd8d8d8),
+            color: IMColors.c_ffd8d8d8,
             width: 1,
           ),
           borderRadius: BorderRadius.all(Radius.circular(4)),
@@ -104,7 +105,7 @@ class _State extends State<SearchPage> {
                 "常用搜索",
                 style: TextStyle(
                   fontSize: 16,
-                  color: Color(0xffb5b5b5),
+                  color: IMColors.c_ffb5b5b5,
                 ),
               ),
             ),

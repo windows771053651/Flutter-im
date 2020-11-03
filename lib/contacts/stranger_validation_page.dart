@@ -5,6 +5,7 @@ import 'package:flutter_im/common/common_text_item.dart';
 import 'package:flutter_im/common/horizontal_line.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/personal/bean/image_display_bean.dart';
+import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
@@ -142,11 +143,11 @@ class _StrangerValidationState extends State<StrangerValidationPage> {
                   margin: EdgeInsets.only(top: 12),
                   padding: EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Color(0xFFebebeb),
+                    color: IMColors.c_FFebebeb,
                     borderRadius: BorderRadius.all(Radius.circular(4)),
                     border: Border.all(
                       width: 1,
-                      color: Color(0xFFdbdbdb),
+                      color: IMColors.c_FFdbdbdb,
                     ),
                   ),
                   child: Column(
@@ -156,7 +157,7 @@ class _StrangerValidationState extends State<StrangerValidationPage> {
                         "hs：您好，这边是恒泰证券客服，有事联系你，麻烦通过一下",
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF8a8a8a),
+                          color: IMColors.c_FF8a8a8a,
                         ),
                       ),
                       Container(
@@ -201,7 +202,7 @@ class _StrangerValidationState extends State<StrangerValidationPage> {
                 CommonTextItemView(
                   leftTitle: "来源",
                   centerText: "对方通过搜索手机号添加",
-                  centerTextColor: Color(0xFF8a8a8a),
+                  centerTextColor: IMColors.c_FF8a8a8a,
                   arrowRightIconVisible: false,
                 ),
               ],
@@ -252,7 +253,7 @@ class _StrangerValidationState extends State<StrangerValidationPage> {
                    border: Border(
                      bottom: BorderSide(
                        width: 0.5,
-                       color: Color(0xffededed),
+                       color: IMColors.c_ffededed,
                      ),
                    ),
                  ),
@@ -297,7 +298,7 @@ class _StrangerValidationState extends State<StrangerValidationPage> {
                        Container(
                          width: 0.5,
                          height: 42,
-                         color: Color(0xffededed),
+                         color: IMColors.c_ffededed,
                        ),
                        Expanded(
                          child: Container(

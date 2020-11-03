@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/personal/bean/friends_updates_bean.dart';
+import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 import 'comment_bubble.dart';
 import 'friends_updates_item_link.dart';
@@ -23,7 +24,7 @@ class FriendsUpdatesItem extends StatelessWidget {
         border: Border(
           bottom: BorderSide(
             width: 0.5,
-            color: Color(0xfff5f5f5),
+            color: IMColors.c_fff5f5f5,
           )
         ),
       ),

@@ -7,6 +7,7 @@ import 'package:flutter_im/chat/sub_view/chat_page_bottom_emoji.dart';
 import 'package:flutter_im/chat_biz/message_manager_impl.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/constants/constants.dart';
+import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/utils/file_util.dart';
 
 import 'chat_page_bottom_tools_box/chat_page_bottom_tool_box.dart';
@@ -105,15 +106,15 @@ class ChatBottomState extends State<ChatBottomWidget> {
       children: <Widget>[
         Container(
           decoration: BoxDecoration(
-            color: Color(0xFFebebeb),
+            color: IMColors.c_FFebebeb,
             border: Border(
               top: BorderSide(
                 width: 0.5,
-                color: Color(0xffcdcdcd),
+                color: IMColors.c_ffcdcdcd,
               ),
               bottom: BorderSide(
                 width: 0.5,
-                color: Color(0xffcdcdcd),
+                color: IMColors.c_ffcdcdcd,
               ),
             ),
           ),
@@ -370,7 +371,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
                 width: 26,
                 height: 26,
                 fit: BoxFit.cover,
-                color: Color(0xff2c2c2c),
+                color: IMColors.c_ff2c2c2c,
         ),
       ),
       callBack: callback,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/common_text_item.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/file_util.dart';
 import 'package:flutter_im/utils/im_tools.dart';
@@ -41,7 +42,7 @@ class _NewFriendsState extends State<NewFriendsPage> {
             ),
             child: TouchCallBack(
               radius: 4,
-              pressedColor: Color(0x00000000),
+              pressedColor: IMColors.c_00000000,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

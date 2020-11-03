@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/utils/show_toast.dart';
 
 import 'bean/remark_settings_bean.dart';
@@ -90,11 +91,11 @@ class _SettingsState extends State<RemarksSettings> {
               border: Border(
                 top: BorderSide(
                   width: 1,
-                  color: Color(0xFFededed),
+                  color: IMColors.c_ffededed,
                 ),
                 bottom: BorderSide(
                   width: 1,
-                  color: Color(0xFFededed),
+                  color: IMColors.c_ffededed,
                 ),
               ),
             ),

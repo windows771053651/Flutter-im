@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
 import '../bean/contact_bean.dart';
@@ -67,7 +68,7 @@ class ContactItem extends StatelessWidget {
                     titleName == null ? contactVO.name : titleName,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Color(0xff353535),
+                      color: IMColors.c_ff353535,
                     ),
                     maxLines: 1,
                   ),
@@ -93,7 +94,7 @@ class ContactItem extends StatelessWidget {
       if (subTitleVisible) {
         return Container(
           height: 30,
-          color: Color(0xffededed),
+          color: IMColors.c_ffededed,
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(left: 12),
           child: Text(

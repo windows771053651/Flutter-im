@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
 class SystemMessageHeaderItem extends StatelessWidget {
@@ -50,7 +51,7 @@ class SystemMessageHeaderItem extends StatelessWidget {
               name,
               style: TextStyle(
                 fontSize: 10,
-                color: Color(0xFF707070),
+                color: IMColors.c_FF707070,
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_im/common/bubble/bulle_widget.dart';
 import 'package:flutter_im/common/bubble/popup_window.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/utils/file_util.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
@@ -31,7 +32,7 @@ class CommentBubbleWidget extends StatelessWidget {
     return TouchCallBack(
       key: _globalKey,
       child: Image.asset(FileUtil.getImagePath("menu_ellipsie2_icon"), width: 24, height: 16,),
-      normalColor: Color(0x10000000),
+      normalColor: IMColors.c_10000000,
       radius: 2,
       callBack: () {
         _showBubble(context);
@@ -56,7 +57,7 @@ class CommentBubbleWidget extends StatelessWidget {
           child: BubbleWidget(
             _bubbleWidth,
             _bubbleHeight,
-            Color(0xff333333),
+            IMColors.c_ff333333,
             BubbleArrowDirection.bottom,
             length: 250,
             child: Row(

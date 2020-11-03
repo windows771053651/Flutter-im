@@ -9,6 +9,7 @@ import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/bottom_sheet_dialog.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/constants/constants.dart';
+import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/utils/file_util.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 import 'package:flutter_im/utils/show_toast.dart';
@@ -83,7 +84,7 @@ class QRCodeBusinessCard extends StatelessWidget {
       child: RepaintBoundary(
         key: _repaintKey,
         child: QrImage (
-          backgroundColor: Color(0xffffffff),
+          backgroundColor: IMColors.c_ffffffff,
           padding: EdgeInsets.all(0),
           data: Constants.userName,
           size: _cardSize,

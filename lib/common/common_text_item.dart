@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/resource/colors.dart';
 
 class CommonTextItemView extends StatelessWidget {
 
@@ -51,7 +52,7 @@ class CommonTextItemView extends StatelessWidget {
     this.leftTitle = "",
     this.leftTitleWidth = 64,
     this.centerText = "",
-    this.centerTextColor = const Color(0xff353535),
+    this.centerTextColor = IMColors.c_ff353535,
     this.callback,
     this.titleFontSize = 14,
     this.iconSize = 24,
@@ -85,7 +86,7 @@ class CommonTextItemView extends StatelessWidget {
                   leftTitle,
                   style: TextStyle(
                     fontSize: titleFontSize,
-                    color: Color(0xff353535),
+                    color: IMColors.c_ff353535,
                   ),
                 ),
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_im/resource/colors.dart';
 
 class Indicator extends StatefulWidget {
 
@@ -18,7 +19,7 @@ class Indicator extends StatefulWidget {
     @required this.index,
     @required this.radius,
     this.selectedColor = Colors.grey,
-    this.unSelectedColor = const Color(0xffcdcdcd),
+    this.unSelectedColor = IMColors.c_ffcdcdcd,
   });
 
   @override

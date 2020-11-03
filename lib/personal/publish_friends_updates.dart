@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
@@ -41,7 +42,7 @@ class PublishFriendsUpdates extends StatelessWidget {
           actions: [
             TouchCallBack(
               normalColor: Colors.transparent,
-              pressedColor: Color(0x20000000),
+              pressedColor: IMColors.c_20000000,
               padding: EdgeInsets.only(left: 20, right: 20),
               child: Center(
                 child: Text(

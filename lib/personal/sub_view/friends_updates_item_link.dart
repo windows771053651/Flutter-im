@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/personal/bean/friends_updates_bean.dart';
+import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
@@ -30,7 +31,7 @@ class FriendsUpdatesItemLink extends StatelessWidget {
         TouchCallBack(
           margin: EdgeInsets.only(top: 4),
           padding: EdgeInsets.all(2),
-          normalColor: Color(0xffededed),
+          normalColor: IMColors.c_ffededed,
           callBack: () {
             Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_WEBVIEW_LOADING_PAGE, arguments: [itemBean.link.title, itemBean.link.link]);
           },

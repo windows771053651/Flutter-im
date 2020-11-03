@@ -6,6 +6,7 @@ import 'package:flutter_im/common/horizontal_line.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/constants/constants.dart';
 import 'package:flutter_im/contacts/bean/remark_settings_bean.dart';
+import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/file_util.dart';
 import 'package:flutter_im/utils/im_tools.dart';
@@ -96,7 +97,7 @@ class _State extends State<PersonalInfoPage> {
               "头像",
               style: TextStyle(
                   fontSize: 14,
-                  color: Color(0xff353535)
+                  color: IMColors.c_ff353535
               ),
             ),
           ),

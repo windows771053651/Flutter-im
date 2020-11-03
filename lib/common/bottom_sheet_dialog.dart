@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/resource/colors.dart';
 
 class BottomSheetWidget extends StatefulWidget {
   BottomSheetWidget({Key key, this.list, this.onItemClickListener})
@@ -47,7 +48,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                   fontFamily: 'Robot',
                   fontWeight: FontWeight.normal,
                   decoration: TextDecoration.none,
-                  color: Color(0xff333333),
+                  color: IMColors.c_ff333333,
                   fontSize: 14),
             ),
           ),
@@ -71,7 +72,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
       height: height,
       width: deviceWidth,
       decoration: BoxDecoration(
-        color: Color(0xffe5e5e5),
+        color: IMColors.c_ffe5e5e5,
         borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
       ),
     );
@@ -98,7 +99,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
       style: TextStyle(
           fontWeight: FontWeight.normal,
           decoration: TextDecoration.none,
-          color: Color(0xFF333333),
+          color: IMColors.c_ff333333,
           fontSize: 14),
     );
 
@@ -116,12 +117,12 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
     if (index == 0) {
       decoration = BoxDecoration(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-        border: Border.all(width: 0.5, color: Color(0xffe5e5e5)),
+        border: Border.all(width: 0.5, color: IMColors.c_ffe5e5e5),
       );
     } else {
       decoration = BoxDecoration(
         border: Border(
-            bottom: BorderSide(width: 0.5, color: Color(0xffe5e5e5))),
+            bottom: BorderSide(width: 0.5, color: IMColors.c_ffe5e5e5)),
       );
     }
     itemContainer = Container(

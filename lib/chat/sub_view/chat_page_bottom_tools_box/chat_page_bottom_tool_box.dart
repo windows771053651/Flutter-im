@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/indicator.dart';
+import 'package:flutter_im/resource/colors.dart';
 
 /// 相册、拍摄、语音等工具箱面板组件
 class ChatPageBottomToolBox extends StatefulWidget {
@@ -36,7 +37,7 @@ class _State extends State<ChatPageBottomToolBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFFebebeb),
+      color: IMColors.c_FFebebeb,
       padding: EdgeInsets.only(top: 32),
       child: Column(
         children: <Widget>[

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_im/resource/colors.dart';
 
 class HorizontalLine extends StatelessWidget {
 
@@ -16,7 +17,7 @@ class HorizontalLine extends StatelessWidget {
 
   HorizontalLine({
     Key key,
-    this.color = const Color(0xffededed),
+    this.color = IMColors.c_ffededed,
     this.marginLeft = 0,
     this.marginTop = 0,
     this.marginRight = 0,

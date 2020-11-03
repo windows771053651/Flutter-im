@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/message_page.dart';
 import 'package:flutter_im/contacts/contacts_page.dart';
 import 'package:flutter_im/personal/personal_page.dart';
+import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/android_back.dart';
 import 'package:flutter_im/utils/file_util.dart';
@@ -140,7 +141,7 @@ class AppState extends State<App> {
       title: Text(
         getLabel(index),
         style: TextStyle(
-          color: _currentIndex == index ? Color(0xFF46c01b) : Color(0xFF999999),
+          color: _currentIndex == index ? IMColors.c_FF46c01b : IMColors.c_FF999999,
           fontSize: 12,
         ),
       ),

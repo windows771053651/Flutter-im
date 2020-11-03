@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_im/resource/colors.dart';
 
 ///
 /// 带有按压状态的触摸控件。
@@ -41,7 +42,7 @@ class TouchCallBack extends StatefulWidget {
     this.callBack,
     this.longPressCallBack,
     this.onTouchDownCallBack,
-    this.pressedColor = const Color(0xffd8d8d8),
+    this.pressedColor = IMColors.c_ffd8d8d8,
     this.normalColor = Colors.white,
     this.radius = 0,
     this.topLeftRadius = 0,

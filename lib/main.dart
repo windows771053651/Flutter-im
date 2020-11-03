@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/utils/device_util.dart';
 import 'package:flutter_im/utils/sp_util.dart';
 
@@ -16,7 +17,7 @@ class MainApp extends StatelessWidget {
       title: "聊天室",
       theme: ThemeData(
         primaryColor: Colors.green,
-        scaffoldBackgroundColor: Color(0xFFebebeb),
+        scaffoldBackgroundColor: IMColors.c_FFebebeb,
         cardColor: Colors.green,
       ),
       routes: RouterManager.routers,

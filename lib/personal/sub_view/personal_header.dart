@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/constants/constants.dart';
+import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/file_util.dart';
 import 'package:flutter_im/utils/im_tools.dart';
@@ -28,7 +29,7 @@ class PersonalHeader extends StatelessWidget {
                     Constants.userName,
                     style: TextStyle(
                       fontSize: 18,
-                      color: Color(0xff353535),
+                      color: IMColors.c_ff353535,
                       fontWeight: FontWeight.bold,
                     ),
                     maxLines: 1,
@@ -40,7 +41,7 @@ class PersonalHeader extends StatelessWidget {
                     "账号：yixiu1976",
                     style: TextStyle(
                       fontSize: 12,
-                      color: Color(0xffa9a9a9),
+                      color: IMColors.c_ffa9a9a9,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
