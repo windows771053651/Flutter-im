@@ -11,6 +11,7 @@ import 'package:photo/photo.dart';
 import 'bean/friends_updates_bean.dart';
 import 'package:photo_manager/photo_manager.dart';
 
+/// 朋友圈
 class FriendsUpdates extends StatefulWidget {
   @override
   State createState() => _FriendsUpdatesState();
@@ -104,7 +105,7 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-              return FriendsUpdatesItem(dataResources[index]);
+              return FriendsUpdatesItem(dataResources[index], _name);
             }, childCount: dataResources.length,),
           ),
         ],

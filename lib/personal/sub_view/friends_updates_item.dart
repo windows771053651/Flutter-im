@@ -2,18 +2,37 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/personal/bean/friends_updates_bean.dart';
 import 'package:flutter_im/resource/colors.dart';
+import 'package:flutter_im/utils/file_util.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 import 'comment_bubble.dart';
 import 'friends_updates_item_link.dart';
 import 'friends_updates_item_picture.dart';
 
-class FriendsUpdatesItem extends StatelessWidget {
-
+class FriendsUpdatesItem extends StatefulWidget {
   final FriendsUpdatesBean itemBean;
 
-  FriendsUpdatesItem(this.itemBean);
+  final String userName;
 
+  FriendsUpdatesItem(this.itemBean, this.userName);
 
+  @override
+  State createState() => _State();
+}
+
+class _State extends State<FriendsUpdatesItem> {
+
+  Praise _getPraise() {
+    if (IMUtils.isListEmpty(widget.itemBean.praises) || IMUtils.isStringEmpty(widget.userName)) {
+      return null;
+    }
+    Praise praise;
+    widget.itemBean.praises.forEach((element) {
+      if (IMUtils.compareString(widget.userName, element.userName)) {
+        praise = element;
+      }
+    });
+    return praise;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +44,7 @@ class FriendsUpdatesItem extends StatelessWidget {
           bottom: BorderSide(
             width: 0.5,
             color: IMColors.c_fff5f5f5,
-          )
+          ),
         ),
       ),
       child: Row(
@@ -33,7 +52,7 @@ class FriendsUpdatesItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           IMUtils.getClipRRectImage(
-            networkUrl: itemBean.avatarUrl,
+            networkUrl: widget.itemBean.avatarUrl,
             width: 34,
             height: 34,
           ),
@@ -51,7 +70,7 @@ class FriendsUpdatesItem extends StatelessWidget {
                       children: <Widget>[
                         Expanded(
                           child: Text(
-                            itemBean.time,
+                            widget.itemBean.time,
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey,
@@ -59,11 +78,25 @@ class FriendsUpdatesItem extends StatelessWidget {
                           ),
                         ),
                         CommentBubbleWidget((type) {
-                          print(type);
-                        }),
+                          if (!widget.itemBean.praised) {
+                            setState(() {
+                              widget.itemBean.praised = true;
+                              widget.itemBean.praises.add(Praise(widget.userName));
+                            });
+                          } else {
+                            Praise delete = _getPraise();
+                            if (delete != null) {
+                              setState(() {
+                                widget.itemBean.praised = false;
+                                widget.itemBean.praises.remove(delete);
+                              });
+                            }
+                          }
+                        }, widget.itemBean.praised),
                       ],
                     ),
                   ),
+                  _commentAndFabulousWidget(),
                 ],
               ),
             ),
@@ -73,12 +106,72 @@ class FriendsUpdatesItem extends StatelessWidget {
     );
   }
 
-  Widget _getItemWidget(BuildContext context) {
-    if (itemBean.link != null) {
-      return FriendsUpdatesItemLink(itemBean);
+  /// 评论、点赞
+  Widget _commentAndFabulousWidget() {
+    if (widget.itemBean.comments.isEmpty && widget.itemBean.praises.isEmpty) {
+      return Container();
     } else {
-      return FriendsUpdatesItemPicture(itemBean);
+      return Container(
+        width: double.infinity,
+        margin: EdgeInsets.only(top: 6),
+        padding: EdgeInsets.only(left: 6, top: 4, right: 6, bottom: 4),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(2)),
+          color: IMColors.c_10000000,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _fabulousWidget(),
+          ],
+        ),
+      );
     }
   }
 
+  /// 点赞
+  Widget _fabulousWidget() {
+    if (widget.itemBean.praises.isEmpty) {
+      return Container();
+    } else {
+      return Wrap(
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: List.generate(widget.itemBean.praises.length, (index) {
+          return index == 0 ?
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(FileUtil.getImagePath("praise_icon"), ),
+                  Container(
+                    margin: EdgeInsets.only(left: 2),
+                    child: Text(
+                      widget.itemBean.praises[index].userName,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.blue[700],
+                      ),
+                    ),
+                  ),
+                ],
+              )
+              : Text(
+                  "，${widget.itemBean.praises[index].userName}",
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.blue[700],
+                  ),
+                );
+        }),
+      );
+    }
+  }
+
+  /// 除点赞、评论区域以外的widget
+  Widget _getItemWidget(BuildContext context) {
+    if (widget.itemBean.link != null) {
+      return FriendsUpdatesItemLink(widget.itemBean);
+    } else {
+      return FriendsUpdatesItemPicture(widget.itemBean);
+    }
+  }
 }

@@ -21,11 +21,16 @@ class CommentBubbleWidget extends StatelessWidget {
   /// 气泡item的宽度
   final double _bubbleItemWidth = 80.0;
 
-  final List<String> _titles = ['赞', '评论'];
+  List<String> _titles;
 
   final Function(int type) onItemSelected;
 
-  CommentBubbleWidget(this.onItemSelected);
+  /// 是否已点赞
+  final bool hasPraise;
+
+  CommentBubbleWidget(this.onItemSelected, this.hasPraise) {
+    _titles = hasPraise ? ['取消', '评论'] : ['赞', '评论'];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +54,7 @@ class CommentBubbleWidget extends StatelessWidget {
     /// 计算气泡Y方向偏移量
     double offsetY = _bubbleHeight / 2 - rect.height / 2;
     /// 计算气泡X方向偏移量
-    double offsetX = _bubbleWidth - 4;
+    double offsetX = _bubbleWidth + 4;
     Navigator.push(
       context,
       PopRoute(

@@ -70,7 +70,7 @@ class IMUtils {
   }
 
   static bool isListEmpty(List data) {
-    return IMUtils.isListNotEmpty(data);
+    return !IMUtils.isListNotEmpty(data);
   }
 
   static bool isListNotEmpty(List data) {

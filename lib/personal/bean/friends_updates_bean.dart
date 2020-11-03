@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 
 class FriendsUpdatesBean {
   String userName;
@@ -13,9 +12,16 @@ class FriendsUpdatesBean {
 
   List<String> replyInfo;
 
-  Praise praise;
-
   String time;
+
+  /// 是否已点赞
+  bool praised;
+
+  /// 点赞列表
+  List<Praise> praises;
+
+  /// 评论列表
+  List<Comment> comments;
 
   FriendsUpdatesBean({
     this.userName,
@@ -24,9 +30,12 @@ class FriendsUpdatesBean {
     this.icons,
     this.link,
     this.replyInfo,
-    this.praise,
     this.time,
-  });
+  }) {
+    praises = List();
+    comments = List();
+    praised = false;
+  }
 }
 
 /// 短链
@@ -49,9 +58,18 @@ class FriendsUpdatesLink {
 
 /// 点赞
 class Praise {
-  String praisedUserName;
+  String userName;
 
-  Praise({@required this.praisedUserName});
+  Praise(this.userName);
+}
+
+/// 评论
+class Comment {
+  String userName;
+
+  String content;
+
+  Comment(this.userName, this.content);
 }
 
 List<FriendsUpdatesBean> getFriendsUpdatesDataResource() {
