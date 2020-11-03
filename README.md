@@ -1,16 +1,8 @@
-# flutter_im
+一个flutter实现纯本地im项目，旨在了解flutter的基本语法结构和书写规范， 已完成功能：联系人、聊天列表、个人中心、相册、搜索、消息删除、数据库存储、发送文本消息、发送图片（emoji表情）消息等。
 
-A new Flutter application.
 
-## Getting Started
+[效果截图](./screens/)  
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[flutter-im.apk](./apk/)
