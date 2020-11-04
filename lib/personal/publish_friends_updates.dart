@@ -82,7 +82,7 @@ class PublishFriendsUpdates extends StatelessWidget {
           Container(
             height: 100,
             child: TextField(
-              maxLines: 2,
+              maxLines: 20,
               decoration: InputDecoration(
                 hintText: "这一刻的想法...",
                 hintStyle: TextStyle(

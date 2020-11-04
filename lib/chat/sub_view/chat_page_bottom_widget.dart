@@ -197,7 +197,6 @@ class ChatBottomState extends State<ChatBottomWidget> {
                   fontSize: 14,
                   color: Colors.black,
                 ),
-                textAlignVertical: TextAlignVertical.center,
                 controller: TextEditingController.fromValue(
                   TextEditingValue(
                     text: _inputContent,
