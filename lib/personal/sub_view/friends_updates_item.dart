@@ -246,7 +246,6 @@ class _State extends State<FriendsUpdatesItem> {
 
   /// 弹出评论框
   void showReplyDialog() {
-    FocusNode _focusNode = FocusNode();
     String content = "";
     showDialog(context: context, builder: (context) {
       return SimpleDialog(
@@ -281,7 +280,6 @@ class _State extends State<FriendsUpdatesItem> {
                           style: TextStyle(
                             fontSize: 14,
                           ),
-                          focusNode: _focusNode,
                           onChanged: (value) {
                             content = value;
                           },
@@ -319,7 +317,5 @@ class _State extends State<FriendsUpdatesItem> {
         ],
       );
     });
-
-    FocusScope.of(context).requestFocus(_focusNode);
   }
 }
