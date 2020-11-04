@@ -56,9 +56,9 @@ class _State extends State<SearchPage> {
 
   @override
   void dispose() {
-    super.dispose();
     _focusNode.dispose();
     FocusScope.of(context).requestFocus(FocusNode());
+    super.dispose();
   }
 
   @override

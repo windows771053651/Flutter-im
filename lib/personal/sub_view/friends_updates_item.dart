@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_im/common/horizontal_line.dart';
+import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/personal/bean/friends_updates_bean.dart';
 import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/utils/file_util.dart';
@@ -116,7 +120,9 @@ class _State extends State<FriendsUpdatesItem> {
                 }
               }
             } else if (type == CommentBubbleWidget.COMMENT) {
-
+              Future.delayed(Duration(milliseconds: 10), () {
+                showReplyDialog();
+              });
             }
           }, widget.itemBean.praised),
         ],
@@ -132,17 +138,31 @@ class _State extends State<FriendsUpdatesItem> {
       return Container(
         width: double.infinity,
         margin: EdgeInsets.only(top: 6),
-        padding: EdgeInsets.only(left: 6, top: 4, right: 6, bottom: 4),
+        padding: EdgeInsets.only(top: 4, bottom: 4),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(2)),
+          borderRadius: BorderRadius.all(Radius.circular(3)),
           color: IMColors.c_10000000,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _fabulousWidget(),
+            _horizontalLine(),
+            _commentWidget(),
           ],
         ),
+      );
+    }
+  }
+
+  /// 点赞和评论区域之间的横线
+  Widget _horizontalLine() {
+    if (widget.itemBean.praises.isEmpty || widget.itemBean.comments.isEmpty) {
+      return Container();
+    } else {
+      return Container(
+        margin: EdgeInsets.only(top: 4, bottom: 4),
+        child: HorizontalLine(color: Colors.grey[300],),
       );
     }
   }
@@ -152,35 +172,154 @@ class _State extends State<FriendsUpdatesItem> {
     if (widget.itemBean.praises.isEmpty) {
       return Container();
     } else {
-      return Wrap(
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: List.generate(widget.itemBean.praises.length, (index) {
-          return index == 0 ?
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Image.asset(FileUtil.getImagePath("praise_icon"), ),
-                  Container(
-                    margin: EdgeInsets.only(left: 2),
-                    child: Text(
-                      widget.itemBean.praises[index].userName,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.blue[700],
-                      ),
+      return Container(
+        margin: EdgeInsets.only(left: 6, right: 6),
+        child: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: List.generate(widget.itemBean.praises.length, (index) {
+            return index == 0 ?
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(FileUtil.getImagePath("praise_icon"), ),
+                Container(
+                  margin: EdgeInsets.only(left: 2),
+                  child: Text(
+                    widget.itemBean.praises[index].userName,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.blue[700],
                     ),
                   ),
-                ],
-              )
-              : Text(
-                  "，${widget.itemBean.praises[index].userName}",
+                ),
+              ],
+            )
+                : Text(
+              "，${widget.itemBean.praises[index].userName}",
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.blue[700],
+              ),
+            );
+          }),
+        ),
+      );
+    }
+  }
+
+  /// 评论列表
+  Widget _commentWidget() {
+    if (widget.itemBean.comments.isEmpty) {
+      return Container();
+    } else {
+      return Container(
+        margin: EdgeInsets.only(left: 6, right: 6),
+        child: Column(
+          children: List.generate(widget.itemBean.comments.length, (index) {
+            Comment comment = widget.itemBean.comments[index];
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${comment.userName}：",
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.blue[700],
                   ),
-                );
-        }),
+                ),
+                Expanded(
+                  child: Text(
+                    comment.content,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }),
+        ),
       );
     }
+  }
+
+  /// 弹出评论框
+  void showReplyDialog() {
+    FocusNode _focusNode = FocusNode();
+    String content = "";
+    showDialog(context: context, builder: (context) {
+      return SimpleDialog(
+        contentPadding: EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 0.0),
+        children: <Widget>[
+          Container(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(left: 12, right: 12,),
+                  padding: EdgeInsets.all(4),
+                  height: 100,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: IMColors.c_ffededed, width: 0.5),
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                  ),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          maxLines: 10,
+                          minLines: 1,
+                          showCursor: true,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.all(0),
+                            hintText: "评论",
+                            hintStyle: TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                          style: TextStyle(
+                            fontSize: 14,
+                          ),
+                          focusNode: _focusNode,
+                          onChanged: (value) {
+                            content = value;
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                TouchCallBack(
+                  bottomRightRadius: 4,
+                  bottomLeftRadius: 4,
+                  padding: EdgeInsets.only(top: 8, bottom: 8),
+                  margin: EdgeInsets.only(top: 12),
+                  child: Center(
+                    child: Text(
+                      "发送",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.blue[700],
+                      ),
+                    ),
+                  ),
+                  callBack: () {
+                    if (IMUtils.isStringNotEmpty(content)) {
+                      Navigator.of(context).pop();
+                      setState(() {
+                        widget.itemBean.comments.add(Comment(widget.userName, content));
+                      });
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+    });
+
+    FocusScope.of(context).requestFocus(_focusNode);
   }
 }
