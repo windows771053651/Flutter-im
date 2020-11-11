@@ -76,8 +76,25 @@ class _ChatState extends MessageState<ChatPage> with WidgetsBindingObserver {
           _getAppBarActionsMenu(),
         ],
       ),
-      body: _body(),
+      body: WillPopScope(
+        onWillPop: () {
+          /// 物理返回键，返回到桌面
+          _backPress();
+        },
+        child: _body(),
+      ),
     );
+  }
+
+  _backPress() {
+    ChatBottomState chatBottomState = _bottomWidgetKey.currentState;
+    if (chatBottomState.isBottomWidgetVisible()) {
+      chatBottomState.closeBottomWidgetAndKeyBoard();
+    } else {
+      Navigator.pop(context);
+    }
+
+    return false;
   }
 
   void _initParams() {

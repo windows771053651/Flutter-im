@@ -399,6 +399,10 @@ class ChatBottomState extends State<ChatBottomWidget> {
     });
   }
 
+  bool isBottomWidgetVisible() {
+    return _toolsBoxVisible || _emojiViewVisible;
+  }
+
   /// 关闭软键盘
   void _hideKeyBoard() {
     _focusNode.unfocus();
