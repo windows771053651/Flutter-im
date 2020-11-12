@@ -1,9 +1,9 @@
 import 'package:flutter_im/chat/bean/chat_session.dart';
 import 'package:flutter_im/chat_biz/session_manager.dart';
-import 'package:flutter_im/database/db_constant.dart';
-import 'package:flutter_im/database/db_table_chat_session.dart';
+import 'package:flutter_im/database/provider/db_table_chat_session.dart';
+import 'package:flutter_im/database/table/chat_session_table.dart';
 
-import 'listener/chat_message_listener.dart';
+import '../chat_biz/listener/chat_message_listener.dart';
 
 class SessionManagerImpl extends SessionManager {
 
@@ -56,12 +56,12 @@ class SessionManagerImpl extends SessionManager {
         for (int i = onValue.length - 1; i >=0; i--) {
           Map<String, dynamic> bean = onValue[i];
           ChatSession chatMessageBean = ChatSession(
-            name: bean[DBConstant.COLUMN_NAME_NAME],
-            avatar: bean[DBConstant.COLUMN_NAME_AVATAR],
-            messageType: getMessageType(bean[DBConstant.COLUMN_NAME_TYPE]),
-            time: DateTime.fromMillisecondsSinceEpoch(bean[DBConstant.COLUMN_NAME_DATETIME]),
-            read: bean[DBConstant.COLUMN_NAME_READ] == 1,
-            lastChatMessageContent: bean[DBConstant.COLUMN_NAME_LAST_CHAT_MESSAGE],
+            name: bean[ChatSessionTable.COLUMN_NAME_NAME],
+            avatar: bean[ChatSessionTable.COLUMN_NAME_AVATAR],
+            messageType: getMessageType(bean[ChatSessionTable.COLUMN_NAME_TYPE]),
+            time: DateTime.fromMillisecondsSinceEpoch(bean[ChatSessionTable.COLUMN_NAME_DATETIME]),
+            read: bean[ChatSessionTable.COLUMN_NAME_READ] == 1,
+            lastChatMessageContent: bean[ChatSessionTable.COLUMN_NAME_LAST_CHAT_MESSAGE],
           );
           nativeSessions.add(chatMessageBean);
         }

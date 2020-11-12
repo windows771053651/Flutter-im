@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/chat_session.dart';
 import 'package:flutter_im/chat/sub_view/message_item.dart';
-import 'package:flutter_im/chat_biz/session_manager_impl.dart';
+import 'package:flutter_im/database/session_manager_impl.dart';
 import 'package:flutter_im/constants/sp_keys.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 import 'package:flutter_im/utils/sp_util.dart';

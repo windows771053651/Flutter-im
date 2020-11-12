@@ -13,7 +13,7 @@ import 'package:flutter_im/utils/file_util.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'base_chat.dart';
 import 'bean/chat_message_bean.dart';
-import '../chat_biz/message_manager_impl.dart';
+import '../database/message_manager_impl.dart';
 import 'chat_settings_page.dart';
 
 /// listview倒置，因此读取数据是也是倒序。由于读取数据时是倒序的，所以消息数据的存储，分发，接收流程依然按照顺序方式处理

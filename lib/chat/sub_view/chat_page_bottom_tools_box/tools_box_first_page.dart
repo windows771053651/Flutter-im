@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/chat_message_bean.dart';
 import 'package:flutter_im/chat/bean/tools_box_item_bean.dart';
 import 'package:flutter_im/chat/sub_view/chat_page_bottom_tools_box/tools_box_item_factory.dart';
-import 'package:flutter_im/chat_biz/message_manager_impl.dart';
+import 'package:flutter_im/database/message_manager_impl.dart';
 import 'package:flutter_im/constants/constants.dart';
 import 'package:image_picker/image_picker.dart';
 

@@ -18,15 +18,15 @@ class ContactHeader extends StatelessWidget {
             Navigator.of(context).pushNamed(PageId.GROUP_CONTACTS_NEW_FRIENDS);
           },
         ),
-        ContactItem(
-          titleName: "公共聊天室",
-          imageName: FileUtil.getImagePath("icon_group"),
-          size: 28,
-          headerSutTitleVisible: false,
-          callback: () {
-
-          },
-        ),
+//        ContactItem(
+//          titleName: "公共聊天室",
+//          imageName: FileUtil.getImagePath("icon_group"),
+//          size: 28,
+//          headerSutTitleVisible: false,
+//          callback: () {
+//
+//          },
+//        ),
       ],
     );
   }

@@ -1,9 +1,16 @@
+import 'package:flutter_im/database/table/chat_message_table.dart';
+import 'package:flutter_im/database/table/chat_session_table.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
-import 'db_constant.dart';
-
 abstract class DatabaseProvider<T> {
+
+  /// 数据库名
+  static const String DATABASE_NAME = "FlutterImDB";
+
+  /// 数据库版本
+  static const int VERSION = 1;
+
   Database _instance;
 
   Database get instance => _instance;
@@ -12,17 +19,17 @@ abstract class DatabaseProvider<T> {
     if (_instance == null) {
       var path = await getDatabasesPath();
       _instance = await openDatabase(
-        path + "/" + DBConstant.DATABASE_NAME,
+        path + "/" + DATABASE_NAME,
         onCreate: _createDatabase,
-        version: DBConstant.VERSION,
+        version: VERSION,
       );
     }
     return _instance;
   }
 
   _createDatabase(Database db, int version) {
-    db.execute(DBConstant.sqlCreateTableMessage);
-    db.execute(DBConstant.sqlCreateTableMessageSession);
+    db.execute(ChatMessageTable.sqlCreateTableMessage);
+    db.execute(ChatSessionTable.sqlCreateTableMessageSession);
   }
 
   closeDB();

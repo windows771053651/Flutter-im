@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter_im/chat/bean/chat_message_bean.dart';
-import 'package:flutter_im/database/db_constant.dart';
-import 'package:flutter_im/database/db_table_chat_message.dart';
+import 'package:flutter_im/database/provider/db_table_chat_message.dart';
+import 'package:flutter_im/database/table/chat_message_table.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
-import 'listener/chat_message_listener.dart';
-import 'message_manager.dart';
+import '../chat_biz/listener/chat_message_listener.dart';
+import '../chat_biz/message_manager.dart';
 
 /// 两钟获取MessageControllerImpl实例对象的方法，工厂模式和instance两种单例模式
 class MessageControllerImpl extends MessageManager<ChatMessageBean> {
@@ -96,18 +96,18 @@ class MessageControllerImpl extends MessageManager<ChatMessageBean> {
         List<ChatMessageBean> nativeMessages = List();
         onValue.forEach((Map<String, dynamic> bean) {
           ChatMessageBean chatMessageBean = ChatMessageBean.build(
-            chatMessageType: getChatMessageTypeByIndex(bean[DBConstant.COLUMN_NAME_MESSAGE_TYPE]),
-            targetName: bean[DBConstant.COLUMN_NAME_TARGET_NAME],
-            targetAvatarUrl: bean[DBConstant.COLUMN_NAME_TARGET_AVATAR_URL],
-            currentName: bean[DBConstant.COLUMN_NAME_CURRENT_NAME],
-            currentAvatarUrl: bean[DBConstant.COLUMN_NAME_CURRENT_AVATAR_URL],
-            time: bean[DBConstant.COLUMN_NAME_TIME],
-            picturePath: bean[DBConstant.COLUMN_NAME_PICTURE_URL],
-            voiceUrl: bean[DBConstant.COLUMN_NAME_VOICE_URL],
-            location: bean[DBConstant.COLUMN_NAME_LOCATION],
-            inOutType: getInOutTypeByIndex(bean[DBConstant.COLUMN_NAME_IN_OUT_TYPE]),
-            chatMessage: bean[DBConstant.COLUMN_NAME_CONTENT],
-            nativePicturePath: bean[DBConstant.COLUMN_NAME_NATIVE_PICTURE_URI],
+            chatMessageType: getChatMessageTypeByIndex(bean[ChatMessageTable.COLUMN_NAME_MESSAGE_TYPE]),
+            targetName: bean[ChatMessageTable.COLUMN_NAME_TARGET_NAME],
+            targetAvatarUrl: bean[ChatMessageTable.COLUMN_NAME_TARGET_AVATAR_URL],
+            currentName: bean[ChatMessageTable.COLUMN_NAME_CURRENT_NAME],
+            currentAvatarUrl: bean[ChatMessageTable.COLUMN_NAME_CURRENT_AVATAR_URL],
+            time: bean[ChatMessageTable.COLUMN_NAME_TIME],
+            picturePath: bean[ChatMessageTable.COLUMN_NAME_PICTURE_URL],
+            voiceUrl: bean[ChatMessageTable.COLUMN_NAME_VOICE_URL],
+            location: bean[ChatMessageTable.COLUMN_NAME_LOCATION],
+            inOutType: getInOutTypeByIndex(bean[ChatMessageTable.COLUMN_NAME_IN_OUT_TYPE]),
+            chatMessage: bean[ChatMessageTable.COLUMN_NAME_CONTENT],
+            nativePicturePath: bean[ChatMessageTable.COLUMN_NAME_NATIVE_PICTURE_URI],
           );
           nativeMessages.add(chatMessageBean);
         });

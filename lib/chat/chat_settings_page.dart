@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_im/chat_biz/message_manager_impl.dart';
-import 'package:flutter_im/chat_biz/session_manager_impl.dart';
+import 'package:flutter_im/database/message_manager_impl.dart';
+import 'package:flutter_im/database/session_manager_impl.dart';
 import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/common_text_item.dart';
 import 'package:flutter_im/router/page_id.dart';
