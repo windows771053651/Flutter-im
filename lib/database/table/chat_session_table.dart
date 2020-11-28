@@ -1,6 +1,7 @@
+/// 聊天消息会话列表
 class ChatSessionTable {
-  /// 聊天消息会话列表
   static const String MESSAGE_SESSION_TABLE = "MessageSession";
+
   static const String COLUMN_NAME_NAME = "name";
   static const String COLUMN_NAME_AVATAR = "avatar";
   static const String COLUMN_NAME_TYPE = "type";

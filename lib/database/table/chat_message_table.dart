@@ -1,6 +1,7 @@
+/// 聊天消息表
 class ChatMessageTable {
-  /// 聊天消息表
   static const String MESSAGE_Table = "Message";
+
   static const String COLUMN_NAME_MESSAGE_TYPE = "chatMessageType";
   static const String COLUMN_NAME_TARGET_USER_ID = "targetUserId";
   static const String COLUMN_NAME_TARGET_NAME = "targetName";

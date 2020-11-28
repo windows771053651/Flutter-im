@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_im/common/bottom_sheet_dialog.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/constants/constants.dart';
+import 'package:flutter_im/constants/sp_keys.dart';
 import 'package:flutter_im/personal/sub_view/friends_updates_header.dart';
 import 'package:flutter_im/personal/sub_view/friends_updates_item.dart';
 import 'package:flutter_im/router/page_id.dart';
+import 'package:flutter_im/utils/sp_util.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:photo/photo.dart';
 import 'bean/friends_updates_bean.dart';
@@ -36,6 +38,12 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
     if (arguments != null && arguments.length == 2) {
       _name = arguments[0];
       _avatarUrl = arguments[1];
+
+      bool hasInsertDefaultFriendsUpdates = SPUtil.getBool(ConstantsSPKeys.SP_KEYS_HAS_INSERT_DEFAULT_FRIENDS_UPDATES_DATA);
+      if (hasInsertDefaultFriendsUpdates == null || !hasInsertDefaultFriendsUpdates) {
+        SPUtil.putBool(ConstantsSPKeys.SP_KEYS_HAS_INSERT_DEFAULT_FRIENDS_UPDATES_DATA, true);
+
+      }
       dataResources = getFriendsUpdatesDataResource();
     }
   }
@@ -194,6 +202,7 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
     future.then((onValue) {
       if (onValue != null) {
         setState(() {
+          // 发布朋友圈
           FriendsUpdatesBean bean = onValue;
           dataResources.insert(0, bean);
           _scrollToTop();

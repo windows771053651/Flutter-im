@@ -4,13 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/app_bar.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/constants/constants.dart';
 import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 
 import 'bean/friends_updates_bean.dart';
 import 'bean/image_display_bean.dart';
-import 'image_display_page.dart';
 
 class PublishFriendsUpdates extends StatelessWidget {
 
@@ -33,7 +33,7 @@ class PublishFriendsUpdates extends StatelessWidget {
     if (IMUtils.isListNotEmpty(_nativePictureAbsPath)) {
       _nativePictureDisplayAbsPath = List();
       _nativePictureAbsPath.forEach((bean) {
-        _nativePictureDisplayAbsPath.add(bean + ImageDisplayPage.nativePictureFlag);
+        _nativePictureDisplayAbsPath.add(bean + Constants.nativePictureFlag);
       });
       return Scaffold(
         appBar: getAppBar(
@@ -54,12 +54,17 @@ class PublishFriendsUpdates extends StatelessWidget {
                 ),
               ),
               callBack: () {
+                String blogId = "${DateTime.now().millisecondsSinceEpoch}";
                 FriendsUpdatesBean bean = FriendsUpdatesBean(
                   userName: _name,
                   avatarUrl: _avatarUrl,
                   title: _content,
-                  icons: _nativePictureDisplayAbsPath,
-                  time: "刚刚"
+                  icons: List.generate(_nativePictureDisplayAbsPath.length, (index) => Picture(
+                    iconUrl: _nativePictureDisplayAbsPath[index],
+                    blogId: blogId,
+                  )),
+                  time: "刚刚",
+                  blogId: blogId,
                 );
                 Navigator.of(context).pop(bean);
               },

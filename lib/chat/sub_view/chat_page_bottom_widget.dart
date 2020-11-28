@@ -189,7 +189,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
                 focusNode: _focusNode,
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(0),
+                  isDense: true,
                 ),
                 maxLines: 3,
                 minLines: 1,

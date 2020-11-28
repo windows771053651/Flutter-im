@@ -107,13 +107,15 @@ class _State extends State<FriendsUpdatesItem> {
             if (type == CommentBubbleWidget.PRAISE) {
               if (!widget.itemBean.praised) {
                 setState(() {
+                  // 点赞
                   widget.itemBean.praised = true;
-                  widget.itemBean.praises.add(Praise(widget.userName));
+                  widget.itemBean.praises.add(Praise(userName:widget.userName, blogId:widget.itemBean.blogId));
                 });
               } else {
                 Praise delete = _getPraise();
                 if (delete != null) {
                   setState(() {
+                    // 取消点赞
                     widget.itemBean.praised = false;
                     widget.itemBean.praises.remove(delete);
                   });
@@ -122,6 +124,16 @@ class _State extends State<FriendsUpdatesItem> {
             } else if (type == CommentBubbleWidget.COMMENT) {
               Future.delayed(Duration(milliseconds: 10), () {
                 showReplyDialog();
+//                Navigator.push(
+//                  context,
+//                  PopRoute(
+//                    child: InputButtomWidget(
+//                      onEditingCompleteText: (text) {
+//                        print('点击发送 ---$text');
+//                      },
+//                    ),
+//                  ),
+//                );
               });
             }
           }, widget.itemBean.praised),
@@ -306,7 +318,8 @@ class _State extends State<FriendsUpdatesItem> {
                     if (IMUtils.isStringNotEmpty(content)) {
                       Navigator.of(context).pop();
                       setState(() {
-                        widget.itemBean.comments.add(Comment(widget.userName, content));
+                        // 评论
+                        widget.itemBean.comments.add(Comment(userName: widget.userName, content: content, blogId: widget.itemBean.blogId));
                       });
                     }
                   },

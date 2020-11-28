@@ -13,4 +13,6 @@ class Constants {
   static const String friendsUpdatesHeaderBg = "images/friends_updates_header_bg.jpeg";
   /// 朋友圈背景图比例
   static const double friendsUpdatesHeaderBgRatio = 1.5;
+  /// 本地图片标志，用以区分网络图片
+  static final String nativePictureFlag = "#FlutterImNativePicture#";
 }

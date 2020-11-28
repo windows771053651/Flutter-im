@@ -5,11 +5,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/constants/constants.dart';
 import 'package:flutter_im/personal/bean/friends_updates_bean.dart';
 import 'package:flutter_im/personal/bean/image_display_bean.dart';
 import 'package:flutter_im/router/page_id.dart';
-
-import '../image_display_page.dart';
 
 class FriendsUpdatesItemPicture extends StatelessWidget {
 
@@ -77,9 +76,9 @@ class FriendsUpdatesItemPicture extends StatelessWidget {
       child: TouchCallBack(
         pressedColor: Colors.transparent,
         normalColor: Colors.transparent,
-        child: _getOnePictureModePicWidget(itemBean.icons[0]),
+        child: _getOnePictureModePicWidget(itemBean.icons[0].iconUrl),
         callBack: () {
-          Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_MULTI_IMAGE_DISPLAY, arguments: ImageDisplayBean(pictures: itemBean.icons));
+          Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_MULTI_IMAGE_DISPLAY, arguments: ImageDisplayBean(pictures: List.generate(itemBean.icons.length, (index) => itemBean.icons[index].iconUrl)));
         },
       ),
     );
@@ -103,9 +102,12 @@ class FriendsUpdatesItemPicture extends StatelessWidget {
     for (int i = start; i < end && i < itemBean.icons.length; i++) {
       children[index] = TouchCallBack(
         margin: EdgeInsets.only(top: 2, right: 2),
-        child: _getMorePictureModePicWidget(itemBean.icons[i], pictureCellWidth),
+        child: _getMorePictureModePicWidget(itemBean.icons[i].iconUrl, pictureCellWidth),
         callBack: () {
-          Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_MULTI_IMAGE_DISPLAY, arguments: ImageDisplayBean(index:i, pictures: itemBean.icons,),);
+          Navigator.of(context).pushNamed(
+            PageId.GROUP_PERSONAL_MULTI_IMAGE_DISPLAY,
+            arguments: ImageDisplayBean(index:i, pictures: List.generate(itemBean.icons.length, (index) => itemBean.icons[index].iconUrl),),
+          );
         },
       );
       index++;
@@ -116,7 +118,7 @@ class FriendsUpdatesItemPicture extends StatelessWidget {
   }
 
   Widget _getOnePictureModePicWidget(String picturePath) {
-    return !picturePath.contains(ImageDisplayPage.nativePictureFlag)
+    return !picturePath.contains(Constants.nativePictureFlag)
         ? CachedNetworkImage(
             imageUrl: picturePath,
             fit: BoxFit.cover,
@@ -125,7 +127,7 @@ class FriendsUpdatesItemPicture extends StatelessWidget {
             decoration: BoxDecoration(
             image: DecorationImage(
               alignment: Alignment.topLeft,
-              image: FileImage(File(picturePath.substring(0, picturePath.indexOf(ImageDisplayPage.nativePictureFlag))),),
+              image: FileImage(File(picturePath.substring(0, picturePath.indexOf(Constants.nativePictureFlag))),),
               fit: BoxFit.contain,
         ),
       ),
@@ -133,7 +135,7 @@ class FriendsUpdatesItemPicture extends StatelessWidget {
   }
 
   Widget _getMorePictureModePicWidget(String picturePath, double pictureCellWidth) {
-    return !picturePath.contains(ImageDisplayPage.nativePictureFlag)
+    return !picturePath.contains(Constants.nativePictureFlag)
         ? CachedNetworkImage(
             imageUrl: picturePath,
             width: pictureCellWidth,
@@ -145,7 +147,7 @@ class FriendsUpdatesItemPicture extends StatelessWidget {
             height: pictureCellWidth,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: FileImage(File(picturePath.substring(0, picturePath.indexOf(ImageDisplayPage.nativePictureFlag))),),
+                image: FileImage(File(picturePath.substring(0, picturePath.indexOf(Constants.nativePictureFlag))),),
                 fit: BoxFit.cover,
               ),
             ),

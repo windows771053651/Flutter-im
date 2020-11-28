@@ -4,12 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/indicator.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/constants/constants.dart';
 import 'bean/image_display_bean.dart';
 
-/// 图片预览页面，可以显示网络图片和本地图片。本地图片path后面加有[nativePictureFlag]标志
+/// 图片预览页面，可以显示网络图片和本地图片。本地图片path后面加有[Constants#nativePictureFlag]标志
 class ImageDisplayPage extends StatefulWidget {
-  /// 本地图片标志，用以区分网络图片
-  static final String nativePictureFlag = "#FlutterImNativePicture#";
 
   @override
   State createState() => _State();
@@ -114,11 +113,11 @@ class _State extends State<ImageDisplayPage> {
   }
 
   Widget _getPictureWidget(String picturePath) {
-    return !picturePath.contains(ImageDisplayPage.nativePictureFlag)
+    return !picturePath.contains(Constants.nativePictureFlag)
         ? CachedNetworkImage(imageUrl: picturePath,)
         : Container(
             decoration: BoxDecoration(
-            image: DecorationImage(image: FileImage(File(picturePath.substring(0, picturePath.indexOf(ImageDisplayPage.nativePictureFlag),),),),
+            image: DecorationImage(image: FileImage(File(picturePath.substring(0, picturePath.indexOf(Constants.nativePictureFlag),),),),
         ),
       ),
     );
