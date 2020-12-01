@@ -1,4 +1,8 @@
 
+import 'dart:convert';
+
+import 'package:flutter_im/utils/im_tools.dart';
+
 class FriendsUpdatesBean {
 
   String userId;
@@ -30,16 +34,60 @@ class FriendsUpdatesBean {
     this.userName,
     this.avatarUrl,
     this.title,
-    this.icons,
     this.link,
     this.time,
     this.blogId,
+    this.praised = false,
+    this.icons,
+    this.praises,
+    this.comments,
   }) {
-    praises = List();
-    comments = List();
-    praised = false;
     userId = "${userName.hashCode}";
   }
+
+  String getPictureJson() {
+    if (IMUtils.isListEmpty(icons)) {
+      return null;
+    }
+    List list = List();
+    for (Picture picture in icons) {
+      String json = picture.toJson();
+      list.add(json);
+    }
+    return json.encode(list);
+  }
+
+  String getPraiseJson() {
+    if (IMUtils.isListEmpty(praises)) {
+      return null;
+    }
+    List list = List();
+    for (Praise praise in praises) {
+      String json = praise.toJson();
+      list.add(json);
+    }
+    return json.encode(list);
+  }
+
+  String getCommentsJson() {
+    if (IMUtils.isListEmpty(comments)) {
+      return null;
+    }
+    List list = List();
+    for (Comment comment in comments) {
+      String json = comment.toJson();
+      list.add(json);
+    }
+    return json.encode(list);
+  }
+
+  String getLinkJson() {
+    if (link == null) {
+      return null;
+    }
+    return link.toJson();
+  }
+
 }
 
 /// 短链
@@ -61,6 +109,30 @@ class FriendsUpdatesLink {
     this.link,
     this.blogId,
   });
+
+  static FriendsUpdatesLink fromJson(String jsonText) {
+    if (json == null) return null;
+    Map<String, dynamic> jsonMap = json.decode(jsonText);
+    return FriendsUpdatesLink(
+      icon: jsonMap["icon"],
+      title: jsonMap["title"],
+      subTitle: jsonMap["subTitle"],
+      link: jsonMap["link"],
+      blogId: jsonMap["blogId"],
+    );
+  }
+
+  String toJson() {
+    Map<String, dynamic> jsonMap = {
+      "icon": icon,
+      "title": title,
+      "subTitle": subTitle,
+      "link": link,
+      "blogId": blogId,
+    };
+
+    return json.encode(jsonMap);
+  }
 }
 
 /// 点赞
@@ -73,6 +145,24 @@ class Praise {
     this.userName,
     this.blogId,
   });
+
+  static Praise fromJson(String jsonText) {
+    if (json == null) return null;
+    Map<String, dynamic> jsonMap = json.decode(jsonText);
+    return Praise(
+      userName: jsonMap["userName"],
+      blogId: jsonMap["blogId"],
+    );
+  }
+
+  String toJson() {
+    Map<String, dynamic> jsonMap = {
+      "userName": userName,
+      "blogId": blogId,
+    };
+
+    return json.encode(jsonMap);
+  }
 }
 
 /// 评论
@@ -88,6 +178,26 @@ class Comment {
     this.content,
     this.blogId,
   });
+
+  static Comment fromJson(String jsonText) {
+    if (json == null) return null;
+    Map<String, dynamic> jsonMap = json.decode(jsonText);
+    return Comment(
+      userName: jsonMap["userName"],
+      content: jsonMap["content"],
+      blogId: jsonMap["blogId"],
+    );
+  }
+
+  String toJson() {
+    Map<String, dynamic> jsonMap = {
+      "userName": userName,
+      "content": content,
+      "blogId": blogId,
+    };
+
+    return json.encode(jsonMap);
+  }
 }
 
 class Picture {
@@ -99,6 +209,24 @@ class Picture {
     this.iconUrl,
     this.blogId,
   });
+
+  static Picture fromJson(String jsonText) {
+    if (json == null) return null;
+    Map<String, dynamic> jsonMap = json.decode(jsonText);
+    return Picture(
+      iconUrl: jsonMap["iconUrl"],
+      blogId: jsonMap["blogId"],
+    );
+  }
+
+  String toJson() {
+    Map<String, dynamic> jsonMap = {
+      "iconUrl": iconUrl,
+      "blogId": blogId,
+    };
+
+    return json.encode(jsonMap);
+  }
 }
 
 List<FriendsUpdatesBean> getFriendsUpdatesDataResource() {
@@ -157,7 +285,7 @@ List<FriendsUpdatesBean> getFriendsUpdatesDataResource() {
       blogId: "4",
       icons: [
         Picture(
-          iconUrl: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600664253159&di=20a21c59efcbece390721495a18619a1&imgtype=0&src=http%3A%2F%2Fpic1.zhimg.com%2F50%2Fv2-1ae9b2bbc17daaeb0a5d12184063a30f_hd.jpgg",
+          iconUrl: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600664253159&di=20a21c59efcbece390721495a18619a1&imgtype=0&src=http%3A%2F%2Fpic1.zhimg.com%2F50%2Fv2-1ae9b2bbc17daaeb0a5d12184063a30f_hd.jpg",
           blogId: "4",
         ),
         Picture(
@@ -237,7 +365,6 @@ List<FriendsUpdatesBean> getFriendsUpdatesDataResource() {
       blogId: "8",
       time: "2天前",
     ),
-
     FriendsUpdatesBean(
       userName: "钟欣潼",
       avatarUrl: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1598953075951&di=a4cbb1b817bf2dc63be6a7e92c617ac5&imgtype=0&src=http%3A%2F%2Fp.ssl.qhimg.com%2Fd%2Fdy_399e138b358fc0993ae1ab517d900ca3.jpg",

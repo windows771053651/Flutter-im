@@ -1,5 +1,6 @@
 import 'package:flutter_im/database/table/chat_message_table.dart';
 import 'package:flutter_im/database/table/chat_session_table.dart';
+import 'package:flutter_im/database/table/friends_updates_table.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
@@ -30,6 +31,7 @@ abstract class DatabaseProvider<T> {
   _createDatabase(Database db, int version) {
     db.execute(ChatMessageTable.sqlCreateTableMessage);
     db.execute(ChatSessionTable.sqlCreateTableMessageSession);
+    db.execute(FriendsUpdatesTable.sqlCreateTableFriendsUpdates);
   }
 
   closeDB();

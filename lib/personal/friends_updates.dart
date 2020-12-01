@@ -4,6 +4,7 @@ import 'package:flutter_im/common/bottom_sheet_dialog.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/constants/constants.dart';
 import 'package:flutter_im/constants/sp_keys.dart';
+import 'package:flutter_im/database/friends_updates_manager_impl.dart';
 import 'package:flutter_im/personal/sub_view/friends_updates_header.dart';
 import 'package:flutter_im/personal/sub_view/friends_updates_item.dart';
 import 'package:flutter_im/router/page_id.dart';
@@ -27,7 +28,7 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
 
   String _avatarUrl;
 
-  List<FriendsUpdatesBean> dataResources;
+  List<FriendsUpdatesBean> dataResources = List();
 
   ScrollController _controller;
 
@@ -42,9 +43,15 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
       bool hasInsertDefaultFriendsUpdates = SPUtil.getBool(ConstantsSPKeys.SP_KEYS_HAS_INSERT_DEFAULT_FRIENDS_UPDATES_DATA);
       if (hasInsertDefaultFriendsUpdates == null || !hasInsertDefaultFriendsUpdates) {
         SPUtil.putBool(ConstantsSPKeys.SP_KEYS_HAS_INSERT_DEFAULT_FRIENDS_UPDATES_DATA, true);
-
+        dataResources = getFriendsUpdatesDataResource();
+        FriendsUpdatesManagerImpl.instance.insertFriendsUpdatesBeans(dataResources);
+      } else {
+        FriendsUpdatesManagerImpl.instance.queryFriendsUpdatesBeans((List<FriendsUpdatesBean> data) {
+          setState(() {
+            dataResources = data;
+          });
+        });
       }
-      dataResources = getFriendsUpdatesDataResource();
     }
   }
 
@@ -108,12 +115,19 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
                   ),
                 ),
               ),
-              background: FriendsUpdatesHeader(name: _name, avatarUrl: _avatarUrl,),
+              background: FriendsUpdatesHeader(name: _name, avatarUrl: _avatarUrl, titleVisible: _titleVisible,),
             ),
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-              return FriendsUpdatesItem(dataResources[index], _name);
+              return FriendsUpdatesItem(
+                  itemBean: dataResources[index],
+                  userName: _name,
+                  onItemDeleteCallback: () {
+                    setState(() {
+                      dataResources.remove(dataResources[index]);
+                    });
+                  });
             }, childCount: dataResources.length,),
           ),
         ],
@@ -205,6 +219,7 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
           // 发布朋友圈
           FriendsUpdatesBean bean = onValue;
           dataResources.insert(0, bean);
+          FriendsUpdatesManagerImpl.instance.insertFriendsUpdatesBean(bean);
           _scrollToTop();
         });
       }

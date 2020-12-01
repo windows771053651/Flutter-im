@@ -9,6 +9,7 @@ import 'package:flutter_im/constants/constants.dart';
 import 'package:flutter_im/personal/bean/friends_updates_bean.dart';
 import 'package:flutter_im/personal/bean/image_display_bean.dart';
 import 'package:flutter_im/router/page_id.dart';
+import 'package:flutter_im/utils/im_tools.dart';
 
 class FriendsUpdatesItemPicture extends StatelessWidget {
 
@@ -48,7 +49,7 @@ class FriendsUpdatesItemPicture extends StatelessWidget {
   }
 
   Widget _getNormalItemPictures(BuildContext context) {
-    if (itemBean.icons != null && itemBean.icons.length > 0) {
+    if (IMUtils.isListNotEmpty(itemBean.icons)) {
       if (itemBean.icons.length == 1) {
         return Container(
           margin: EdgeInsets.only(top: 4),

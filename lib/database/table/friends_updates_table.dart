@@ -12,11 +12,17 @@ class FriendsUpdatesTable {
 
   static const String COLUMN_NAME_TITLE = "title";
 
-  static const String COLUMN_NAME_ICONS = "icons";
-
   static const String COLUMN_NAME_TIME = "time";
 
   static const String COLUMN_NAME_PRAISED = "praised";
+
+  static const String COLUMN_NAME_ICONS = "icons";
+
+  static const String COLUMN_NAME_PRAISE = "praise";
+
+  static const String COLUMN_NAME_COMMENTS = "comments";
+
+  static const String COLUMN_NAME_LINK = "link";
 
   /// 朋友圈帖子表
   static final String sqlCreateTableFriendsUpdates=
@@ -28,8 +34,11 @@ class FriendsUpdatesTable {
                               $COLUMN_NAME_USER_NAME TEXT ,
                               $COLUMN_NAME_AVATAR_URL TEXT,
                               $COLUMN_NAME_TITLE TEXT,
-                              $COLUMN_NAME_ICONS TEXT,
                               $COLUMN_NAME_TIME TEXT,
+                              $COLUMN_NAME_ICONS TEXT,
+                              $COLUMN_NAME_PRAISE TEXT,
+                              $COLUMN_NAME_COMMENTS TEXT,
+                              $COLUMN_NAME_LINK TEXT,
                               $COLUMN_NAME_PRAISED BOOL
                             );
                           """;

@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/horizontal_line.dart';
 import 'package:flutter_im/common/touch_callback.dart';
+import 'package:flutter_im/database/friends_updates_manager_impl.dart';
 import 'package:flutter_im/personal/bean/friends_updates_bean.dart';
 import 'package:flutter_im/resource/colors.dart';
+import 'package:flutter_im/utils/dialog_utils.dart';
 import 'package:flutter_im/utils/file_util.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 import 'comment_bubble.dart';
@@ -13,11 +15,34 @@ import 'friends_updates_item_link.dart';
 import 'friends_updates_item_picture.dart';
 
 class FriendsUpdatesItem extends StatefulWidget {
-  final FriendsUpdatesBean itemBean;
 
-  final String userName;
+  FriendsUpdatesBean itemBean;
 
-  FriendsUpdatesItem(this.itemBean, this.userName);
+  String userName;
+
+  String userId;
+
+  OnItemDeleteCallback onItemDeleteCallback;
+
+  bool deleteEnable;
+
+  FriendsUpdatesItem({
+    FriendsUpdatesBean itemBean,
+    String userName,
+    OnItemDeleteCallback onItemDeleteCallback,
+  }) {
+    this.itemBean = itemBean;
+    this.userName = userName;
+    this.userId = "${userName.hashCode}";
+    if (itemBean.praises == null) {
+      itemBean.praises = List();
+    }
+    if (itemBean.comments == null) {
+      itemBean.comments = List();
+    }
+    this.onItemDeleteCallback = onItemDeleteCallback;
+    deleteEnable = IMUtils.compareString(userName, itemBean.userName);
+  }
 
   @override
   State createState() => _State();
@@ -95,12 +120,46 @@ class _State extends State<FriendsUpdatesItem> {
       child: Row(
         children: <Widget>[
           Expanded(
-            child: Text(
-              widget.itemBean.time,
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey,
-              ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  widget.itemBean.time,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                  ),
+                ),
+                Visibility(
+                  visible: widget.deleteEnable,
+                  child: TouchCallBack(
+                    margin: EdgeInsets.only(left: 4),
+                    child: Text(
+                      "删除",
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.blue[700],
+                      ),
+                    ),
+                    callBack: () {
+                      DialogUtil.showBaseDialog(
+                          context,
+                          "",
+                          title: "删除该动态",
+                          right: "删除",
+                          rightClick: () {
+                            Future future = FriendsUpdatesManagerImpl.instance.deleteFriendsUpdatesBean(widget.itemBean.blogId);
+                            if (future != null) {
+                              future.then((onValue) {
+                                print("朋友圈删除$onValue条数据");
+                                widget.onItemDeleteCallback();
+                              });
+                            }
+                          });
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
           CommentBubbleWidget((type) {
@@ -110,6 +169,8 @@ class _State extends State<FriendsUpdatesItem> {
                   // 点赞
                   widget.itemBean.praised = true;
                   widget.itemBean.praises.add(Praise(userName:widget.userName, blogId:widget.itemBean.blogId));
+                  // 更新数据库
+                  FriendsUpdatesManagerImpl.instance.updateFriendsUpdatesBean(widget.userId, widget.itemBean);
                 });
               } else {
                 Praise delete = _getPraise();
@@ -118,6 +179,8 @@ class _State extends State<FriendsUpdatesItem> {
                     // 取消点赞
                     widget.itemBean.praised = false;
                     widget.itemBean.praises.remove(delete);
+                    // 更新数据库
+                    FriendsUpdatesManagerImpl.instance.updateFriendsUpdatesBean(widget.userId, widget.itemBean);
                   });
                 }
               }
@@ -144,7 +207,7 @@ class _State extends State<FriendsUpdatesItem> {
 
   /// 评论、点赞
   Widget _commentAndFabulousWidget() {
-    if (widget.itemBean.comments.isEmpty && widget.itemBean.praises.isEmpty) {
+    if (IMUtils.isListEmpty(widget.itemBean.comments) && IMUtils.isListEmpty(widget.itemBean.praises)) {
       return Container();
     } else {
       return Container(
@@ -169,7 +232,7 @@ class _State extends State<FriendsUpdatesItem> {
 
   /// 点赞和评论区域之间的横线
   Widget _horizontalLine() {
-    if (widget.itemBean.praises.isEmpty || widget.itemBean.comments.isEmpty) {
+    if (IMUtils.isListEmpty(widget.itemBean.praises) || IMUtils.isListEmpty(widget.itemBean.comments)) {
       return Container();
     } else {
       return Container(
@@ -181,7 +244,7 @@ class _State extends State<FriendsUpdatesItem> {
 
   /// 点赞
   Widget _fabulousWidget() {
-    if (widget.itemBean.praises.isEmpty) {
+    if (IMUtils.isListEmpty(widget.itemBean.praises)) {
       return Container();
     } else {
       return Container(
@@ -221,7 +284,7 @@ class _State extends State<FriendsUpdatesItem> {
 
   /// 评论列表
   Widget _commentWidget() {
-    if (widget.itemBean.comments.isEmpty) {
+    if (IMUtils.isListEmpty(widget.itemBean.comments)) {
       return Container();
     } else {
       return Container(
@@ -320,6 +383,8 @@ class _State extends State<FriendsUpdatesItem> {
                       setState(() {
                         // 评论
                         widget.itemBean.comments.add(Comment(userName: widget.userName, content: content, blogId: widget.itemBean.blogId));
+                        // 更新数据库
+                        FriendsUpdatesManagerImpl.instance.updateFriendsUpdatesBean(widget.userId, widget.itemBean);
                       });
                     }
                   },
@@ -332,3 +397,5 @@ class _State extends State<FriendsUpdatesItem> {
     });
   }
 }
+
+typedef OnItemDeleteCallback = Function();

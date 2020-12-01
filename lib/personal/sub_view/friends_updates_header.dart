@@ -14,9 +14,12 @@ class FriendsUpdatesHeader extends StatefulWidget {
 
   final String avatarUrl;
 
+  final bool titleVisible;
+
   FriendsUpdatesHeader({
     @required this.name,
     @required this.avatarUrl,
+    @required this.titleVisible,
   });
 
   @override
@@ -44,7 +47,9 @@ class _FriendsUpdatesHeaderState extends State<FriendsUpdatesHeader> {
         child: _getHeaderBackgroundImageWidget(),
       ),
       callBack: () {
-        _displayHeaderBackgroundSelectDialog();
+        if (!widget.titleVisible) {
+          _displayHeaderBackgroundSelectDialog();
+        }
       },
     );
   }
