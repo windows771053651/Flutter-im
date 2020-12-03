@@ -113,13 +113,12 @@ class _State extends State<ImageDisplayPage> {
   }
 
   Widget _getPictureWidget(String picturePath) {
-    return !picturePath.contains(Constants.nativePictureFlag)
-        ? CachedNetworkImage(imageUrl: picturePath,)
-        : Container(
-            decoration: BoxDecoration(
-            image: DecorationImage(image: FileImage(File(picturePath.substring(0, picturePath.indexOf(Constants.nativePictureFlag),),),),
-        ),
-      ),
-    );
+    if (picturePath.contains(Constants.nativePictureFlag)) {
+      return Container(decoration: BoxDecoration(image: DecorationImage(image: FileImage(File(picturePath.substring(0, picturePath.indexOf(Constants.nativePictureFlag),),),),),),);
+    } else if (picturePath.startsWith("assets")) {
+      return Image.asset(picturePath);
+    } else {
+      return CachedNetworkImage(imageUrl: picturePath,);
+    }
   }
 }

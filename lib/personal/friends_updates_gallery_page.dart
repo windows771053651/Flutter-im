@@ -4,9 +4,15 @@ import 'package:flutter_im/personal/sub_view/gallery_listitem.dart';
 
 import 'bean/gallery_bean.dart';
 
-class FriendsUpdatesGalleryPage extends StatelessWidget {
+class FriendsUpdatesGalleryPage extends StatefulWidget {
+
   const FriendsUpdatesGalleryPage();
 
+  @override
+  State createState() => _State();
+}
+
+class _State extends State<FriendsUpdatesGalleryPage> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     List<GalleryBean> gallery = getGalleryDataResource();
@@ -27,4 +33,7 @@ class FriendsUpdatesGalleryPage extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

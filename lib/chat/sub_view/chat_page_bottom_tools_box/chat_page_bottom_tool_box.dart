@@ -42,8 +42,7 @@ class _State extends State<ChatPageBottomToolBox> {
       child: Column(
         children: <Widget>[
           Expanded(
-            child:
-            PageView(
+            child: PageView(
               physics: AlwaysScrollableScrollPhysics(),
               onPageChanged: (index) {
                 setState(() {

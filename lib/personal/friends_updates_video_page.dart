@@ -4,10 +4,15 @@ import 'package:flutter_im/personal/sub_view/gallery_listitem.dart';
 
 import 'bean/gallery_bean.dart';
 
-class FriendsUpdatesVideoPage extends StatelessWidget {
+class FriendsUpdatesVideoPage extends StatefulWidget {
 
   const FriendsUpdatesVideoPage();
 
+  @override
+  State createState() => _State();
+}
+
+class _State extends State<FriendsUpdatesVideoPage> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     List<GalleryBean> gallery = getVideoDataResource();
@@ -28,4 +33,7 @@ class FriendsUpdatesVideoPage extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

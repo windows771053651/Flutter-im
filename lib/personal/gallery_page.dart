@@ -16,7 +16,7 @@ class GalleryPage extends StatelessWidget {
       TabBean(name: "视频动态"),
     ];
 
-    const List<Widget> pages = const [
+     List<Widget> pages = const [
       FriendsUpdatesGalleryPage(),
       FriendsUpdatesVideoPage(),
     ];

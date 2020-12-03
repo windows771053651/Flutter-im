@@ -1,11 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/chat_tools.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/utils/file_util.dart';
 
-class ChatPageBottomEmoji extends StatelessWidget {
+class ChatPageBottomEmoji extends StatefulWidget {
 
   final OnEmojiAddedListener onEmojiAdded;
 
@@ -17,12 +15,17 @@ class ChatPageBottomEmoji extends StatelessWidget {
   });
 
   @override
+  State createState() => _State();
+}
+
+class _State extends State<ChatPageBottomEmoji> with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: ChatTools.loadEmoji(context),
+        future: ChatTools.loadEmojiConfig(context),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<dynamic> data = json.decode(snapshot.data.toString());
+            List<String> emoji = ChatTools.loadEmoji(snapshot.data.toString());
             return Stack(
               children: <Widget>[
                 Container(
@@ -39,23 +42,22 @@ class ChatPageBottomEmoji extends StatelessWidget {
                       mainAxisSpacing: 4,
                       crossAxisSpacing: 6.0,
                     ),
-                    childrenDelegate: SliverChildBuilderDelegate(
-                      (context, index) {
+                    childrenDelegate: SliverChildBuilderDelegate((context, index) {
                         return TouchCallBack(
                           child: Center(
                             child: Text(
-                              String.fromCharCode(data[index]["unicode"]),
+                              emoji[index],
                               style: TextStyle(fontSize: 20),
                             ),
                           ),
                           callBack: () {
-                            if (onEmojiAdded != null) {
-                              onEmojiAdded(String.fromCharCode(data[index]["unicode"]));
+                            if (widget.onEmojiAdded != null) {
+                              widget.onEmojiAdded(emoji[index]);
                             }
                           },
                         );
                       },
-                      childCount: data.length,
+                      childCount: emoji.length,
                     ),
                   ),
                 ),
@@ -69,8 +71,8 @@ class ChatPageBottomEmoji extends StatelessWidget {
                       icon: Image.asset(FileUtil.getImagePath("face_delete"), width: 60, height: 60),
                     ),
                     callBack: () {
-                      if (onEmojiDelete != null) {
-                        onEmojiDelete();
+                      if (widget.onEmojiDelete != null) {
+                        widget.onEmojiDelete();
                       }
                     },
                   ),
@@ -84,6 +86,9 @@ class ChatPageBottomEmoji extends StatelessWidget {
           );
         });
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 typedef OnEmojiAddedListener = Function(String emoji);

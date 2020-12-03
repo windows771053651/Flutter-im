@@ -120,24 +120,31 @@ class ChatPictureItem extends StatelessWidget {
         callBack: () {
           Navigator.of(context).pushNamed(
               PageId.GROUP_PERSONAL_MULTI_IMAGE_DISPLAY,
-              arguments: ImageDisplayBean(pictures: [IMUtils.isStringNotEmpty(chatMessageBean.picturePath) ? chatMessageBean.picturePath : (chatMessageBean.nativePicturePath + Constants.nativePictureFlag)]));
+              arguments: ImageDisplayBean(pictures: [_getPicturePath()]));
         },
       ),
     );
   }
 
+  String _getPicturePath() {
+    if (IMUtils.isStringNotEmpty(chatMessageBean.picturePath)) {
+      return chatMessageBean.picturePath;
+    } else if (chatMessageBean.nativePicturePath.startsWith("assets")) {
+      return chatMessageBean.nativePicturePath;
+    } else {
+      return chatMessageBean.nativePicturePath + Constants.nativePictureFlag;
+    }
+  }
+
   Widget _getPictureWidget(bool isOut) {
-    return IMUtils.isStringNotEmpty(chatMessageBean.picturePath)
-            ? CachedNetworkImage(
-                imageUrl: chatMessageBean.picturePath,
-              )
-            : Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    alignment: isOut ? Alignment.topRight : Alignment.topLeft,
-                    image: FileImage(File(chatMessageBean.nativePicturePath),),
-                  ),
-                ),
-    );
+    if (IMUtils.isStringNotEmpty(chatMessageBean.picturePath)) {
+      return CachedNetworkImage(imageUrl: chatMessageBean.picturePath,);
+    } else if (IMUtils.isStringNotEmpty(chatMessageBean.nativePicturePath)) {
+      if (chatMessageBean.nativePicturePath.startsWith("assets")) {
+        return Image.asset(chatMessageBean.nativePicturePath);
+      } else {
+        return Container(decoration: BoxDecoration(image: DecorationImage(alignment: isOut ? Alignment.topRight : Alignment.topLeft, image: FileImage(File(chatMessageBean.nativePicturePath),),),),);
+      }
+    }
   }
 }

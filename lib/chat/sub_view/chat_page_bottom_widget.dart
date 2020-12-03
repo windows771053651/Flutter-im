@@ -10,6 +10,7 @@ import 'package:flutter_im/constants/constants.dart';
 import 'package:flutter_im/resource/colors.dart';
 import 'package:flutter_im/utils/file_util.dart';
 
+import 'chat_page_bottom_rich_media.dart';
 import 'chat_page_bottom_tools_box/chat_page_bottom_tool_box.dart';
 import 'chat_page_bottom_tools_box/tools_box_first_page.dart';
 import 'chat_page_bottom_tools_box/tools_box_second_page.dart';
@@ -47,7 +48,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
   bool _toolsBoxVisible = false;
 
   /// 底部emoji是否显示
-  bool _emojiViewVisible = false;
+  bool _richMediaViewVisible = false;
 
   /// 是否可以显示软键盘。当emoji view显示时，软键盘不可以弹出，否则可以弹出
   bool _keyboardEnableVisible = true;
@@ -64,7 +65,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
       if (!_toolsBoxVisible || _focusNode.hasFocus) {
         setState(() {
           _toolsBoxVisible = false;
-          _emojiViewVisible = false;
+          _richMediaViewVisible = false;
         });
       }
     });
@@ -81,11 +82,11 @@ class ChatBottomState extends State<ChatBottomWidget> {
     return Listener(
       child: _bottomBody(),
       onPointerDown: (enter) {
-        if (_isShouldDisplaySoftKeyboard(enter) && _emojiViewVisible) {
+        if (_isShouldDisplaySoftKeyboard(enter) && _richMediaViewVisible) {
           setState(() {
             _keyboardEnableVisible = true;
             _toolsBoxVisible = false;
-            _emojiViewVisible = false;
+            _richMediaViewVisible = false;
           });
         }
       },
@@ -127,7 +128,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
             ],
           ),
         ),
-        (_toolsBoxVisible || _emojiViewVisible)
+        (_toolsBoxVisible || _richMediaViewVisible)
             ? Container(
                 height: 240,
                 child: _bottomWidget(),
@@ -147,7 +148,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
         setState(() {
           _recordVoiceBtnVisible = !_recordVoiceBtnVisible;
           _toolsBoxVisible = false;
-          _emojiViewVisible = false;
+          _richMediaViewVisible = false;
           _keyboardEnableVisible = true;
           if (!_recordVoiceBtnVisible) {
             /// 下一帧绘制完成时弹起软键盘
@@ -223,11 +224,11 @@ class ChatBottomState extends State<ChatBottomWidget> {
 
   Widget _getEmojiWidget() {
     return _getBottomIcon(
-      assetPath: _emojiViewVisible ? FileUtil.getImagePath("hide_soft_keyboard_icon") : FileUtil.getImagePath("chat_emoji_icon"),
+      assetPath: _richMediaViewVisible ? FileUtil.getImagePath("hide_soft_keyboard_icon") : FileUtil.getImagePath("chat_emoji_icon"),
       left: 6,
       callback: () {
         _recordVoiceBtnVisible = false;
-        if (!_emojiViewVisible) {
+        if (!_richMediaViewVisible) {
           setState(() {
             _keyboardEnableVisible = false;
           });
@@ -235,15 +236,15 @@ class ChatBottomState extends State<ChatBottomWidget> {
             FocusScope.of(context).requestFocus(_focusNode);
             WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
               setState(() {
-                if (_emojiViewVisible) {
-                  _emojiViewVisible = false;
+                if (_richMediaViewVisible) {
+                  _richMediaViewVisible = false;
                   _keyboardEnableVisible = true;
                 } else {
                   _toolsBoxVisible = false;
                   _keyboardEnableVisible = false;
                   Future.delayed(Duration(milliseconds: 100), () {
                     setState(() {
-                      _emojiViewVisible = true;
+                      _richMediaViewVisible = true;
                     });
                   });
                 }
@@ -252,7 +253,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
           });
         } else {
           setState(() {
-            _emojiViewVisible = false;
+            _richMediaViewVisible = false;
             _keyboardEnableVisible = true;
           });
           FocusScope.of(context).requestFocus(_focusNode);
@@ -271,10 +272,10 @@ class ChatBottomState extends State<ChatBottomWidget> {
             assetPath: FileUtil.getImagePath("chat_add_icon"),
             callback: () {
               _hideKeyBoard();
-              if (_emojiViewVisible) {
+              if (_richMediaViewVisible) {
                 setState(() {
                   _toolsBoxVisible = true;
-                  _emojiViewVisible = false;
+                  _richMediaViewVisible = false;
                   _keyboardEnableVisible = true;
                   widget.scrollToBottomController();
                 });
@@ -282,7 +283,7 @@ class ChatBottomState extends State<ChatBottomWidget> {
                 Future.delayed(Duration(milliseconds: 100), () {
                   setState(() {
                     _toolsBoxVisible = true;
-                    _emojiViewVisible = false;
+                    _richMediaViewVisible = false;
                     _keyboardEnableVisible = true;
                     widget.scrollToBottomController();
                   });
@@ -329,8 +330,10 @@ class ChatBottomState extends State<ChatBottomWidget> {
           ToolsBoxSecondPage(),
         ],
       );
-    } else if (_emojiViewVisible) {
-      bottomWidget = ChatPageBottomEmoji(
+    } else if (_richMediaViewVisible) {
+      bottomWidget = ChatPageBottomRichMediaWidget(
+        widget.targetName,
+        widget.targetAvatarUrl,
         onEmojiAdded: (String emoji) {
           setState(() {
             _inputContent = _inputContent + emoji;
@@ -395,12 +398,12 @@ class ChatBottomState extends State<ChatBottomWidget> {
     _hideKeyBoard();
     setState(() {
       _toolsBoxVisible = false;
-      _emojiViewVisible = false;
+      _richMediaViewVisible = false;
     });
   }
 
   bool isBottomWidgetVisible() {
-    return _toolsBoxVisible || _emojiViewVisible;
+    return _toolsBoxVisible || _richMediaViewVisible;
   }
 
   /// 关闭软键盘
