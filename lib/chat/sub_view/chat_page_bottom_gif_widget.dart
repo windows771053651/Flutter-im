@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/chat/bean/chat_message_bean.dart';
+import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/constants/constants.dart';
 import 'package:flutter_im/database/message_manager_impl.dart';
 import 'package:flutter_im/utils/file_util.dart';
@@ -39,19 +40,21 @@ class _State extends State<ChatPageGifWidget> with AutomaticKeepAliveClientMixin
           crossAxisSpacing: 6.0,
         ),
         childrenDelegate: SliverChildBuilderDelegate((context, index) {
-          return IconButton(
-              onPressed: () {
-                MessageControllerImpl.instance.sendMessage(ChatMessageBean.build(
-                  targetName: widget.targetName,
-                  targetAvatarUrl: widget.targetAvatarUrl,
-                  currentName: Constants.userName,
-                  currentAvatarUrl: Constants.userAvatar,
-                  chatMessageType: ChatMessageType.PICTURE,
-                  inOutType: InOutType.OUT,
-                  nativePicturePath: _gifList[index],
-                ));
-              },
-              icon: Image.asset(_gifList[index]));
+          return TouchCallBack(
+            radius: 4,
+            padding: EdgeInsets.all(4),
+            callBack: () {
+              MessageControllerImpl.instance.sendMessage(ChatMessageBean.build(
+                targetName: widget.targetName,
+                targetAvatarUrl: widget.targetAvatarUrl,
+                currentName: Constants.userName,
+                currentAvatarUrl: Constants.userAvatar,
+                chatMessageType: ChatMessageType.PICTURE,
+                inOutType: InOutType.OUT,
+                nativePicturePath: _gifList[index],
+              ));
+            },
+            child: Image.asset(_gifList[index]),);
         },
           childCount: _gifList.length,
         ),
