@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_im/app.dart';
+import 'package:flutter_im/main.dart';
 import 'package:flutter_im/chat/chat_background_settings_page.dart';
 import 'package:flutter_im/chat/chat_page.dart';
 import 'package:flutter_im/chat/chat_settings_page.dart';
@@ -26,7 +26,7 @@ import '../personal/webview_loading_page.dart';
 class RouterManager {
   static Map<String, WidgetBuilder> _routers = {
     /// 主模块
-    PageId.GROUP_MAIN: (context) => App(),
+    PageId.GROUP_MAIN: (context) => Main(),
 
     /// 聊天模块
     PageId.GROUP_CHAT_CHAT_PAGE: (context) => ChatPage(),
