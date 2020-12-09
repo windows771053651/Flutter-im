@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/bottom_sheet_dialog.dart';
+import 'package:flutter_im/common/input_bottom_widget.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/constants/constants.dart';
 import 'package:flutter_im/constants/sp_keys.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_im/database/friends_updates_manager_impl.dart';
 import 'package:flutter_im/personal/sub_view/friends_updates_header.dart';
 import 'package:flutter_im/personal/sub_view/friends_updates_item.dart';
 import 'package:flutter_im/router/page_id.dart';
+import 'package:flutter_im/utils/im_tools.dart';
 import 'package:flutter_im/utils/sp_util.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:photo/photo.dart';
@@ -20,7 +22,7 @@ class FriendsUpdates extends StatefulWidget {
   State createState() => _FriendsUpdatesState();
 }
 
-class _FriendsUpdatesState extends State<FriendsUpdates> {
+class _FriendsUpdatesState extends State<FriendsUpdates> with WidgetsBindingObserver {
 
   bool _isFirst = true;
 
@@ -34,7 +36,56 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
 
   bool _titleVisible = false;
 
+  double screenHeight;
+
+  BuildContext _itemContext;
+
+  double _scrollTotalY = 0;
+
+  @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        double bottom = MediaQuery.of(context).viewInsets.bottom;
+        if (bottom == 0) {
+          // 关闭键盘
+        } else {
+          // 显示键盘
+          if (_itemContext != null) {
+            _calculateListViewRolling(_itemContext, bottom + InputBottomWidget.BOTTOM_HEIGHT + FriendsUpdatesItem.DIVIDER_LINE_HEIGHT);
+          }
+        }
+      });
+    });
+  }
+
+  /// context为FriendsUpdatesItem相关联的BuildContext
+  /// keyboardHeight = 软键盘高度+编辑框区域高度
+  _calculateListViewRolling(BuildContext context, double keyboardHeight) {
+    Rect rect = IMUtils.getWidgetPosition(context);
+    /// ItemView底部距离屏幕底部距离，即留给软键盘的Y方向可用空间
+    double surplusBottomY = screenHeight - rect.bottom;
+    if (surplusBottomY < keyboardHeight) {
+      /// CustomScrollView滚动的相对距离
+      double scrollY = keyboardHeight - surplusBottomY;
+      /// CustomScrollView滚动的实际距离，包括之前已经滚动的距离
+      _scrollTotalY += scrollY;
+    } else {
+      /// CustomScrollView滚动的相对距离
+      double scrollY = surplusBottomY - keyboardHeight;
+      /// CustomScrollView滚动的实际距离，包括之前已经滚动的距离
+      _scrollTotalY -= scrollY;
+    }
+    _controller.animateTo(
+      _scrollTotalY,
+      curve: Curves.easeOut,
+      duration: const Duration(milliseconds: 100),
+    );
+  }
+
   void _initParams(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
     List<String> arguments = ModalRoute.of(context).settings.arguments;
     if (arguments != null && arguments.length == 2) {
       _name = arguments[0];
@@ -58,9 +109,11 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _controller = ScrollController();
     _controller.addListener(() {
       double offset = _controller.offset;
+      _scrollTotalY = offset;
       if (offset < MediaQuery.of(context).size.width / Constants.friendsUpdatesHeaderBgRatio * (1 / 2)) {
         setState(() {
           _titleVisible = false;
@@ -75,6 +128,7 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _controller.dispose();
     super.dispose();
   }
@@ -121,13 +175,17 @@ class _FriendsUpdatesState extends State<FriendsUpdates> {
           SliverList(
             delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
               return FriendsUpdatesItem(
-                  itemBean: dataResources[index],
-                  userName: _name,
-                  onItemDeleteCallback: () {
-                    setState(() {
-                      dataResources.remove(dataResources[index]);
-                    });
+                itemBean: dataResources[index],
+                userName: _name,
+                onItemDeleteCallback: () {
+                  setState(() {
+                    dataResources.remove(dataResources[index]);
                   });
+                },
+                onInputBottomVisible: (context) {
+                  this._itemContext = context;
+                },
+              );
             }, childCount: dataResources.length,),
           ),
         ],

@@ -21,4 +21,6 @@ class IMColors {
   static const Color c_ffb5b5b5 = Color(0xffb5b5b5);
   static const Color c_FF46c01b = Color(0xFF46c01b);
   static const Color c_FF999999 = Color(0xFF999999);
+  static const Color c_FFF7F7F7 = Color(0xFFF7F7F7);
+  static const Color c_FFDEDEDE = Color(0xFFDEDEDE);
 }

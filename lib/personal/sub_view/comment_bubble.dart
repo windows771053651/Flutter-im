@@ -45,7 +45,7 @@ class CommentBubbleWidget extends StatelessWidget {
     return TouchCallBack(
       key: _globalKey,
       child: Image.asset(FileUtil.getImagePath("menu_ellipsie2_icon"), width: 24, height: 16,),
-      normalColor: IMColors.c_10000000,
+      normalColor: IMColors.c_FFF7F7F7,
       radius: 2,
       callBack: () {
         _showBubble(context);

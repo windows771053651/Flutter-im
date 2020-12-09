@@ -1,14 +1,50 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_im/common/touch_callback.dart';
 
-class InputButtomWidget extends StatelessWidget {
+class InputBottomWidget extends StatefulWidget {
+
+  static final double BOTTOM_HEIGHT = 46;
 
   final ValueChanged onEditingCompleteText;
-  final TextEditingController controller = TextEditingController();
 
-  InputButtomWidget({this.onEditingCompleteText});
+  InputBottomWidget({this.onEditingCompleteText});
 
   @override
+  State createState() => _State();
+}
+
+class _State extends State<InputBottomWidget> with WidgetsBindingObserver {
+
+  TextEditingController controller;
+
+  @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        double bottom = MediaQuery.of(context).viewInsets.bottom;
+        if (bottom == 0) {
+          // 关闭键盘
+          Navigator.pop(context);
+        }
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    controller = TextEditingController();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +53,20 @@ class InputButtomWidget extends StatelessWidget {
       body: new Column(
         children: <Widget>[
           Expanded(
-              child: new GestureDetector(
-                child: new Container(
+              child: TouchCallBack(
+                pressedColor: Colors.transparent,
+                normalColor: Colors.transparent,
+                child: Container(
                   color: Colors.transparent,
                 ),
-                onTap: () {
+                onTouchDownCallBack: () {
                   Navigator.pop(context);
                 },
               )
           ),
           new Container(
               color: Color(0xFFF4F4F4),
+              height: InputBottomWidget.BOTTOM_HEIGHT,
               padding: EdgeInsets.only(left: 16,top: 8,bottom: 8,right: 16),
               child:  Container(
                 decoration: BoxDecoration(
@@ -44,8 +83,7 @@ class InputButtomWidget extends StatelessWidget {
                   keyboardType: TextInputType.multiline,
                   onEditingComplete: (){
                     //点击发送调用
-                    print('onEditingComplete');
-                    onEditingCompleteText(controller.text);
+                    widget.onEditingCompleteText(controller.text);
                     Navigator.pop(context);
                   },
                   decoration: InputDecoration(
@@ -59,7 +97,6 @@ class InputButtomWidget extends StatelessWidget {
                         style: BorderStyle.none,
                       ),
                     ),
-
                   ),
                   minLines: 1,
                   maxLines: 5,

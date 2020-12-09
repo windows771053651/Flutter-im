@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_im/common/bubble/popup_window.dart';
 import 'package:flutter_im/common/horizontal_line.dart';
+import 'package:flutter_im/common/input_bottom_widget.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 import 'package:flutter_im/database/friends_updates_manager_impl.dart';
 import 'package:flutter_im/personal/bean/friends_updates_bean.dart';
@@ -16,6 +18,8 @@ import 'friends_updates_item_picture.dart';
 
 class FriendsUpdatesItem extends StatefulWidget {
 
+  static final double DIVIDER_LINE_HEIGHT = 0.5;
+
   FriendsUpdatesBean itemBean;
 
   String userName;
@@ -26,10 +30,13 @@ class FriendsUpdatesItem extends StatefulWidget {
 
   bool deleteEnable;
 
+  OnInputBottomVisible onInputBottomVisible;
+
   FriendsUpdatesItem({
     FriendsUpdatesBean itemBean,
     String userName,
     OnItemDeleteCallback onItemDeleteCallback,
+    OnInputBottomVisible onInputBottomVisible,
   }) {
     this.itemBean = itemBean;
     this.userName = userName;
@@ -41,6 +48,7 @@ class FriendsUpdatesItem extends StatefulWidget {
       itemBean.comments = List();
     }
     this.onItemDeleteCallback = onItemDeleteCallback;
+    this.onInputBottomVisible = onInputBottomVisible;
     deleteEnable = IMUtils.compareString(userName, itemBean.userName);
   }
 
@@ -71,7 +79,7 @@ class _State extends State<FriendsUpdatesItem> {
         color: Colors.white,
         border: Border(
           bottom: BorderSide(
-            width: 0.5,
+            width: FriendsUpdatesItem.DIVIDER_LINE_HEIGHT,
             color: IMColors.c_fff5f5f5,
           ),
         ),
@@ -186,17 +194,24 @@ class _State extends State<FriendsUpdatesItem> {
               }
             } else if (type == CommentBubbleWidget.COMMENT) {
               Future.delayed(Duration(milliseconds: 10), () {
-                showReplyDialog();
-//                Navigator.push(
-//                  context,
-//                  PopRoute(
-//                    child: InputButtomWidget(
-//                      onEditingCompleteText: (text) {
-//                        print('点击发送 ---$text');
-//                      },
-//                    ),
-//                  ),
-//                );
+                if (widget.onInputBottomVisible != null) {
+                  widget.onInputBottomVisible(context);
+                }
+                Navigator.push(
+                  context,
+                  PopRoute(
+                    child: InputBottomWidget(
+                      onEditingCompleteText: (text) {
+                        setState(() {
+                          // 评论
+                          widget.itemBean.comments.add(Comment(userName: widget.userName, content: text, blogId: widget.itemBean.blogId));
+                          // 更新数据库
+                          FriendsUpdatesManagerImpl.instance.updateFriendsUpdatesBean(widget.userId, widget.itemBean);
+                        });
+                      },
+                    ),
+                  ),
+                );
               });
             }
           }, widget.itemBean.praised),
@@ -216,7 +231,7 @@ class _State extends State<FriendsUpdatesItem> {
         padding: EdgeInsets.only(top: 4, bottom: 4),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(3)),
-          color: IMColors.c_10000000,
+          color: IMColors.c_FFF7F7F7,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,7 +252,7 @@ class _State extends State<FriendsUpdatesItem> {
     } else {
       return Container(
         margin: EdgeInsets.only(top: 4, bottom: 4),
-        child: HorizontalLine(color: Colors.grey[300],),
+        child: HorizontalLine(color: IMColors.c_FFDEDEDE,),
       );
     }
   }
@@ -318,84 +333,8 @@ class _State extends State<FriendsUpdatesItem> {
       );
     }
   }
-
-  /// 弹出评论框
-  void showReplyDialog() {
-    String content = "";
-    showDialog(context: context, builder: (context) {
-      return SimpleDialog(
-        contentPadding: EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 0.0),
-        children: <Widget>[
-          Container(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(left: 12, right: 12,),
-                  padding: EdgeInsets.all(4),
-                  height: 100,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: IMColors.c_ffededed, width: 0.5),
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
-                  ),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          maxLines: 10,
-                          minLines: 1,
-                          showCursor: true,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.all(0),
-                            hintText: "评论",
-                            hintStyle: TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
-                          onChanged: (value) {
-                            content = value;
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                TouchCallBack(
-                  bottomRightRadius: 4,
-                  bottomLeftRadius: 4,
-                  padding: EdgeInsets.only(top: 8, bottom: 8),
-                  margin: EdgeInsets.only(top: 12),
-                  child: Center(
-                    child: Text(
-                      "发送",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.blue[700],
-                      ),
-                    ),
-                  ),
-                  callBack: () {
-                    if (IMUtils.isStringNotEmpty(content)) {
-                      Navigator.of(context).pop();
-                      setState(() {
-                        // 评论
-                        widget.itemBean.comments.add(Comment(userName: widget.userName, content: content, blogId: widget.itemBean.blogId));
-                        // 更新数据库
-                        FriendsUpdatesManagerImpl.instance.updateFriendsUpdatesBean(widget.userId, widget.itemBean);
-                      });
-                    }
-                  },
-                ),
-              ],
-            ),
-          ),
-        ],
-      );
-    });
-  }
 }
 
 typedef OnItemDeleteCallback = Function();
+
+typedef OnInputBottomVisible = Function(BuildContext context);
