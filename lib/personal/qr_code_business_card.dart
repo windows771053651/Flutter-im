@@ -49,29 +49,32 @@ class QRCodeBusinessCard extends StatelessWidget {
 
   Widget _getBodyWidget(BuildContext context) {
     return Center(
-      child: Container(
-        height: 420,
-        margin: EdgeInsets.all(24),
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Column(
-          children: <Widget>[
-            _getUserInfoWidget(),
-            _getQRCardWidget(context),
-            Container(
-              margin: EdgeInsets.only(top: 16),
-              child: Text(
-                "扫一扫上面的二维码图案，加我好友",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey,
+      child: RepaintBoundary(
+        key: _repaintKey,
+        child: Container(
+          height: 420,
+          margin: EdgeInsets.all(24),
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Column(
+            children: <Widget>[
+              _getUserInfoWidget(),
+              _getQRCardWidget(context),
+              Container(
+                margin: EdgeInsets.only(top: 16),
+                child: Text(
+                  "扫一扫上面的二维码图案，加我好友",
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -81,14 +84,11 @@ class QRCodeBusinessCard extends StatelessWidget {
     double _cardSize = MediaQuery.of(context).size.width - 24 * 2 - 16 * 2;
     return Container(
       margin: EdgeInsets.only(top: 16),
-      child: RepaintBoundary(
-        key: _repaintKey,
-        child: QrImage (
-          backgroundColor: IMColors.c_ffffffff,
-          padding: EdgeInsets.all(0),
-          data: Constants.userName,
-          size: _cardSize,
-        ),
+      child: QrImage (
+        backgroundColor: IMColors.c_ffffffff,
+        padding: EdgeInsets.all(0),
+        data: Constants.userName,
+        size: _cardSize,
       ),
     );
   }

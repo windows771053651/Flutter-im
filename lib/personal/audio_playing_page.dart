@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/utils/im_tools.dart';
 import 'package:video_player/video_player.dart';
-/*
-* 视频播放
-*/
+
+/// 视频播放
 class AudioPlayingPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {

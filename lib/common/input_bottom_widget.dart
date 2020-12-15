@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_im/common/touch_callback.dart';
 
+/// 评论组件，例如朋友圈评论
 class InputBottomWidget extends StatefulWidget {
 
   static final double BOTTOM_HEIGHT = 46;
