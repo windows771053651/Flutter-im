@@ -123,15 +123,9 @@ class _State extends State<App> {
           _getBottomNavigationBarItem(TAB_PERSONAL, "images/profile_normal.png", FileUtil.getImagePath("profile_pressed")),
         ],
       ),
-      body: WillPopScope(
-        onWillPop: () {
-          /// 物理返回键，返回到桌面
-          _backPress();
-        },
-        child: IndexedStack(
-          index: _currentIndex,
-          children: bodyList,
-        ),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: bodyList,
       ),
     );
   }
