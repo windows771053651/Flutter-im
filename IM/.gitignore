@@ -1,0 +1,16 @@
+.gradle/
+.idea/
+build/
+gradle/
+*.iml
+gradlew
+gradlew.bat
+local.properties
+gen/
+gw_live_lib/src/main/gen/
+*/.DS_Store
+.DS_Store
+*/build/
+captures/
+bonree.txt
+GitDiff.log
