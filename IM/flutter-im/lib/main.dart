@@ -6,9 +6,19 @@ import 'package:flutter_im/utils/sp_util.dart';
 import 'router/router_manager.dart';
 import 'splash_page.dart';
 
-void main() => runApp(_State());
+void main() => runApp(MainPage());
 
-class _State extends StatelessWidget {
+class MainPage extends StatefulWidget {
+  @override
+  State createState() => _State();
+}
+
+class _State extends State<MainPage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     DeviceUtil.setBarStatus(true);

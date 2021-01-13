@@ -4,4 +4,3 @@ evaluate(new File(
   settingsDir,
   'flutter-im/.android/include_flutter.groovy'
 ))
-rootProject.name='IM'
