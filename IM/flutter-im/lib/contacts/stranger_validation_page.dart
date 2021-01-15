@@ -193,7 +193,7 @@ class _StrangerValidationState extends State<StrangerValidationPage> {
                 CommonTextItemView(
                   leftTitle: "好友动态",
                   callback: () {
-                    Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_FRIENDS_UPDATES, arguments: [_name, _avatarUrl]);
+                    Navigator.of(context).pushNamed(PageId.GROUP_FIND_FRIENDS_UPDATES, arguments: [_name, _avatarUrl]);
                   },
                 ),
                 HorizontalLine(

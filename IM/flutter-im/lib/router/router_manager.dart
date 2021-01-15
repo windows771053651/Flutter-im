@@ -9,6 +9,7 @@ import 'package:flutter_im/contacts/new_friends_page.dart';
 import 'package:flutter_im/contacts/phone_contacts_page.dart';
 import 'package:flutter_im/contacts/remarks_settings.dart';
 import 'package:flutter_im/contacts/user_info_page.dart';
+import 'package:flutter_im/find/people%20_nearby_page.dart';
 import 'package:flutter_im/personal/audio_playing_page.dart';
 import 'package:flutter_im/personal/custom_service_page.dart';
 import 'package:flutter_im/personal/friends_updates.dart';
@@ -41,10 +42,13 @@ class RouterManager {
     PageId.GROUP_CONTACTS_FRIEND_PERMISSION_SETTINGS: (context) => FriendPermissionSettings(),
     PageId.GROUP_CONTACTS_USER_INFO: (context) => UserInfoPage(),
     PageId.GROUP_CONTACTS_PHONE_CONTACTS: (context) => PhoneContactsPage(),
-    PageId.GROUP_PERSONAL_PUBLISH_FRIENDS_UPDATES: (context) => PublishFriendsUpdates(),
+
+    /// 发现模块
+    PageId.GROUP_FIND_PEOPLE_NEARBY_PAGE: (context) => PeopleNearbyPage(),
+    PageId.GROUP_FIND_FRIENDS_UPDATES: (context) => FriendsUpdates(),
+    PageId.GROUP_FIND_PUBLISH_FRIENDS_UPDATES: (context) => PublishFriendsUpdates(),
 
     /// 我的模块
-    PageId.GROUP_PERSONAL_FRIENDS_UPDATES: (context) => FriendsUpdates(),
     PageId.GROUP_PERSONAL_SEARCH: (context) => SearchPage(),
     PageId.GROUP_PERSONAL_MULTI_IMAGE_DISPLAY: (context) => ImageDisplayPage(),
     PageId.GROUP_PERSONAL_WEBVIEW_LOADING_PAGE: (context) => WebViewLoadingPage(),

@@ -33,7 +33,7 @@ class GalleryPage extends StatelessWidget {
               color: Colors.white,
               child: TabBar(
                 labelColor: Colors.green,
-                indicatorWeight: 3,
+                indicatorWeight: 2,
                 unselectedLabelColor: Colors.black,
                 indicatorColor: Colors.green,
                 tabs: tabBeans.map((TabBean tabBean) {

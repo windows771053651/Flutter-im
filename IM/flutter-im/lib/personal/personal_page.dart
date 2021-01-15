@@ -16,15 +16,6 @@ class PersonalPage extends StatelessWidget {
         children: <Widget>[
           HorizontalLine(height: 10,),
           PersonalHeader(),
-          HorizontalLine(height: 10,),
-          CommonTextItemView(
-            leftIconAssetPath: FileUtil.getImagePath("icon_me_friends"),
-            leftTitle: "好友动态",
-            callback: () {
-              Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_FRIENDS_UPDATES, arguments: [Constants.userName, Constants.userAvatar]);
-            },
-          ),
-          HorizontalLine(height: 10,),
           HorizontalLine(),
           CommonTextItemView(
             leftIconAssetPath: FileUtil.getImagePath("icon_photo"),

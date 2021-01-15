@@ -270,7 +270,7 @@ class _FriendsUpdatesState extends State<FriendsUpdates> with WidgetsBindingObse
 
   /// 发布朋友圈
   _publishFriendsUpdates(List<String> pictures) {
-    Future future = Navigator.of(context).pushNamed(PageId.GROUP_PERSONAL_PUBLISH_FRIENDS_UPDATES, arguments: [_name, _avatarUrl, pictures]);
+    Future future = Navigator.of(context).pushNamed(PageId.GROUP_FIND_PUBLISH_FRIENDS_UPDATES, arguments: [_name, _avatarUrl, pictures]);
     future.then((onValue) {
       if (onValue != null) {
         setState(() {

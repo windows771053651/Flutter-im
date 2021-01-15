@@ -8,6 +8,8 @@ import 'package:flutter_im/router/page_id.dart';
 import 'package:flutter_im/utils/android_native_channel.dart';
 import 'package:flutter_im/utils/file_util.dart';
 
+import 'find/find_page.dart';
+
 class App extends StatefulWidget {
   @override
   State createState() => _State();
@@ -21,8 +23,11 @@ class _State extends State<App> {
   /// 联系人tab
   static const int TAB_CONTACTS = 1;
 
+  /// 发现tab
+  static const int TAB_FIND = 2;
+
   /// 我的tab
-  static const int TAB_PERSONAL = 2;
+  static const int TAB_PERSONAL = 3;
 
   /// 右上角菜单：发起会话
   static const int MENU_TAB_GROUP_CHAT = 0;
@@ -36,7 +41,7 @@ class _State extends State<App> {
   /// 当前选中页面对应的索引
   int _currentIndex = TAB_MESSAGE;
 
-  final bodyList = [MessagePage(), ContactsPage(), PersonalPage()];
+  final bodyList = [MessagePage(), ContactsPage(), FindPage(), PersonalPage()];
 
   PopupMenuItem _popupMenuItem(String title, int value, {String imagePath, IconData icon}) {
     return PopupMenuItem(
@@ -66,7 +71,7 @@ class _State extends State<App> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "即时通讯",
+          _getLeftTitle(_currentIndex),
           style: TextStyle(
             fontSize: 16,
           ),
@@ -118,9 +123,10 @@ class _State extends State<App> {
           });
         },
         items: [
-          _getBottomNavigationBarItem(TAB_MESSAGE, "images/message_normal.png",FileUtil.getImagePath("message_pressed")),
-          _getBottomNavigationBarItem(TAB_CONTACTS, "images/contact_list_normal.png", FileUtil.getImagePath("contact_list_pressed")),
-          _getBottomNavigationBarItem(TAB_PERSONAL, "images/profile_normal.png", FileUtil.getImagePath("profile_pressed")),
+          _getBottomNavigationBarItem(TAB_MESSAGE, FileUtil.getImagePath("message_normal")),
+          _getBottomNavigationBarItem(TAB_CONTACTS, FileUtil.getImagePath("contact_list_normal")),
+          _getBottomNavigationBarItem(TAB_FIND, FileUtil.getImagePath("find_icon")),
+          _getBottomNavigationBarItem(TAB_PERSONAL, FileUtil.getImagePath("profile_normal")),
         ],
       ),
       body: IndexedStack(
@@ -130,22 +136,22 @@ class _State extends State<App> {
     );
   }
 
-  BottomNavigationBarItem _getBottomNavigationBarItem(int index, String normalIconPath, String pressedIconPath) {
+  BottomNavigationBarItem _getBottomNavigationBarItem(int index, String normalIconPath) {
     return BottomNavigationBarItem(
       title: Text(
-        getLabel(index),
+        _getBottomTabLabel(index),
         style: TextStyle(
           color: _currentIndex == index ? IMColors.c_FF46c01b : IMColors.c_FF999999,
           fontSize: 12,
         ),
       ),
       icon: _currentIndex == index
-          ? Image.asset(pressedIconPath, width: 24, height: 24, fit: BoxFit.cover,)
-          : Image.asset(normalIconPath, width: 24, height: 24, fit: BoxFit.cover,),
+          ? Image.asset(normalIconPath, width: 24, height: 24, fit: BoxFit.cover, color: IMColors.c_FF46c01b,)
+          : Image.asset(normalIconPath, width: 24, height: 24, fit: BoxFit.cover, color: IMColors.c_FF999999,),
     );
   }
 
-  String getLabel(int index) {
+  String _getBottomTabLabel(int index) {
     String label = "";
     switch(index) {
       case TAB_MESSAGE:
@@ -154,8 +160,30 @@ class _State extends State<App> {
       case TAB_CONTACTS:
         label = "通讯录";
         break;
+      case TAB_FIND:
+        label = "发现";
+        break;
       case TAB_PERSONAL:
         label = "我";
+        break;
+    }
+    return label;
+  }
+
+  String _getLeftTitle(int index) {
+    String label = "";
+    switch(index) {
+      case TAB_MESSAGE:
+        label = "畅聊";
+        break;
+      case TAB_CONTACTS:
+        label = "通讯录";
+        break;
+      case TAB_FIND:
+        label = "发现";
+        break;
+      case TAB_PERSONAL:
+        label = "";
         break;
     }
     return label;

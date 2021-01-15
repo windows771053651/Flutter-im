@@ -6,6 +6,9 @@ class PageId{
   /// 联系人模块
   static const String GROUP_CONTACTS = "/contacts";
 
+  /// 发现模块
+  static const String GROUP_FIND = "/find";
+
   /// "我的"模块
   static const String GROUP_PERSONAL = "/personal";
 
@@ -42,11 +45,17 @@ class PageId{
   /// ------------------------------联系人模块end---------------------------
 
 
-  /// ------------------------------"我的"模块start---------------------------
+  /// ------------------------------"发现"模块start---------------------------
   /// 好友动态页面
-  static const String GROUP_PERSONAL_FRIENDS_UPDATES = GROUP_PERSONAL + "/friends_updates";
+  static const String GROUP_FIND_FRIENDS_UPDATES = GROUP_FIND + "/friends_updates";
   /// 发布好友动态页面
-  static const String GROUP_PERSONAL_PUBLISH_FRIENDS_UPDATES = GROUP_PERSONAL + "/publish_friends_updates";
+  static const String GROUP_FIND_PUBLISH_FRIENDS_UPDATES = GROUP_FIND + "/publish_friends_updates";
+  /// 附近的直播和人
+  static const String GROUP_FIND_PEOPLE_NEARBY_PAGE = GROUP_FIND + "/people_nearby_page";
+  /// ------------------------------"发现"模块end---------------------------
+
+
+  /// ------------------------------"我的"模块start---------------------------
   /// 搜索页面
   static const String GROUP_PERSONAL_SEARCH = GROUP_PERSONAL + "/search";
   /// 展示图片页面
