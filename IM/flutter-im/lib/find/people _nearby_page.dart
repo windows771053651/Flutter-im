@@ -30,6 +30,7 @@ class _State extends State<PeopleNearbyPage> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: tabBeans.length,
+      initialIndex: 1,
       child: Scaffold(
         appBar: PeopleNearbyAppBarWidget(tabBeans: tabBeans),
         body: TabBarView(
